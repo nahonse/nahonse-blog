@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   인스타그램·쓰레드 프로필 사진(1080x1080) 만들기. 주소 끝 #a / #b / #c 로 시안 선택.
-  확정 로고: #b (영수증, 2026-11-03). a·c는 보관용 시안.
+  확정 로고: #b (영수증, 보라 #5b34b8, 2026-11-04). a·c는 보관용 시안.
   chrome --headless=new --hide-scrollbars --window-size=1080,1080 --virtual-time-budget=8000
          --screenshot="assets/brand/insta-profile.png" "file:///.../_tools/profile.html#a"
   인스타는 동그랗게 잘라서 보여 주므로, 중요한 요소는 가운데 원(지름 약 860px) 안에 둔다.
@@ -28,14 +28,14 @@
   #a .stamp b { font-size: 64px; } #a .stamp span { font-size: 34px; letter-spacing: 2px; }
 
   /* B. 영수증: 딥그린 바탕 + 흰 영수증 */
-  #b { background: #0f5c4e; align-items: center; justify-content: center; }
-  #b .paper { width: 600px; background: #fff; padding: 64px 56px 90px; color: #12201d; position: relative;
+  #b { background: #5b34b8; align-items: center; justify-content: center; }
+  #b .paper { width: 600px; background: #fff; padding: 64px 56px 90px; color: #1e1433; position: relative;
     clip-path: polygon(0 0,100% 0,100% calc(100% - 30px),95% 100%,90% calc(100% - 30px),85% 100%,80% calc(100% - 30px),75% 100%,70% calc(100% - 30px),65% 100%,60% calc(100% - 30px),55% 100%,50% calc(100% - 30px),45% 100%,40% calc(100% - 30px),35% 100%,30% calc(100% - 30px),25% 100%,20% calc(100% - 30px),15% 100%,10% calc(100% - 30px),5% 100%,0 calc(100% - 30px)); }
   #b .name { font-size: 190px; font-weight: 900; letter-spacing: -10px; line-height: 1; text-align: center; }
-  #b .dash { border-top: 6px dashed #12201d; margin: 40px 0 30px; opacity: 0.5; }
+  #b .dash { border-top: 6px dashed #1e1433; margin: 40px 0 30px; opacity: 0.5; }
   #b .row { display: flex; justify-content: space-between; font-size: 44px; font-weight: 700; }
-  #b .row em { font-style: normal; color: #0f5c4e; }
-  #b .sub { text-align: center; font-size: 56px; font-weight: 700; letter-spacing: 2px; color: #0f5c4e; }
+  #b .row em { font-style: normal; color: #5b34b8; }
+  #b .sub { text-align: center; font-size: 56px; font-weight: 700; letter-spacing: 2px; color: #5b34b8; }
 
   /* C. 체크 타이포: 아주 진한 녹색 + 라임 포인트 */
   #c { background: #0c1f1a; flex-direction: column; align-items: center; justify-content: center; color: #f2f7f1; }
