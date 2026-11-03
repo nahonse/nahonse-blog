@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# 인스타그램 카드뉴스(캐러셀) 업로드 도구 — Instagram API (Instagram 로그인 방식, graph.instagram.com)
+# 인스타그램 카드뉴스(캐러셀) 업로드 도구 — Instagram API (통합 로그인/비즈니스 포트폴리오 방식, graph.facebook.com)
+#   2026-11 새 Meta 앱에는 "Instagram 로그인 방식"이 없어 통합 로그인 구성으로 만든 EAA 토큰을 쓴다.
+#   이 토큰으로는 /me 가 계정을 돌려주지 않으므로 인스타 계정 ID를 아래 IG_ID 에 고정한다.
 #
 # 준비: 토큰은 저장소 밖 ~/.tax-blog/instagram.token (한 줄). 이 스크립트는 토큰을 출력하지 않는다.
 #       이미지는 먼저 사이트에 올라가 있어야 한다: https://nahonse.kr/assets/insta/<슬러그>/<번호>.png
@@ -11,14 +13,15 @@
 #   bash _tools/insta_upload.sh reel <슬러그> [nofeed]  # 릴스 게시: assets/insta/<슬러그>/reel.mp4 (_tools/insta_reel.sh로 만듦, 사용자 확인 후 실행)
 #                                    nofeed: 프로필 격자에는 안 보이고 릴스 탭에만 (같은 세트 슬라이드와 겹치지 않게)
 #                                    표지는 영상 첫 장면(thumb_offset=0). 카드 이미지(4:5)를 표지로 주면 세로 화면에서 잘려 보인다.
-#   bash _tools/insta_upload.sh refresh          # 장기 토큰 갱신 (60일 만료 전에 실행)
+#   bash _tools/insta_upload.sh refresh          # (이 방식은 만료 없는 토큰이라 갱신하지 않음, 안내만 출력)
 #
 # 규칙: CLAUDE.md — 카드뉴스는 독립 팩트체크를 거치고, 사용자가 "올려"라고 한 뒤에만 post 를 실행한다.
 
 set -euo pipefail
 
 TOKEN_FILE="${INSTA_TOKEN_FILE:-$HOME/.tax-blog/instagram.token}"
-API="https://graph.instagram.com"
+API="https://graph.facebook.com/v23.0"
+IG_ID="${INSTA_IG_ID:-17841415411897761}"   # @nahonse.kr 인스타 계정 ID (비밀 아님)
 SITE="https://nahonse.kr"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
@@ -32,10 +35,7 @@ cr() { curl --retry 4 --retry-delay 3 --retry-all-errors "$@"; }
 jget() { grep -o "\"$1\":\"[^\"]*\"" | head -1 | sed "s/\"$1\":\"//; s/\"$//"; }
 fail_if_error() { if printf '%s' "$1" | grep -q '"error"'; then echo "API 오류: $1" >&2; exit 1; fi; }
 
-ig_id() {
-  local r; r="$(cr -s -m 30 -G "$API/me" --data-urlencode "fields=user_id,username" --data-urlencode "access_token=$TOKEN")"
-  fail_if_error "$r"; printf '%s' "$r" | jget user_id
-}
+ig_id() { printf '%s' "$IG_ID"; }
 
 wait_ready() {  # 컨테이너 처리 완료까지 대기 (두 번째 인자: 확인 횟수, 3초 간격)
   local id="$1" r s
@@ -73,9 +73,9 @@ publish() {
 
 case "${1:-}" in
   check)
-    r="$(curl -s -m 30 -G "$API/me" --data-urlencode "fields=user_id,username,account_type" --data-urlencode "access_token=$TOKEN")"
-    fail_if_error "$r"; echo "계정: @$(printf '%s' "$r" | jget username) ($(printf '%s' "$r" | jget account_type))"
-    id="$(printf '%s' "$r" | jget user_id)"
+    id="$(ig_id)"
+    r="$(curl -s -m 30 -G "$API/$id" --data-urlencode "fields=username,name" --data-urlencode "access_token=$TOKEN")"
+    fail_if_error "$r"; echo "계정: @$(printf '%s' "$r" | jget username) ($(printf '%s' "$r" | jget name))"
     curl -s -m 30 -G "$API/$id/content_publishing_limit" --data-urlencode "fields=config,quota_usage" --data-urlencode "access_token=$TOKEN"; echo
     ;;
   post)
@@ -131,12 +131,7 @@ case "${1:-}" in
     echo "게시 완료: $link"
     ;;
   refresh)
-    r="$(curl -s -m 30 -G "$API/refresh_access_token" --data-urlencode "grant_type=ig_refresh_token" --data-urlencode "access_token=$TOKEN")"
-    fail_if_error "$r"
-    new="$(printf '%s' "$r" | jget access_token)"
-    [ -n "$new" ] || { echo "새 토큰을 받지 못했습니다" >&2; exit 1; }
-    printf '%s\n' "$new" > "$TOKEN_FILE"
-    echo "토큰 갱신 완료 (만료까지 초: $(printf '%s' "$r" | grep -o '"expires_in":[0-9]*' | cut -d: -f2))"
+    echo "통합 로그인(시스템 사용자) 토큰은 만료되지 않아 갱신하지 않습니다. check 가 실패하면 Meta 앱에서 토큰을 새로 만들어 $TOKEN_FILE 에 넣으세요."
     ;;
   *)
     sed -n '2,14p' "$0"; exit 1 ;;
