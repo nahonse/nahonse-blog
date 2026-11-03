@@ -1,0 +1,109 @@
+<!doctype html>
+<!--
+  인스타그램 카드뉴스(세로 1080x1350) 만들기
+  1) 아래 decks에 글 슬러그를 키로 슬라이드를 추가한다. 숫자는 블로그 글(검토를 거친 값)과 똑같이 쓴다.
+  2) 장마다 캡처한다:  file:///.../_tools/insta.html#슬러그/번호  (번호는 1부터)
+     chrome --headless=new --hide-scrollbars --window-size=1080,1350 --virtual-time-budget=8000
+            --screenshot="assets/insta/슬러그/번호.png" "file:///.../_tools/insta.html#슬러그/1"
+  슬라이드 종류
+    cover: { type:"cover", label, title(줄바꿈은 \n), badge, sub }
+    rows : { type:"rows", step, title, rows:[[큰 글씨, 작은 글씨], ...], note }
+    hero : { type:"hero", label, who, pre, amt, badge }  ← 표지 A안(2026-10-22~): 대상 한 줄 + 큰 금액 + 마감(없으면 핵심 조건) 배지
+    end  : { type:"end", title, text, source }
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --brand:#1a6fd1; --ink:#1b2430; --sub:#5b6676; --line:#e1e6ec; --soft:#f2f6fb; --warn:#b45309; --warnbg:#fff4e0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body { font-family: "Pretendard","Malgun Gothic",sans-serif; color: var(--ink); word-break: keep-all; background:#fff; }
+  .slide { position: relative; width: 1080px; height: 1350px; padding: 96px 90px 0; }
+  .top { position:absolute; top:0; left:0; right:0; height:22px; background:var(--brand); }
+  .foot { position:absolute; left:90px; right:90px; bottom:56px; display:flex; justify-content:space-between; align-items:center;
+          font-size:30px; font-weight:600; color:var(--sub); }
+  .foot b { color: var(--ink); font-weight:800; }
+  .page { font-size:30px; color:var(--sub); font-weight:700; }
+
+  /* cover */
+  .cover { background: var(--brand); color:#fff; display:flex; flex-direction:column; justify-content:center; padding:0 90px; }
+  .cover .label { display:inline-block; align-self:flex-start; font-size:44px; font-weight:800; background:rgba(255,255,255,.18);
+                  padding:12px 28px; border-radius:14px; }
+  .cover h1 { margin-top:46px; font-size:118px; line-height:1.18; font-weight:900; letter-spacing:-4px; white-space:pre-line; }
+  .cover .badge { margin-top:58px; align-self:flex-start; font-size:52px; font-weight:800; color:var(--brand); background:#fff;
+                  padding:18px 34px; border-radius:18px; }
+  .cover .sub { margin-top:40px; font-size:40px; font-weight:600; opacity:.9; line-height:1.5; }
+  .cover .foot { color: rgba(255,255,255,.85); }
+  .cover .foot b { color:#fff; }
+  .cover .page { color: rgba(255,255,255,.85); }
+
+  /* hero (표지 A안) */
+  .hero { background: var(--brand); color:#fff; display:flex; flex-direction:column; justify-content:center; padding:0 90px; }
+  .hero .label { align-self:flex-start; font-size:44px; font-weight:800; background:rgba(255,255,255,.18); padding:12px 28px; border-radius:14px; }
+  .hero .who { margin-top:56px; font-size:50px; font-weight:700; opacity:.95; line-height:1.4; }
+  .hero .pre { margin-top:14px; font-size:70px; font-weight:900; letter-spacing:-2px; line-height:1.2; }
+  .hero .amt { margin-top:6px; font-size:150px; font-weight:900; letter-spacing:-5px; line-height:1.12; }
+  .hero .amt.long { font-size:116px; letter-spacing:-4px; }
+  .hero .badge { margin-top:64px; align-self:flex-start; font-size:56px; font-weight:900; color:var(--brand); background:#fff; padding:20px 38px; border-radius:20px; }
+  .hero .foot { color: rgba(255,255,255,.85); } .hero .foot b { color:#fff; } .hero .page { color: rgba(255,255,255,.85); }
+
+  /* rows */
+  .step { font-size:40px; font-weight:800; color:var(--brand); }
+  .rows h2 { margin-top:20px; font-size:90px; font-weight:900; letter-spacing:-2.5px; line-height:1.2; }
+  .list { margin-top:52px; display:flex; flex-direction:column; gap:26px; }
+  .row { border:3px solid var(--line); border-radius:28px; padding:34px 48px; background:#fafbfd; }
+  .row .big { font-size:68px; font-weight:900; color:var(--brand); letter-spacing:-1.5px; line-height:1.2; }
+  .row .small { margin-top:14px; font-size:42px; font-weight:600; color:var(--sub); line-height:1.45; }
+  .note { margin-top:40px; font-size:40px; font-weight:700; color:var(--warn); background:var(--warnbg); padding:26px 34px; border-radius:20px; line-height:1.45; }
+
+  /* end */
+  .end { background: var(--soft); }
+  .end h2 { font-size:84px; font-weight:900; letter-spacing:-2.5px; line-height:1.25; white-space:pre-line; }
+  .end .text { margin-top:56px; font-size:48px; font-weight:600; line-height:1.6; color:var(--ink); white-space:pre-line; }
+  .end .link { margin-top:56px; display:inline-block; font-size:56px; font-weight:900; color:#fff; background:var(--brand);
+               padding:22px 40px; border-radius:20px; }
+  .end .source { margin-top:90px; font-size:36px; font-weight:600; color:var(--sub); line-height:1.6; white-space:pre-line; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const decks = {
+  // 첫 카드뉴스를 만들면 여기에 슬러그별 decks 항목을 넣는다
+};
+
+const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
+const deck = decks[slug];
+const s = deck.slides[(Number(n) || 1) - 1];
+const total = deck.slides.length;
+const esc = t => String(t).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const foot = `<div class="foot"><b>@SNS_HANDLE</b><span>${esc(deck.date)} · <span class="page">${n}/${total}</span></span></div>`;
+let html = "";
+if (s.type === "cover") {
+  html = `<div class="slide cover"><div class="label">${esc(s.label)}</div><h1>${esc(s.title)}</h1>
+          <div class="badge">${esc(s.badge)}</div><div class="sub" style="white-space:pre-line">${esc(s.sub)}</div>${foot}</div>`;
+} else if (s.type === "hero") {
+  html = `<div class="slide hero"><div class="label">${esc(s.label)}</div><div class="who">${esc(s.who)}</div>
+          <div class="pre">${esc(s.pre)}</div><div class="amt${[...s.amt].length > 9 ? " long" : ""}">${esc(s.amt)}</div>
+          <div class="badge">${esc(s.badge)}</div>${foot}</div>`;
+} else if (s.type === "rows") {
+  html = `<div class="slide rows"><div class="top"></div><div class="step">${esc(s.step)}</div><h2>${esc(s.title)}</h2>
+          <div class="list">${s.rows.map(([b, m]) => `<div class="row"><div class="big">${esc(b)}</div>${m ? `<div class="small">${esc(m)}</div>` : ""}</div>`).join("")}</div>
+          ${s.note ? `<div class="note">⚠️ ${esc(s.note)}</div>` : ""}${foot}</div>`;
+} else {
+  html = `<div class="slide end"><div class="top"></div><h2>${esc(s.title)}</h2><div class="text">${esc(s.text)}</div>
+          <div class="link">${esc(s.link)}</div><div class="source">${esc(s.source)}</div>${foot}</div>`;
+}
+document.getElementById("root").innerHTML = html;
+// 넘침 검사: 본문 마지막 요소가 아래 표시줄(foot)과 겹치면 제목에 OVERFLOW 표시 (dump-dom으로 확인)
+document.fonts.ready.then(() => {
+  const foot = document.querySelector(".foot").getBoundingClientRect();
+  const kids = [...document.querySelector(".slide").children].filter(e => !e.classList.contains("foot") && !e.classList.contains("top"));
+  const bottom = Math.max(...kids.map(e => e.getBoundingClientRect().bottom));
+  document.title = bottom > foot.top - 24 ? "OVERFLOW " + Math.round(bottom - foot.top + 24) : "OK";
+});
+</script>
+</body>
+</html>

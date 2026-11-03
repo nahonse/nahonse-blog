@@ -1,0 +1,21 @@
+<!doctype html><html><body><pre id="out"></pre>
+<script>
+// 검사할 글 주소(/YYYY/MM/DD/ 다음 부분). 새 글을 쓰면 여기에 추가
+const posts=[];
+const out=document.getElementById('out');
+window.addEventListener('message',e=>{out.textContent+=e.data+"\n";});
+posts.forEach(p=>{
+  const url="https://nahonse.kr/"+p+"/";
+  fetch(url+"?c="+Date.now()).then(r=>r.text()).then(html=>{
+    const probe=`<script>window.addEventListener('load',()=>setTimeout(()=>{
+      const t=[...document.querySelectorAll('.post-content table')];
+      const bad=t.map((x,i)=>[i+1,x.scrollWidth,x.clientWidth,(x.querySelector('th')||{}).textContent]).filter(a=>a[1]>a[2]+1);
+      parent.postMessage('${p}: page='+document.documentElement.scrollWidth+'px tables='+t.length+' overflow='+JSON.stringify(bad),'*');
+    },1500));<\/script>`;
+    const f=document.createElement('iframe');
+    f.style.width='390px';f.style.height='800px';
+    f.srcdoc=html.replace('<head>','<head><base href="'+url+'">').replace('</body>',probe+'</body>');
+    document.body.appendChild(f);
+  }).catch(err=>out.textContent+=p+" ERROR "+err+"\n");
+});
+</script></body></html>

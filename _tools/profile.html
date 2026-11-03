@@ -1,0 +1,70 @@
+<!doctype html>
+<!--
+  인스타그램·쓰레드 프로필 사진(1080x1080) 만들기. 주소 끝 #a / #b / #c 로 시안 선택.
+  확정 로고: #b (영수증, 2026-11-03). a·c는 보관용 시안.
+  chrome --headless=new --hide-scrollbars --window-size=1080,1080 --virtual-time-budget=8000
+         --screenshot="assets/brand/insta-profile.png" "file:///.../_tools/profile.html#a"
+  인스타는 동그랗게 잘라서 보여 주므로, 중요한 요소는 가운데 원(지름 약 860px) 안에 둔다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; }
+  body { font-family: "Pretendard", "Malgun Gothic", sans-serif; }
+  .v { display: none; width: 1080px; height: 1080px; position: relative; }
+  .v:target, body:not(:has(.v:target)) #a { display: flex; }
+
+  /* A. 접수 도장: 크림 종이 + 딥그린 글자 + 붉은 도장 */
+  #a { background: #f3ede2; flex-direction: column; align-items: center; justify-content: center; color: #0d3b33; }
+  #a .name { font-size: 300px; font-weight: 900; letter-spacing: -16px; line-height: 1; }
+  #a .sub { margin-top: 36px; font-size: 54px; font-weight: 600; letter-spacing: 6px; color: #3d5e57; }
+  #a .rule { width: 520px; height: 6px; background: #0d3b33; margin: 0 0 44px; border-radius: 3px; }
+  #a .stamp { margin-bottom: 44px; width: 200px; height: 200px; border: 12px solid #d4482b;
+    border-radius: 50%; color: #d4482b; transform: rotate(-14deg); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; font-weight: 900; line-height: 1.05; opacity: 0.92; }
+  #a .stamp b { font-size: 64px; } #a .stamp span { font-size: 34px; letter-spacing: 2px; }
+
+  /* B. 영수증: 딥그린 바탕 + 흰 영수증 */
+  #b { background: #0f5c4e; align-items: center; justify-content: center; }
+  #b .paper { width: 600px; background: #fff; padding: 64px 56px 90px; color: #12201d; position: relative;
+    clip-path: polygon(0 0,100% 0,100% calc(100% - 30px),95% 100%,90% calc(100% - 30px),85% 100%,80% calc(100% - 30px),75% 100%,70% calc(100% - 30px),65% 100%,60% calc(100% - 30px),55% 100%,50% calc(100% - 30px),45% 100%,40% calc(100% - 30px),35% 100%,30% calc(100% - 30px),25% 100%,20% calc(100% - 30px),15% 100%,10% calc(100% - 30px),5% 100%,0 calc(100% - 30px)); }
+  #b .name { font-size: 190px; font-weight: 900; letter-spacing: -10px; line-height: 1; text-align: center; }
+  #b .dash { border-top: 6px dashed #12201d; margin: 40px 0 30px; opacity: 0.5; }
+  #b .row { display: flex; justify-content: space-between; font-size: 44px; font-weight: 700; }
+  #b .row em { font-style: normal; color: #0f5c4e; }
+  #b .sub { text-align: center; font-size: 56px; font-weight: 700; letter-spacing: 2px; color: #0f5c4e; }
+
+  /* C. 체크 타이포: 아주 진한 녹색 + 라임 포인트 */
+  #c { background: #0c1f1a; flex-direction: column; align-items: center; justify-content: center; color: #f2f7f1; }
+  #c .box { width: 170px; height: 170px; border-radius: 40px; background: #c6f16d; display: flex; align-items: center;
+    justify-content: center; margin-bottom: 50px; }
+  #c .name { font-size: 280px; font-weight: 900; letter-spacing: -14px; line-height: 1; }
+  #c .name i { font-style: normal; color: #c6f16d; }
+  #c .sub { margin-top: 40px; font-size: 52px; font-weight: 500; letter-spacing: 4px; opacity: 0.75; }
+</style>
+</head>
+<body>
+  <section class="v" id="a">
+    <div class="stamp"><span>혼자서</span><b>완료</b></div>
+    <div class="name">나혼세</div>
+    <div class="sub">나 혼자 세무신고</div>
+  </section>
+
+  <section class="v" id="b">
+    <div class="paper">
+      <div class="name">나혼세</div>
+      <div class="dash"></div>
+      <div class="sub">나 혼자 세무신고</div>
+    </div>
+  </section>
+
+  <section class="v" id="c">
+    <div class="box"><svg width="120" height="120" viewBox="0 0 100 100"><path d="M18 52 L41 75 L84 28" fill="none" stroke="#0c1f1a" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="name">나혼<i>세</i></div>
+    <div class="sub">나 혼자 세무신고</div>
+  </section>
+</body>
+</html>
