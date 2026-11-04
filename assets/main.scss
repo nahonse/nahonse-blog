@@ -355,3 +355,33 @@ body {
 
 // 주의·아주 중요한 내용 강조: 본문에서 **문장**{: .red}
 .post-content strong.red { color: #c62828; }
+
+// ---------- 홈 상단 월별 세무일정 달력 (_includes/tax-calendar.html) ----------
+.nh-cal { border: 1px solid #d9d3e4; border-radius: 14px; padding: 16px 14px 12px; margin: 18px 0 30px; background: #fff; }
+.nh-cal-head { display: flex; align-items: center; justify-content: space-between; }
+.nh-cal-title { margin: 0; font-size: 20px; font-weight: 800; color: $brand-color; }
+.nh-cal-nav { width: 40px; height: 40px; border: 1px solid #d9d3e4; border-radius: 50%; background: #fff; color: $brand-color;
+  font-size: 24px; line-height: 1; cursor: pointer; &:disabled { opacity: .3; cursor: default; } }
+.nh-cal-filter { display: flex; gap: 8px; margin: 12px 0; justify-content: center;
+  button { border: 1px solid $brand-color; background: #fff; color: $brand-color; border-radius: 999px; padding: 6px 14px;
+    font-size: 14px; font-weight: 700; cursor: pointer; }
+  button[aria-pressed="true"] { background: $brand-color; color: #fff; } }
+.nh-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.nh-cal-w { font-size: 12px; color: #6b6380; padding: 4px 0; font-weight: 700;
+  &:first-child { color: #c62828; } &:nth-child(7) { color: #2457a7; } }
+.nh-cal-d { position: relative; min-height: 42px; border: 0; border-radius: 8px; background: transparent; color: #333;
+  font-size: 15px; font-family: inherit; padding: 4px 0 14px;
+  &.has { background: #f4f0fa; color: $brand-color; font-weight: 800; cursor: pointer; }
+  &.past { opacity: .45; }
+  &.today { outline: 2px solid $gold; }
+  &.on { background: $brand-color; color: #fff; } }
+.nh-cal-n { position: absolute; left: 50%; bottom: 3px; transform: translateX(-50%); min-width: 16px; padding: 0 4px; border-radius: 8px;
+  background: $gold; color: $brand-color; font-size: 10px; line-height: 14px; font-weight: 800; }
+.nh-cal-d.on .nh-cal-n { background: #fff; }
+.nh-cal-list { list-style: none; margin: 14px 0 0; padding: 0; max-height: 320px; overflow-y: auto; }
+.nh-cal-day { margin-top: 10px; font-size: 14px; font-weight: 800; color: $brand-color; &.past { color: #999; } }
+.nh-cal-item { padding: 6px 0 6px 10px; border-left: 3px solid $gold; margin-top: 4px; font-size: 14px; line-height: 1.45;
+  b { display: block; font-weight: 700; } span { color: #6b6380; font-size: 13px; }
+  &.past { opacity: .5; } }
+.nh-cal-empty { padding: 12px 0; color: #777; font-size: 14px; text-align: center; }
+.nh-cal-src { margin: 10px 0 0; font-size: 12px; color: #888; }

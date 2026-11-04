@@ -1,0 +1,76 @@
+{%- comment -%}
+  홈 상단 월별 세무일정 달력. 데이터: _data/tax_schedule.json (_tools/nts_schedule.js 로 국세청 세무일정에서 만듦)
+  기본은 "사장님 일정"(g=boss)만, 버튼으로 국세청 전체 일정을 볼 수 있다. 날짜를 누르면 그날 일정만 아래 목록에 보인다.
+{%- endcomment -%}
+{%- assign ts = site.data.tax_schedule -%}
+<section class="nh-cal" aria-label="월별 세무일정">
+  <div class="nh-cal-head">
+    <button type="button" class="nh-cal-nav" data-step="-1" aria-label="이전 달">‹</button>
+    <h2 class="nh-cal-title" id="nh-cal-title">세무일정</h2>
+    <button type="button" class="nh-cal-nav" data-step="1" aria-label="다음 달">›</button>
+  </div>
+  <div class="nh-cal-filter" role="group" aria-label="일정 범위">
+    <button type="button" data-g="boss" aria-pressed="true">사장님 일정</button>
+    <button type="button" data-g="all" aria-pressed="false">국세청 전체 일정</button>
+  </div>
+  <div class="nh-cal-grid" id="nh-cal-grid"></div>
+  <ul class="nh-cal-list" id="nh-cal-list"></ul>
+  <p class="nh-cal-src">출처: <a href="{{ ts.url }}">국세청 세무일정</a> ({{ ts.checked }} 확인). 기한이 토·일·공휴일이면 다음 날로 옮겨진 날짜예요.</p>
+</section>
+<script>
+(function () {
+  var data = {{ ts.items | jsonify }}, months = {{ ts.months | jsonify }};
+  var grid = document.getElementById("nh-cal-grid"), list = document.getElementById("nh-cal-list"),
+      title = document.getElementById("nh-cal-title");
+  var now = new Date(), pad = function (n) { return (n < 10 ? "0" : "") + n; };
+  var today = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+  var ym = today.slice(0, 7), g = "boss", pick = null;
+  // 데이터 범위 밖이면 가장 가까운 달로
+  if (ym < months[0]) ym = months[0];
+  if (ym > months[months.length - 1]) ym = months[months.length - 1];
+
+  function items() { return data.filter(function (i) { return i.d.slice(0, 7) === ym && (g === "all" || i.g === "boss"); }); }
+  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  function render() {
+    var y = +ym.slice(0, 4), m = +ym.slice(5, 7), its = items(), byDay = {};
+    its.forEach(function (i) { (byDay[i.d] = byDay[i.d] || []).push(i); });
+    title.textContent = y + "년 " + m + "월 세무일정";
+    var first = new Date(y, m - 1, 1).getDay(), days = new Date(y, m, 0).getDate();
+    var h = ["일", "월", "화", "수", "목", "금", "토"].map(function (w) { return '<div class="nh-cal-w">' + w + "</div>"; }).join("");
+    for (var b = 0; b < first; b++) h += "<div></div>";
+    for (var d = 1; d <= days; d++) {
+      var key = ym + "-" + pad(d), n = (byDay[key] || []).length;
+      h += '<button type="button" class="nh-cal-d' + (n ? " has" : "") + (key === today ? " today" : "") + (key < today ? " past" : "") +
+           (key === pick ? " on" : "") + '" data-d="' + key + '"' + (n ? "" : " disabled") +
+           ' aria-label="' + m + "월 " + d + "일" + (n ? ", 일정 " + n + "건" : "") + '">' + d + (n ? '<span class="nh-cal-n">' + n + "</span>" : "") + "</button>";
+    }
+    grid.innerHTML = h;
+    var show = pick ? its.filter(function (i) { return i.d === pick; }) : its, last = "";
+    list.innerHTML = show.length ? show.map(function (i) {
+      var day = +i.d.slice(8), head = i.d !== last ? '<li class="nh-cal-day' + (i.d < today ? " past" : "") + '">' + m + "월 " + day + "일" + (i.d === today ? " (오늘)" : "") + "</li>" : "";
+      last = i.d;
+      return head + '<li class="nh-cal-item' + (i.d < today ? " past" : "") + '"><b>' + esc(i.t) + "</b>" + (i.n ? "<span>" + esc(i.n) + "</span>" : "") + "</li>";
+    }).join("") : '<li class="nh-cal-empty">' + (months.indexOf(ym) < 0 ? "국세청이 아직 이 달 일정을 올리지 않았어요." : "이 달에는 표시할 일정이 없어요.") + "</li>";
+    document.querySelectorAll(".nh-cal-nav").forEach(function (btn) {
+      var t = shift(+btn.getAttribute("data-step"));
+      btn.disabled = t < months[0] || t > months[months.length - 1];
+    });
+  }
+  function shift(s) { var y = +ym.slice(0, 4), m = +ym.slice(5, 7) + s; if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; } return y + "-" + pad(m); }
+  document.querySelectorAll(".nh-cal-nav").forEach(function (btn) {
+    btn.addEventListener("click", function () { ym = shift(+btn.getAttribute("data-step")); pick = null; render(); });
+  });
+  document.querySelectorAll(".nh-cal-filter button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      g = btn.getAttribute("data-g"); pick = null;
+      document.querySelectorAll(".nh-cal-filter button").forEach(function (x) { x.setAttribute("aria-pressed", x === btn); });
+      render();
+    });
+  });
+  grid.addEventListener("click", function (e) {
+    var b = e.target.closest(".nh-cal-d.has"); if (!b) return;
+    pick = pick === b.getAttribute("data-d") ? null : b.getAttribute("data-d"); render();
+  });
+  render();
+})();
+</script>
