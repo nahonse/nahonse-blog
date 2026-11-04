@@ -1,0 +1,16 @@
+{%- comment -%} 나혼세 상단 바: 보라 띠 + 로고 + 메뉴 (minima header.html 대신) {%- endcomment -%}
+<header class="site-header nh-header">
+  <div class="wrapper nh-header-inner">
+    <a class="nh-brand" href="{{ "/" | relative_url }}">
+      <img src="{{ "/assets/images/logo-96.png" | relative_url }}" alt="" width="36" height="36">
+      <span>나혼세</span>
+    </a>
+    <nav class="nh-nav" aria-label="주요 메뉴">
+      <a href="{{ "/" | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>홈</a>
+      <a href="{{ "/#owner" | relative_url }}">개인사업자</a>
+      <a href="{{ "/#freelancer" | relative_url }}">프리랜서</a>
+      <a href="{{ "/#yearend" | relative_url }}">연말정산</a>
+      <a href="{{ "/about/" | relative_url }}"{% if page.url == "/about/" %} aria-current="page"{% endif %}>소개</a>
+    </nav>
+  </div>
+</header>
