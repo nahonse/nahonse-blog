@@ -51,6 +51,9 @@
       last = i.d;
       return head + '<li class="nh-cal-item' + (i.d < today ? " past" : "") + '"><b>' + esc(i.t) + "</b>" + (i.n ? "<span>" + esc(i.n) + "</span>" : "") + "</li>";
     }).join("") : '<li class="nh-cal-empty">' + (months.indexOf(ym) < 0 ? "국세청이 아직 이 달 일정을 올리지 않았어요." : "이 달에는 표시할 일정이 없어요.") + "</li>";
+    // 이번 달이면 목록을 다가오는 첫 일정 위치로 내린다(지난 일정은 위에 흐리게 남김)
+    var next = list.querySelector(".nh-cal-day:not(.past)");
+    list.scrollTop = next ? next.offsetTop - list.offsetTop : 0;
     document.querySelectorAll(".nh-cal-nav").forEach(function (btn) {
       var t = shift(+btn.getAttribute("data-step"));
       btn.disabled = t < months[0] || t > months[months.length - 1];
