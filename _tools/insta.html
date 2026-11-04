@@ -1,109 +1,131 @@
 <!doctype html>
 <!--
-  인스타그램 카드뉴스(세로 1080x1350) 만들기
-  1) 아래 decks에 글 슬러그를 키로 슬라이드를 추가한다. 숫자는 블로그 글(검토를 거친 값)과 똑같이 쓴다.
-  2) 장마다 캡처한다:  file:///.../_tools/insta.html#슬러그/번호  (번호는 1부터)
-     chrome --headless=new --hide-scrollbars --window-size=1080,1350 --virtual-time-budget=8000
+  나혼세 인스타 카드뉴스(세로 1080x1350). 홈택스 화면을 따라 하는 "단계 카드"가 중심이다.
+  1) 아래 decks에 글 슬러그를 키로 슬라이드를 넣는다. 숫자는 검토를 거친 블로그 글과 똑같이 쓴다.
+  2) 장마다 캡처한다 (번호는 1부터):
+     chrome --headless=new --hide-scrollbars --allow-file-access-from-files --window-size=1080,1350 --virtual-time-budget=8000
             --screenshot="assets/insta/슬러그/번호.png" "file:///.../_tools/insta.html#슬러그/1"
   슬라이드 종류
-    cover: { type:"cover", label, title(줄바꿈은 \n), badge, sub }
-    rows : { type:"rows", step, title, rows:[[큰 글씨, 작은 글씨], ...], note }
-    hero : { type:"hero", label, who, pre, amt, badge }  ← 표지 A안(2026-10-22~): 대상 한 줄 + 큰 금액 + 마감(없으면 핵심 조건) 배지
-    end  : { type:"end", title, text, source }
+    cover : { type:"cover", label, title(줄바꿈 \n), badge, sub }
+    facts : { type:"facts", title, rows:[[큰 글씨, 작은 글씨], ...], note }   note는 빨간 주의 문장
+    calc  : { type:"calc", title, rows:[[항목, 금액], ...], total:[항목, 금액], note }
+    step  : { type:"step", step, title, path, img, caption }   img는 저장소 기준 경로(assets/...)
+    end   : { type:"end", title, text, source }
+  문장 속 **굵게**는 금색 강조(어두운 바탕) 또는 보라 강조(밝은 바탕).
 -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-  :root { --brand:#1a6fd1; --ink:#1b2430; --sub:#5b6676; --line:#e1e6ec; --soft:#f2f6fb; --warn:#b45309; --warnbg:#fff4e0; }
+  :root { --brand:#271350; --gold:#c7ad89; --ink:#1e1433; --sub:#5e566e; --line:#e4dfec; --soft:#f4f0fa; --red:#c62828; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1350px; overflow: hidden; }
-  body { font-family: "Pretendard","Malgun Gothic",sans-serif; color: var(--ink); word-break: keep-all; background:#fff; }
-  .slide { position: relative; width: 1080px; height: 1350px; padding: 96px 90px 0; }
-  .top { position:absolute; top:0; left:0; right:0; height:22px; background:var(--brand); }
-  .foot { position:absolute; left:90px; right:90px; bottom:56px; display:flex; justify-content:space-between; align-items:center;
-          font-size:30px; font-weight:600; color:var(--sub); }
-  .foot b { color: var(--ink); font-weight:800; }
-  .page { font-size:30px; color:var(--sub); font-weight:700; }
+  body { font-family: "Pretendard","Malgun Gothic",sans-serif; color: var(--ink); word-break: keep-all; background: #fff; }
+  .slide { position: relative; width: 1080px; height: 1350px; padding: 0 80px; }
+  .band { position: absolute; top: 0; left: 0; right: 0; height: 150px; background: var(--brand); border-bottom: 8px solid var(--gold);
+          display: flex; align-items: center; padding: 0 80px; gap: 26px; }
+  .band .num { width: 92px; height: 92px; border-radius: 50%; background: var(--gold); color: var(--brand);
+               font-size: 52px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex: none; }
+  .band .t { color: #fff; font-size: 50px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
+  .body { position: absolute; top: 200px; left: 80px; right: 80px; bottom: 130px; }
+  .foot { position: absolute; left: 80px; right: 80px; bottom: 50px; display: flex; justify-content: space-between; align-items: center;
+          font-size: 30px; font-weight: 700; color: var(--sub); }
+  .foot b { color: var(--brand); font-weight: 900; }
+  .red { color: var(--red); font-weight: 800; }
+  b.em { color: var(--brand); }
 
-  /* cover */
-  .cover { background: var(--brand); color:#fff; display:flex; flex-direction:column; justify-content:center; padding:0 90px; }
-  .cover .label { display:inline-block; align-self:flex-start; font-size:44px; font-weight:800; background:rgba(255,255,255,.18);
-                  padding:12px 28px; border-radius:14px; }
-  .cover h1 { margin-top:46px; font-size:118px; line-height:1.18; font-weight:900; letter-spacing:-4px; white-space:pre-line; }
-  .cover .badge { margin-top:58px; align-self:flex-start; font-size:52px; font-weight:800; color:var(--brand); background:#fff;
-                  padding:18px 34px; border-radius:18px; }
-  .cover .sub { margin-top:40px; font-size:40px; font-weight:600; opacity:.9; line-height:1.5; }
-  .cover .foot { color: rgba(255,255,255,.85); }
-  .cover .foot b { color:#fff; }
-  .cover .page { color: rgba(255,255,255,.85); }
+  /* cover: 진한 보라 전면 */
+  .cover { background: var(--brand); color: #fff; padding: 120px 90px; }
+  .cover .ring { position: absolute; inset: 40px; border: 6px solid var(--gold); border-radius: 36px; pointer-events: none; }
+  .cover .label { display: inline-block; font-size: 40px; font-weight: 800; color: var(--brand); background: var(--gold); padding: 12px 30px; border-radius: 14px; }
+  .cover h1 { margin-top: 70px; font-size: 104px; line-height: 1.22; font-weight: 900; letter-spacing: -3px; white-space: pre-line; }
+  .cover h1 b { color: var(--gold); }
+  .cover .badge { margin-top: 70px; display: inline-block; font-size: 52px; font-weight: 900; color: var(--brand); background: #fff; padding: 20px 40px; border-radius: 18px; }
+  .cover .sub { margin-top: 44px; font-size: 40px; font-weight: 600; color: #e6dcf5; line-height: 1.45; }
+  .cover .foot { color: #d9cdea; } .cover .foot b { color: var(--gold); }
 
-  /* hero (표지 A안) */
-  .hero { background: var(--brand); color:#fff; display:flex; flex-direction:column; justify-content:center; padding:0 90px; }
-  .hero .label { align-self:flex-start; font-size:44px; font-weight:800; background:rgba(255,255,255,.18); padding:12px 28px; border-radius:14px; }
-  .hero .who { margin-top:56px; font-size:50px; font-weight:700; opacity:.95; line-height:1.4; }
-  .hero .pre { margin-top:14px; font-size:70px; font-weight:900; letter-spacing:-2px; line-height:1.2; }
-  .hero .amt { margin-top:6px; font-size:150px; font-weight:900; letter-spacing:-5px; line-height:1.12; }
-  .hero .amt.long { font-size:116px; letter-spacing:-4px; }
-  .hero .badge { margin-top:64px; align-self:flex-start; font-size:56px; font-weight:900; color:var(--brand); background:#fff; padding:20px 38px; border-radius:20px; }
-  .hero .foot { color: rgba(255,255,255,.85); } .hero .foot b { color:#fff; } .hero .page { color: rgba(255,255,255,.85); }
+  /* facts */
+  .row { display: flex; align-items: center; gap: 34px; padding: 40px 0; border-bottom: 3px solid var(--line); }
+  .row .v { flex: none; width: 380px; font-size: 64px; font-weight: 900; color: var(--brand); letter-spacing: -2px; line-height: 1.15; }
+  .row .k { font-size: 40px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+  .note { margin-top: 44px; font-size: 38px; line-height: 1.45; }
+  .note.redbox { border: 4px solid var(--red); border-radius: 20px; padding: 28px 32px; background: #fdf1f1; color: var(--red); font-weight: 800; }
 
-  /* rows */
-  .step { font-size:40px; font-weight:800; color:var(--brand); }
-  .rows h2 { margin-top:20px; font-size:90px; font-weight:900; letter-spacing:-2.5px; line-height:1.2; }
-  .list { margin-top:52px; display:flex; flex-direction:column; gap:26px; }
-  .row { border:3px solid var(--line); border-radius:28px; padding:34px 48px; background:#fafbfd; }
-  .row .big { font-size:68px; font-weight:900; color:var(--brand); letter-spacing:-1.5px; line-height:1.2; }
-  .row .small { margin-top:14px; font-size:42px; font-weight:600; color:var(--sub); line-height:1.45; }
-  .note { margin-top:40px; font-size:40px; font-weight:700; color:var(--warn); background:var(--warnbg); padding:26px 34px; border-radius:20px; line-height:1.45; }
+  /* calc */
+  .calc .tag { display: inline-block; font-size: 32px; font-weight: 800; color: var(--sub); background: var(--soft); padding: 8px 20px; border-radius: 10px; margin-bottom: 26px; }
+  .calc table { width: 100%; border-collapse: collapse; font-size: 40px; }
+  .calc td { padding: 26px 8px; border-bottom: 3px solid var(--line); }
+  .calc td:last-child { text-align: right; font-weight: 800; white-space: nowrap; }
+  .calc .total td { border: 0; padding-top: 34px; font-size: 52px; font-weight: 900; color: var(--brand); }
+  .calc .total td:last-child { color: var(--brand); }
+
+  /* step */
+  .path { font-size: 38px; font-weight: 800; color: var(--brand); background: var(--soft); border-left: 10px solid var(--gold);
+          padding: 22px 28px; border-radius: 0 16px 16px 0; line-height: 1.4; }
+  .shot { margin-top: 36px; border: 3px solid var(--line); border-radius: 22px; overflow: hidden; background: #fff;
+          display: flex; align-items: center; justify-content: center; }
+  .shot img { display: block; width: 100%; max-height: 760px; object-fit: contain; }
+  .cap { margin-top: 30px; font-size: 38px; line-height: 1.45; font-weight: 600; }
+  .when { position: absolute; right: 80px; bottom: 112px; font-size: 26px; color: var(--sub); }
 
   /* end */
-  .end { background: var(--soft); }
-  .end h2 { font-size:84px; font-weight:900; letter-spacing:-2.5px; line-height:1.25; white-space:pre-line; }
-  .end .text { margin-top:56px; font-size:48px; font-weight:600; line-height:1.6; color:var(--ink); white-space:pre-line; }
-  .end .link { margin-top:56px; display:inline-block; font-size:56px; font-weight:900; color:#fff; background:var(--brand);
-               padding:22px 40px; border-radius:20px; }
-  .end .source { margin-top:90px; font-size:36px; font-weight:600; color:var(--sub); line-height:1.6; white-space:pre-line; }
+  .end .big { font-size: 64px; font-weight: 900; color: var(--brand); line-height: 1.3; letter-spacing: -1.5px; }
+  .end .text { margin-top: 44px; font-size: 40px; line-height: 1.55; font-weight: 600; }
+  .end .src { margin-top: 56px; font-size: 30px; color: var(--sub); line-height: 1.5; }
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script>
 const decks = {
-  // 첫 카드뉴스를 만들면 여기에 슬러그별 decks 항목을 넣는다
+  "hometax-interim-prepayment-check": {
+    date: "2026.11.04 기준",
+    slides: [
+      { type: "cover", label: "종합소득세 중간예납", title: "11월 고지서,\n**내 금액** 홈택스로\n조회하는 법", badge: "📅 납부기한 11월 30일(월)", sub: "개인사업자라면 11월에 꼭 확인하세요" },
+      { type: "facts", title: "중간예납이 뭐예요?", rows: [["11월 30일", "상반기분 종합소득세를 미리 내는 기한"], ["기준액의 ½", "2025년 귀속 중간예납·확정신고 세액 기준"], ["50만원 미만", "고지하지 않아요(징수 안 함)"]],
+        note: "근로소득만 있는 직장인은 중간예납 대상이 아니에요" },
+      { type: "calc", title: "금액을 넣어 보면", tag: "가상의 예시", rows: [["작년 11월 중간예납", "1,200,000원"], ["올해 5월 확정신고 때 낸 세액", "1,850,500원"], ["기준액 × ½", "1,525,250원"]], total: ["1천원 미만 버림", "1,525,000원"],
+        note: "원천징수로 떼인 3.3%는 기준액에 들어가지 않아요" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "전체메뉴 > 세금신고 > 종합소득세 신고 > 중간예납 고지 세액 조회", img: "assets/insta/hometax-interim-prepayment-check/src-menu.png", caption: "개인으로 로그인해도 이 화면은 열려요" },
+      { type: "step", step: 2, title: "조회 누르기", path: "귀속년도 2026 확인 → ① 조회", img: "assets/insta/hometax-interim-prepayment-check/src-query.png", img2: "assets/insta/hometax-interim-prepayment-check/src-result.png", caption: "② 표에 고지세액이 나와요. 대상이 아니거나 50만원 미만이면 **조회된 결과가 없습니다**" },
+      { type: "step", step: 3, title: "납부하기", path: "전체메뉴 > 납부·고지·환급 > 납부할 세액 조회/납부", img: "assets/insta/hometax-interim-prepayment-check/src-pay.png", caption: "조회 화면의 **납부하러 가기** 버튼으로도 갈 수 있어요" },
+      { type: "facts", title: "꼭 알아 두세요", rows: [["1천만원 초과", "일부를 나눠 낼 수 있어요(분납, 2027.2.1.까지)"], ["11월 30일", "넘기면 납부지연가산세가 붙을 수 있어요"]],
+        note: "고지가 없어도, 직전 연도 낸 세액이 없는 복식부기의무자가 상반기 사업소득이 있으면 11월 30일까지 신고·납부해야 해요" },
+      { type: "end", title: "화면 전체 순서와\n분납·추계액 신고는\n블로그에 정리했어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 소득세법 제65·77·86조, 국세청 안내\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
-
+const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
 const deck = decks[slug];
-const s = deck.slides[(Number(n) || 1) - 1];
+const i = (Number(n) || 1) - 1;
+const s = deck.slides[i];
 const total = deck.slides.length;
-const esc = t => String(t).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-const foot = `<div class="foot"><b>@SNS_HANDLE</b><span>${esc(deck.date)} · <span class="page">${n}/${total}</span></span></div>`;
-let html = "";
+const foot = `<div class="foot"><b>@nahonse.kr</b><span>${deck.date} · ${i + 1}/${total}</span></div>`;
+const band = (num, t) => `<div class="band">${num ? `<div class="num">${num}</div>` : ""}<div class="t">${md(t)}</div></div>`;
+const root = document.getElementById("root");
 if (s.type === "cover") {
-  html = `<div class="slide cover"><div class="label">${esc(s.label)}</div><h1>${esc(s.title)}</h1>
-          <div class="badge">${esc(s.badge)}</div><div class="sub" style="white-space:pre-line">${esc(s.sub)}</div>${foot}</div>`;
-} else if (s.type === "hero") {
-  html = `<div class="slide hero"><div class="label">${esc(s.label)}</div><div class="who">${esc(s.who)}</div>
-          <div class="pre">${esc(s.pre)}</div><div class="amt${[...s.amt].length > 9 ? " long" : ""}">${esc(s.amt)}</div>
-          <div class="badge">${esc(s.badge)}</div>${foot}</div>`;
-} else if (s.type === "rows") {
-  html = `<div class="slide rows"><div class="top"></div><div class="step">${esc(s.step)}</div><h2>${esc(s.title)}</h2>
-          <div class="list">${s.rows.map(([b, m]) => `<div class="row"><div class="big">${esc(b)}</div>${m ? `<div class="small">${esc(m)}</div>` : ""}</div>`).join("")}</div>
-          ${s.note ? `<div class="note">⚠️ ${esc(s.note)}</div>` : ""}${foot}</div>`;
+  root.innerHTML = `<div class="slide cover"><div class="ring"></div><span class="label">${s.label}</span>
+    <h1>${s.title.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")}</h1><div class="badge">${s.badge}</div><p class="sub">${s.sub}</p>${foot}</div>`;
+} else if (s.type === "facts") {
+  root.innerHTML = `<div class="slide">${band("", s.title)}<div class="body">
+    ${s.rows.map(([v, k]) => `<div class="row"><div class="v">${v}</div><div class="k">${md(k)}</div></div>`).join("")}
+    ${s.note ? `<p class="note redbox">${md(s.note)}</p>` : ""}</div>${foot}</div>`;
+} else if (s.type === "calc") {
+  root.innerHTML = `<div class="slide calc">${band("", s.title)}<div class="body"><span class="tag">${s.tag}</span><table>
+    ${s.rows.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("")}
+    <tr class="total"><td>${s.total[0]}</td><td>${s.total[1]}</td></tr></table>
+    ${s.note ? `<p class="note redbox">${md(s.note)}</p>` : ""}</div>${foot}</div>`;
+} else if (s.type === "step") {
+  const img = p => `<div class="shot"><img src="../${p}"></div>`;
+  root.innerHTML = `<div class="slide">${band(s.step, s.title)}<div class="body"><div class="path">${s.path}</div>
+    ${img(s.img)}${s.img2 ? img(s.img2) : ""}<p class="cap">${md(s.caption)}</p></div>
+    <div class="when">2026년 11월 기준 화면</div>${foot}</div>`;
 } else {
-  html = `<div class="slide end"><div class="top"></div><h2>${esc(s.title)}</h2><div class="text">${esc(s.text)}</div>
-          <div class="link">${esc(s.link)}</div><div class="source">${esc(s.source)}</div>${foot}</div>`;
+  root.innerHTML = `<div class="slide end">${band("", "더 자세한 내용은")}<div class="body"><p class="big">${s.title.replace(/\n/g, "<br>")}</p>
+    <p class="text">${s.text.replace(/\n/g, "<br>")}</p><p class="src">${s.source.replace(/\n/g, "<br>")}</p></div>${foot}</div>`;
 }
-document.getElementById("root").innerHTML = html;
-// 넘침 검사: 본문 마지막 요소가 아래 표시줄(foot)과 겹치면 제목에 OVERFLOW 표시 (dump-dom으로 확인)
-document.fonts.ready.then(() => {
-  const foot = document.querySelector(".foot").getBoundingClientRect();
-  const kids = [...document.querySelector(".slide").children].filter(e => !e.classList.contains("foot") && !e.classList.contains("top"));
-  const bottom = Math.max(...kids.map(e => e.getBoundingClientRect().bottom));
-  document.title = bottom > foot.top - 24 ? "OVERFLOW " + Math.round(bottom - foot.top + 24) : "OK";
-});
 </script>
 </body>
 </html>
