@@ -53,6 +53,12 @@ const cards = {
     stats: [["매달 10일", "원천세 신고·납부"], ["매달 말일", "간이·일용 지급명세서"], ["1.25 · 5.31", "부가세 확정 · 종합소득세"]],
     foot: "2026.11.03 기준 · 출처: 국세청, 소득세법·부가가치세법"
   },
+  "hometax-interim-prepayment-check": {
+    label: "종합소득세 중간예납",
+    title: "11월 중간예납, 홈택스로 조회하기",
+    stats: [["11월 30일", "2026년 납부기한"], ["기준액의 ½", "2025년 귀속 세액 기준"], ["50만원 미만", "고지·징수 안 함"]],
+    foot: "2026.11.04 기준 · 출처: 국세청, 소득세법"
+  },
 };
 const c = cards[decodeURIComponent(location.hash.slice(1))];
 document.getElementById("label").textContent = c.label;

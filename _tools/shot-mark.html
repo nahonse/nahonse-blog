@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<!--
+  홈택스 캡처에 빨간 상자·번호를 그리고 필요한 부분만 잘라 PNG로 만드는 도구.
+  설정은 주소 # 뒤 JSON: {"img":"원본 경로","crop":[x,y,w,h],"marks":[[x,y,w,h,번호],...]}
+    - 좌표는 원본 이미지 픽셀 기준. crop을 빼면 원본 전체. 번호를 빼면 상자만.
+  만들기 (창 크기 = crop의 w,h):
+    chrome --headless=new --hide-scrollbars --allow-file-access-from-files --window-size=W,H
+           --virtual-time-budget=6000 --screenshot="출력.png" "file:///.../_tools/shot-mark.html#{...}"
+  개인정보는 캡처 전에 화면 글자를 예시 값으로 바꿔서 찍는다(흐림 처리에 기대지 않음).
+-->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; overflow: hidden; background: #fff; }
+  #w { position: relative; overflow: hidden; }
+  #w img { position: absolute; left: 0; top: 0; }
+  .box { position: absolute; border: 4px solid #e0322b; border-radius: 8px; box-sizing: border-box; }
+  .n { position: absolute; width: 34px; height: 34px; border-radius: 50%; background: #e0322b; color: #fff;
+       font: 800 20px/34px 'Noto Sans KR', sans-serif; text-align: center; }
+</style></head><body><div id="w"></div>
+<script>
+const cfg = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+const w = document.getElementById('w');
+const img = new Image();
+img.onload = () => {
+  const [cx, cy, cw, ch] = cfg.crop || [0, 0, img.naturalWidth, img.naturalHeight];
+  w.style.width = cw + 'px'; w.style.height = ch + 'px';
+  img.style.left = -cx + 'px'; img.style.top = -cy + 'px';
+  w.appendChild(img);
+  (cfg.marks || []).forEach(([x, y, bw, bh, num]) => {
+    const b = document.createElement('div');
+    b.className = 'box';
+    Object.assign(b.style, { left: x - cx + 'px', top: y - cy + 'px', width: bw + 'px', height: bh + 'px' });
+    w.appendChild(b);
+    if (num != null) {
+      const n = document.createElement('div');
+      n.className = 'n'; n.textContent = num;
+      // 번호는 상자 오른쪽 위 모서리에 걸치게
+      Object.assign(n.style, { left: x - cx + bw - 20 + 'px', top: Math.max(0, y - cy - 16) + 'px' });
+      w.appendChild(n);
+    }
+  });
+};
+img.src = cfg.img;
+</script></body></html>

@@ -352,3 +352,6 @@ body {
 .deadline-box.is-closed { background: #fdecec; border: 1px solid #f3b4b4; }
 .deadline-box.is-closed .deadline-open { display: none; }
 .deadline-box.is-closed .deadline-closed { display: block; color: #a61b1b; }
+
+// 주의·아주 중요한 내용 강조: 본문에서 **문장**{: .red}
+.post-content strong.red { color: #c62828; }
