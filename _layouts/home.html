@@ -2,53 +2,68 @@
 layout: default
 ---
 {%- comment -%}
-  나혼세 홈 화면: 대상별 카드 3개(개인사업자·프리랜서·연말정산) + 최신 글.
+  나혼세 홈 화면: 할 일별 카드 4개(세금계산서·민원증명 발급·부가가치세·종합소득세) + 최신 글.
   카드의 data-topics는 글 머리말 topic(분야)과 맞춘다. 새 분야를 만들면 여기에도 넣는다.
-  분야: 세무 일정, 원천세·지급명세서, 부가세, 종합소득세, 연말정산, 사업자 기본
+  분야: 세무 일정, 세금계산서, 민원증명, 부가세, 종합소득세, 사업자 기본, 원천세·지급명세서(카드 없음, 최신 글에만)
 {%- endcomment -%}
 <div class="home">
-  <section class="nh-groups" aria-label="대상별 안내">
-    <article class="nh-group" id="owner" data-topics="세무 일정|원천세·지급명세서|부가세|종합소득세|사업자 기본">
-      <h2 class="nh-pill">개인사업자</h2>
+  <section class="nh-groups" aria-label="할 일별 안내">
+    <article class="nh-group" id="invoice" data-topics="세금계산서">
+      <h2 class="nh-pill">세금계산서</h2>
       <div class="nh-icons" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 16h12M17 23h16M17 30h16M17 37h10"/></svg>
         <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="22" rx="2"/><path d="M4 38h40"/></svg>
+        <svg viewBox="0 0 48 48"><path d="M32 6l10 10-22 22H10V28z"/><path class="g" d="M27 11l10 10"/></svg>
+      </div>
+      <ul>
+        <li>전자세금계산서 발급</li>
+        <li>수정세금계산서</li>
+        <li>발급 내역 조회</li>
+      </ul>
+      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
+    </article>
+
+    <article class="nh-group" id="cert" data-topics="민원증명|사업자 기본">
+      <h2 class="nh-pill">민원증명 발급</h2>
+      <div class="nh-icons" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 18h14M17 25h16M17 32h12"/></svg>
+        <svg viewBox="0 0 48 48"><path d="M6 22L24 6l18 16"/><path d="M11 18v24h26V18"/><rect class="g" x="20" y="28" width="8" height="14"/></svg>
+        <svg viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10z"/><path d="M15 16h14M15 23h18"/><path class="g" d="M16 36c4-6 6 2 9-3s4 3 8-1"/></svg>
+      </div>
+      <ul>
+        <li>사업자등록증명</li>
+        <li>소득금액증명</li>
+        <li>부가세 과세표준증명</li>
+      </ul>
+      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
+    </article>
+
+    <article class="nh-group" id="vat" data-topics="부가세|세무 일정">
+      <h2 class="nh-pill">부가가치세</h2>
+      <div class="nh-icons" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="3"/><rect class="g" x="15" y="9" width="18" height="8"/><path d="M16 24h2M23 24h2M30 24h2M16 31h2M23 31h2M30 31h2M16 38h2M23 38h2M30 38h2"/></svg>
         <svg viewBox="0 0 48 48"><path d="M6 8h36"/><rect x="10" y="30" width="5" height="10"/><rect x="21" y="24" width="5" height="16"/><rect x="32" y="18" width="5" height="22"/><path class="g" d="M10 24l9-8 7 5 12-11"/></svg>
         <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 16h12M17 23h16M17 30h16M17 37h10"/></svg>
       </div>
       <ul>
-        <li>부가가치세 신고</li>
-        <li>종합소득세</li>
-        <li>원천세·지급명세서</li>
+        <li>일반과세자 신고</li>
+        <li>간이과세자 신고</li>
+        <li>신고 기한</li>
       </ul>
       <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
     </article>
 
-    <article class="nh-group" id="freelancer" data-topics="종합소득세|원천세·지급명세서">
-      <h2 class="nh-pill">프리랜서</h2>
+    <article class="nh-group" id="income" data-topics="종합소득세|세무 일정">
+      <h2 class="nh-pill">종합소득세</h2>
       <div class="nh-icons" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><path d="M32 6l10 10-22 22H10V28z"/><path class="g" d="M27 11l10 10"/></svg>
         <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="22" rx="2"/><path d="M4 38h40"/></svg>
+        <svg viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="3"/><rect class="g" x="15" y="9" width="18" height="8"/><path d="M16 24h2M23 24h2M30 24h2M16 31h2M23 31h2M30 31h2M16 38h2M23 38h2M30 38h2"/></svg>
         <svg viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10z"/><path d="M15 16h14M15 23h18"/><path class="g" d="M16 36c4-6 6 2 9-3s4 3 8-1"/></svg>
       </div>
       <ul>
-        <li>원천징수 영수증</li>
         <li>5월 종합소득세 신고</li>
-        <li>경비 처리 방법</li>
-      </ul>
-      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
-    </article>
-
-    <article class="nh-group" id="yearend" data-topics="연말정산">
-      <h2 class="nh-pill">연말정산</h2>
-      <div class="nh-icons" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="3"/><rect class="g" x="15" y="9" width="18" height="8"/><path d="M16 24h2M23 24h2M30 24h2M16 31h2M23 31h2M30 31h2M16 38h2M23 38h2M30 38h2"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 18h14M17 25h16M17 32h12"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M6 22L24 6l18 16"/><path d="M11 18v24h26V18"/><rect class="g" x="20" y="28" width="8" height="14"/></svg>
-      </div>
-      <ul>
-        <li>소득공제 항목</li>
-        <li>세액공제</li>
-        <li>신고 절차 안내</li>
+        <li>장부·경비 처리</li>
+        <li>환급 확인</li>
       </ul>
       <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
     </article>
