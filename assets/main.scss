@@ -169,10 +169,14 @@ body {
     & + a { border-left: 1px solid rgba(255, 255, 255, 0.35); }
   }
   @media (max-width: 600px) {
+    // 메뉴 6개: 휴대폰에서는 3칸씩 2줄 (한 줄이면 390px에서 넘침)
     width: 100%;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 6px;
     font-size: 14px;
-    a { padding: 2px 0; flex: 1; text-align: center; }
+    a { padding: 2px 0; text-align: center; white-space: nowrap; }
+    a:nth-child(3n + 1) { border-left: 0; }
   }
 }
 
