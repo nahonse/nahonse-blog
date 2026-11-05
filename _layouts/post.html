@@ -20,6 +20,10 @@ layout: default
       {%- if page.author -%}
         • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
       {%- endif -%}</p>
+    {%- comment -%} 대상 태그: 머리말 who: [일반과세자, 간이과세자] {%- endcomment %}
+    {%- if page.who %}
+    <div class="post-who" aria-label="대상"><b>대상</b>{% for w in page.who %}<span>{{ w | escape }}</span>{% endfor %}</div>
+    {%- endif %}
   </header>
 
   {%- if page.deadline -%}
@@ -28,6 +32,7 @@ layout: default
     {%- assign dl_text = page.deadline | date: "%Y년 %-m월 %-d일" -%}
     {%- assign dl_note = page.deadline_note | default: "이번 회차" -%}
   <div class="deadline-box{% if built > dl %} is-closed{% endif %}" data-deadline="{{ page.deadline | date: '%Y-%m-%d' }}">
+    <span class="dday"></span>
     <p class="deadline-open">📅 {% if page.deadline_open %}{{ page.deadline_open }}{% else %}<b>{{ dl_note }}</b> 신고 마감: <b>{{ dl_text }}</b>{% endif %}</p>
     <p class="deadline-closed">⏰ {% if page.deadline_closed %}{{ page.deadline_closed }}{% else %}<b>{{ dl_note }}</b> 신고 기한은 <b>{{ dl_text }}</b>였어요.{% endif %} 다음 신고 기간에 맞춰 이 글을 고칠게요.</p>
   </div>
@@ -36,7 +41,10 @@ layout: default
       var box = document.currentScript.previousElementSibling;
       var d = box.getAttribute("data-deadline").split("-");
       var end = new Date(+d[0], +d[1] - 1, +d[2], 23, 59, 59);
-      box.classList.toggle("is-closed", new Date() > end);
+      var now = new Date();
+      box.classList.toggle("is-closed", now > end);
+      var n = Math.round((new Date(+d[0], +d[1] - 1, +d[2]) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
+      box.querySelector(".dday").textContent = n < 0 ? "마감" : n === 0 ? "오늘 마감" : "D-" + n;
     })();
   </script>
   {%- endif -%}
