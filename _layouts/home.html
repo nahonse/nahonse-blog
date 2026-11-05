@@ -2,73 +2,35 @@
 layout: default
 ---
 {%- comment -%}
-  나혼세 홈 화면: 할 일별 카드 4개(세금계산서·민원증명 발급·부가가치세·종합소득세) + 최신 글.
-  카드의 data-topics는 글 머리말 topic(분야)과 맞춘다. 새 분야를 만들면 여기에도 넣는다.
-  분야: 세무 일정, 세금계산서, 민원증명, 부가세, 종합소득세, 사업자 기본, 원천세·지급명세서(카드 없음, 최신 글에만)
+  나혼세 홈 화면: 세무일정 달력 + 할 일 아이콘 4개(세금계산서·민원증명 발급·부가가치세·종합소득세) + 검색 + 최신 글.
+  아이콘의 data-topics는 글 머리말 topic(분야)과 맞춘다. 새 분야를 만들면 여기에도 넣는다.
+  분야: 세무 일정, 세금계산서, 민원증명, 부가세, 종합소득세, 사업자 기본, 원천세·지급명세서(아이콘 없음, 최신 글에만)
 {%- endcomment -%}
 <div class="home">
   {%- include tax-calendar.html -%}
-  <section class="nh-groups" aria-label="할 일별 안내">
-    <article class="nh-group" id="invoice" data-topics="세금계산서">
-      <h2 class="nh-pill">세금계산서</h2>
-      <div class="nh-icons" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 16h12M17 23h16M17 30h16M17 37h10"/></svg>
-        <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="22" rx="2"/><path d="M4 38h40"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M32 6l10 10-22 22H10V28z"/><path class="g" d="M27 11l10 10"/></svg>
-      </div>
-      <ul>
-        <li>전자세금계산서 발급</li>
-        <li>수정세금계산서</li>
-        <li>발급 내역 조회</li>
-      </ul>
-      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
-    </article>
+  <nav class="nh-quick" aria-label="할 일별 글 모아보기">
+    <button type="button" class="nh-q" id="invoice" data-topics="세금계산서" data-label="세금계산서">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 5h19l9 9v29H10z"/><path d="M29 5v9h9"/><path class="g" d="M16 25l5 5 9-10"/><path d="M15 38c2-3 4 1 6-1"/><path class="g" d="M33 40l9-17 3 2-9 17-4 1z"/></svg>
+      <span>세금계산서</span>
+    </button>
+    <button type="button" class="nh-q" id="cert" data-topics="민원증명|사업자 기본" data-label="민원증명 발급">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 8h36v6H6z"/><path d="M10 14v24h20"/><path d="M38 14v14"/><path class="g" d="M15 21h18M15 27h14"/><circle class="g" cx="35" cy="35" r="5"/><path class="g" d="M32 39l-2 7 5-3 5 3-2-7"/></svg>
+      <span>민원증명 발급</span>
+    </button>
+    <button type="button" class="nh-q" id="vat" data-topics="부가세|세무 일정" data-label="부가가치세">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 34h38v9H5z"/><path d="M20 39h8"/><path d="M9 34l3-12h24l3 12"/><path d="M27 22v-7h12v7"/><path class="g" d="M11 22V6h11v16"/><path class="g" d="M14 15l5-6M14 9h0M19 15h0"/><path d="M17 27h2M23 27h2M29 27h2"/></svg>
+      <span>부가가치세</span>
+    </button>
+    <button type="button" class="nh-q" id="income" data-topics="종합소득세|세무 일정" data-label="종합소득세">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18h32a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H6z"/><path d="M6 18l24-8 3 8"/><path d="M42 27h-8a4 4 0 0 0 0 8h8"/><circle cx="35" cy="31" r="1.5"/><path class="g" d="M14 34l6-6 4 3 8-9M28 22h4v4"/></svg>
+      <span>종합소득세</span>
+    </button>
+  </nav>
 
-    <article class="nh-group" id="cert" data-topics="민원증명|사업자 기본">
-      <h2 class="nh-pill">민원증명 발급</h2>
-      <div class="nh-icons" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 18h14M17 25h16M17 32h12"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M6 22L24 6l18 16"/><path d="M11 18v24h26V18"/><rect class="g" x="20" y="28" width="8" height="14"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10z"/><path d="M15 16h14M15 23h18"/><path class="g" d="M16 36c4-6 6 2 9-3s4 3 8-1"/></svg>
-      </div>
-      <ul>
-        <li>사업자등록증명</li>
-        <li>소득금액증명</li>
-        <li>부가세 과세표준증명</li>
-      </ul>
-      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
-    </article>
-
-    <article class="nh-group" id="vat" data-topics="부가세|세무 일정">
-      <h2 class="nh-pill">부가가치세</h2>
-      <div class="nh-icons" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="3"/><rect class="g" x="15" y="9" width="18" height="8"/><path d="M16 24h2M23 24h2M30 24h2M16 31h2M23 31h2M30 31h2M16 38h2M23 38h2M30 38h2"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M6 8h36"/><rect x="10" y="30" width="5" height="10"/><rect x="21" y="24" width="5" height="16"/><rect x="32" y="18" width="5" height="22"/><path class="g" d="M10 24l9-8 7 5 12-11"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12z"/><path class="g" d="M17 16h12M17 23h16M17 30h16M17 37h10"/></svg>
-      </div>
-      <ul>
-        <li>일반과세자 신고</li>
-        <li>간이과세자 신고</li>
-        <li>신고 기한</li>
-      </ul>
-      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
-    </article>
-
-    <article class="nh-group" id="income" data-topics="종합소득세|세무 일정">
-      <h2 class="nh-pill">종합소득세</h2>
-      <div class="nh-icons" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="22" rx="2"/><path d="M4 38h40"/></svg>
-        <svg viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="3"/><rect class="g" x="15" y="9" width="18" height="8"/><path d="M16 24h2M23 24h2M30 24h2M16 31h2M23 31h2M30 31h2M16 38h2M23 38h2M30 38h2"/></svg>
-        <svg viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10z"/><path d="M15 16h14M15 23h18"/><path class="g" d="M16 36c4-6 6 2 9-3s4 3 8-1"/></svg>
-      </div>
-      <ul>
-        <li>5월 종합소득세 신고</li>
-        <li>장부·경비 처리</li>
-        <li>환급 확인</li>
-      </ul>
-      <button type="button" class="nh-btn" data-filter>관련 글 보기</button>
-    </article>
-  </section>
+  <div class="nh-search" role="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+    <input type="search" id="nh-search" placeholder="궁금한 신고나 서류를 검색해 보세요 (예: 납세증명서)" aria-label="글 검색" autocomplete="off">
+  </div>
 
   <div class="nh-list-head">
     <h2 class="post-list-heading" id="posts">최신 글</h2>
@@ -79,7 +41,7 @@ layout: default
     {%- assign parts = post.title | split: ": " %}
     {%- assign main_title = parts | first %}
     {%- assign sub_title = post.title | remove_first: main_title | remove_first: ": " %}
-    <li class="post-card" data-topic="{{ post.topic | default: '기타' }}">
+    <li class="post-card" data-topic="{{ post.topic | default: '기타' }}" data-search="{{ post.title | append: ' ' | append: post.topic | append: ' ' | append: post.content | strip_html | strip_newlines | truncate: 2000 | escape }}">
       <a class="post-card-link" href="{{ post.url | relative_url }}">
         {%- if post.image %}
         <img class="post-card-thumb" src="{{ post.image | relative_url }}" alt="" loading="lazy" width="1200" height="630">
@@ -109,24 +71,35 @@ layout: default
     var empty = document.querySelector(".post-cards-empty");
     var heading = document.getElementById("posts");
     var reset = document.querySelector(".nh-reset");
-    function show(group) {
+    var search = document.getElementById("nh-search");
+    var qs = document.querySelectorAll(".nh-q");
+    // 분야 아이콘(group) 또는 검색어(q) 중 하나로 최신 글 목록을 거른다
+    function show(group, q) {
       var topics = group ? group.getAttribute("data-topics").split("|") : null;
-      var shown = 0;
+      var words = (q || "").toLowerCase().split(/s+/).filter(Boolean), shown = 0;
       cards.forEach(function (c) {
-        var on = !topics || topics.indexOf(c.getAttribute("data-topic")) >= 0;
+        var text = (c.getAttribute("data-search") || "").toLowerCase();
+        var on = (!topics || topics.indexOf(c.getAttribute("data-topic")) >= 0) &&
+                 words.every(function (w) { return text.indexOf(w) >= 0; });
         c.hidden = !on; if (on) shown++;
       });
+      empty.textContent = words.length ? "검색 결과가 없어요. 다른 말로 찾아보세요." : "이 분야의 글은 준비 중이에요.";
       empty.hidden = shown > 0;
-      heading.textContent = group ? group.querySelector(".nh-pill").textContent + " 글" : "최신 글";
-      reset.hidden = !group;
+      heading.textContent = group ? group.getAttribute("data-label") + " 글" : (words.length ? "검색 결과 " + shown + "건" : "최신 글");
+      reset.hidden = !group && !words.length;
+      qs.forEach(function (b) { b.setAttribute("aria-pressed", b === group); });
     }
-    document.querySelectorAll("[data-filter]").forEach(function (b) {
+    qs.forEach(function (b) {
       b.addEventListener("click", function () {
-        show(b.closest(".nh-group"));
+        search.value = ""; show(b);
         heading.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
-    reset.addEventListener("click", function () { show(null); });
+    search.addEventListener("input", function () { show(null, search.value); });
+    reset.addEventListener("click", function () { search.value = ""; show(null); });
+    // 상단 메뉴(#invoice 등)로 들어오면 그 분야 글을 바로 보여 준다
+    function fromHash() { var b = location.hash && document.getElementById(location.hash.slice(1)); if (b && b.classList.contains("nh-q")) show(b); }
+    window.addEventListener("hashchange", fromHash); fromHash();
   })();
   // 신고 기간 지남 배지: 방문자 브라우저의 오늘 날짜로 다시 판단 (빌드가 없던 날에도 맞게)
   document.querySelectorAll(".post-card-closed").forEach(function (b) {

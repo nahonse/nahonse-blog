@@ -13,8 +13,10 @@
     <button type="button" data-g="boss" aria-pressed="true">사장님 일정</button>
     <button type="button" data-g="all" aria-pressed="false">국세청 전체 일정</button>
   </div>
-  <div class="nh-cal-grid" id="nh-cal-grid"></div>
-  <ul class="nh-cal-list" id="nh-cal-list"></ul>
+  <div class="nh-cal-body">
+    <div class="nh-cal-grid" id="nh-cal-grid"></div>
+    <ul class="nh-cal-list" id="nh-cal-list" aria-label="세부 일정"></ul>
+  </div>
   <p class="nh-cal-src">출처: <a href="{{ ts.url }}">국세청 세무일정</a> ({{ ts.checked }} 확인). 기한이 토·일·공휴일이면 다음 날로 옮겨진 날짜예요.</p>
 </section>
 <script>

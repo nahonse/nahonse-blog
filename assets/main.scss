@@ -182,79 +182,28 @@ body {
 
 // ---------- 홈 화면 (_layouts/home.html) ----------
 .home { padding-top: 8px; }
-.nh-groups {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px 16px;
-  margin: 18px 0 36px;
-  @media (min-width: 700px) { grid-template-columns: repeat(2, 1fr); }
+// 할 일 아이콘 한 줄(4개)
+.nh-quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 14px; }
+.nh-q {
+  scroll-margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 4px 10px; border: 1px solid #e4dfec; border-radius: 12px; background: #fff;
+  font: inherit; font-size: 14px; font-weight: 700; color: #1e1433; cursor: pointer; word-break: keep-all; text-align: center;
+  svg { width: 40px; height: 40px; fill: none; stroke: #3b2a5e; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+        .g { stroke: $gold-dark; } }
+  &:hover { border-color: $brand-color; }
+  &[aria-pressed="true"] { border-color: $brand-color; background: #f4f0fa; color: $brand-color; }
+  @media (max-width: 480px) { font-size: 12.5px; svg { width: 34px; height: 34px; } }
 }
-.nh-group {
-  position: relative;
-  scroll-margin-top: 16px;
-  border: 1px solid #d9d3e4;
-  border-radius: 14px;
-  padding: 34px 18px 18px;
-  text-align: center;
-  background: #fff;
-  ul {
-    list-style: none;
-    margin: 14px 0 16px;
-    text-align: left;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1e1433;
-    li::before { content: "•"; color: $brand-color; margin-right: 8px; }
-  }
+// 글 검색
+.nh-search {
+  position: relative; margin: 0 0 26px;
+  svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;
+        fill: none; stroke: #6b6380; stroke-width: 2; stroke-linecap: round; }
+  input { width: 100%; box-sizing: border-box; padding: 12px 14px 12px 42px; border: 1.5px solid #d9d3e4; border-radius: 999px;
+          font: inherit; font-size: 15px; background: #fff;
+          &:focus { outline: none; border-color: $brand-color; box-shadow: 0 0 0 3px rgba(39, 19, 80, .12); } }
 }
-.nh-pill {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  white-space: nowrap;
-  background: $brand-color;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 800;
-  padding: 6px 26px;
-  border-radius: 999px;
-}
-.nh-icons {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  svg {
-    width: 44px;
-    height: 44px;
-    fill: none;
-    stroke: #3b2a5e;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    .g { stroke: $gold-dark; }
-  }
-}
-.nh-btn, .nh-reset {
-  font: inherit;
-  cursor: pointer;
-  border: 0;
-  border-radius: 999px;
-}
-.nh-btn {
-  display: block;
-  width: 100%;
-  max-width: 180px;
-  margin: 0 auto;
-  padding: 9px 0;
-  background: $brand-color;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  &:hover { background: #3a2470; }
-}
+.nh-reset { font: inherit; cursor: pointer; border: 0; border-radius: 999px; }
 .nh-list-head {
   display: flex;
   align-items: center;
@@ -357,20 +306,20 @@ body {
 .post-content strong.red { color: #c62828; }
 
 // ---------- 홈 상단 월별 세무일정 달력 (_includes/tax-calendar.html) ----------
-.nh-cal { border: 1px solid #d9d3e4; border-radius: 14px; padding: 16px 14px 12px; margin: 18px 0 30px; background: #fff; }
+.nh-cal { border: 1px solid #d9d3e4; border-radius: 14px; padding: 12px 14px 10px; margin: 14px 0 16px; background: #fff; }
 .nh-cal-head { display: flex; align-items: center; justify-content: space-between; }
 .nh-cal-title { margin: 0; font-size: 20px; font-weight: 800; color: $brand-color; }
 .nh-cal-nav { width: 40px; height: 40px; border: 1px solid #d9d3e4; border-radius: 50%; background: #fff; color: $brand-color;
   font-size: 24px; line-height: 1; cursor: pointer; &:disabled { opacity: .3; cursor: default; } }
-.nh-cal-filter { display: flex; gap: 8px; margin: 12px 0; justify-content: center;
+.nh-cal-filter { display: flex; gap: 8px; margin: 8px 0 10px; justify-content: center;
   button { border: 1px solid $brand-color; background: #fff; color: $brand-color; border-radius: 999px; padding: 6px 14px;
     font-size: 14px; font-weight: 700; cursor: pointer; }
   button[aria-pressed="true"] { background: $brand-color; color: #fff; } }
-.nh-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.nh-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; align-content: start; }
 .nh-cal-w { font-size: 12px; color: #6b6380; padding: 4px 0; font-weight: 700;
   &:first-child { color: #c62828; } &:nth-child(7) { color: #2457a7; } }
-.nh-cal-d { position: relative; min-height: 42px; border: 0; border-radius: 8px; background: transparent; color: #333;
-  font-size: 15px; font-family: inherit; padding: 4px 0 14px;
+.nh-cal-d { position: relative; min-height: 34px; border: 0; border-radius: 8px; background: transparent; color: #333;
+  font-size: 13px; font-family: inherit; padding: 3px 0 12px;
   &.has { background: #f4f0fa; color: $brand-color; font-weight: 800; cursor: pointer; }
   &.past { opacity: .45; }
   &.today { outline: 2px solid $gold; }
@@ -378,8 +327,11 @@ body {
 .nh-cal-n { position: absolute; left: 50%; bottom: 3px; transform: translateX(-50%); min-width: 16px; padding: 0 4px; border-radius: 8px;
   background: $gold; color: $brand-color; font-size: 10px; line-height: 14px; font-weight: 800; }
 .nh-cal-d.on .nh-cal-n { background: #fff; }
-.nh-cal-list { list-style: none; margin: 14px 0 0; padding: 0; max-height: 320px; overflow-y: auto; }
-.nh-cal-day { margin-top: 10px; font-size: 14px; font-weight: 800; color: $brand-color; &.past { color: #999; } }
+.nh-cal-body { display: grid; grid-template-columns: 1fr; gap: 12px;
+  @media (min-width: 700px) { grid-template-columns: minmax(0, 330px) minmax(0, 1fr); gap: 20px; } }
+.nh-cal-list { list-style: none; margin: 0; padding: 0 4px 0 0; max-height: 210px; overflow-y: auto;
+  @media (min-width: 700px) { max-height: 300px; border-left: 1px solid #ece8f2; padding-left: 16px; } }
+.nh-cal-day { margin-top: 8px; &:first-child { margin-top: 0; } font-size: 14px; font-weight: 800; color: $brand-color; &.past { color: #999; } }
 .nh-cal-item { padding: 6px 0 6px 10px; border-left: 3px solid $gold; margin-top: 4px; font-size: 14px; line-height: 1.45;
   b { display: block; font-weight: 700; } span { color: #6b6380; font-size: 13px; }
   &.past { opacity: .5; } }
