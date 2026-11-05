@@ -6,6 +6,8 @@
 #       글 내용은 assets/threads/<슬러그>/post.txt (500자 이내, 이모지는 바이트 단위로 셈)
 #       주제 태그(선택, 1개만): assets/threads/<슬러그>/topic.txt (1~50자, 마침표·& 금지)
 #       블로그 글 링크는 _posts/에서 슬러그로 찾아 미리보기 카드(link_attachment)로 붙인다.
+#       이미지(선택): assets/threads/<슬러그>/image.png 가 있으면 글 + 이미지 1장으로 올린다(네컷만화, 2026-11-06).
+#                     이미지 글에는 링크 카드가 붙지 않으므로 post.txt 끝에 블로그 주소를 적는다. 이미지는 사이트에 먼저 올려 둔다.
 #
 # 사용법
 #   bash _tools/threads_upload.sh check            # 계정·게시 가능 횟수 확인 (게시하지 않음)
@@ -66,9 +68,14 @@ case "${1:-}" in
     link="$(post_url "$slug")"
     c="$(curl -s -o /dev/null -w '%{http_code}' -m 30 "$link")"
     [ "$c" = 200 ] || { echo "블로그 글이 아직 사이트에 없습니다($c): $link" >&2; exit 1; }
+    img=""; if [ -s "$dir/image.png" ]; then
+      img="$SITE/assets/threads/$slug/image.png"
+      c="$(curl -s -o /dev/null -w '%{http_code}' -m 30 "$img")"
+      [ "$c" = 200 ] || { echo "사이트에 이미지가 없습니다($c): $img" >&2; exit 1; }
+    fi
     topic=""; [ -s "$dir/topic.txt" ] && topic="$(head -1 "$dir/topic.txt" | tr -d '\r')"
     if [ "$1" = preview ]; then
-      echo "링크 카드: $link"; echo "주제 태그: ${topic:-(없음)}"; echo "----"; cat "$txt"; echo "----"
+      if [ -n "$img" ]; then echo "이미지: $img (링크 카드 없음)"; else echo "링크 카드: $link"; fi; echo "주제 태그: ${topic:-(없음)}"; echo "----"; cat "$txt"; echo "----"
       exit 0
     fi
     load_token
@@ -77,7 +84,11 @@ case "${1:-}" in
     # 윈도우 curl은 한글 인자·한글 경로를 깨뜨리므로 영문 경로로 복사해서 파일로 넘긴다.
     tcopy="$HOME/.tax-blog/threads_upload.txt"; cp "$txt" "$tcopy"
     tw="$(cygpath -m "$tcopy" 2>/dev/null || echo "$tcopy")"
-    args=( --data-urlencode "media_type=TEXT" --data-urlencode "text@$tw" --data-urlencode "link_attachment=$link" )
+    if [ -n "$img" ]; then
+      args=( --data-urlencode "media_type=IMAGE" --data-urlencode "image_url=$img" --data-urlencode "text@$tw" )
+    else
+      args=( --data-urlencode "media_type=TEXT" --data-urlencode "text@$tw" --data-urlencode "link_attachment=$link" )
+    fi
     if [ -n "$topic" ]; then
       pcopy="$HOME/.tax-blog/threads_topic.txt"; printf '%s' "$topic" > "$pcopy"
       args+=( --data-urlencode "topic_tag@$(cygpath -m "$pcopy" 2>/dev/null || echo "$pcopy")" )

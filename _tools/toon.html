@@ -1,0 +1,112 @@
+<!doctype html>
+<!--
+  나혼세 네컷만화 첫 장(세로 1080x1350) 초안. 고양이 사장님 + 강아지 이웃 사장님(임시 SVG 그림).
+  캡처: chrome --headless=new --hide-scrollbars --window-size=1080,1350 --virtual-time-budget=8000
+        --screenshot="assets/insta/슬러그/1.png" "file:///.../_tools/toon.html#슬러그"
+  칸: { bg, scene(그림 SVG 문자열), talk:[[말한 사람, 대사], ...] }
+  대사의 기한·금액은 검토를 거친 블로그 글과 같게 쓰고 tax-fact-checker 검토를 받는다. 겁주는 장면은 쓰지 않는다(당황 → 해결).
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --brand:#271350; --gold:#c7ad89; --ink:#1e1e1e; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body { font-family: "Pretendard","Malgun Gothic",sans-serif; color: var(--ink); word-break: keep-all; background: var(--brand); padding: 44px 44px 0; }
+  h1 { color: #fff; font-size: 56px; font-weight: 900; letter-spacing: -1.5px; text-align: center; margin-bottom: 30px; }
+  h1 b { color: var(--gold); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 1110px; }
+  .cell { position: relative; border: 6px solid var(--ink); border-radius: 14px; overflow: hidden; background: #fff; }
+  .cell svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .talk { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .bubble { background: #fff; border: 4px solid var(--ink); border-radius: 22px; padding: 10px 18px; font-size: 29px; font-weight: 800; line-height: 1.3; }
+  .bubble small { display: block; font-size: 19px; font-weight: 700; color: #8a6d45; }
+  .bubble.r { align-self: flex-end; }
+  .bubble em { font-style: normal; color: #c62828; }
+  .foot { display: flex; justify-content: space-between; color: var(--gold); font-size: 26px; padding: 22px 4px 0; }
+  .foot b { color: #fff; }
+</style>
+</head>
+<body>
+<h1 id="title"></h1>
+<div class="grid" id="grid"></div>
+<div class="foot"><b>@nahonse.kr</b><span id="date"></span></div>
+<script src="toon-chars.js"></script>
+<script>
+// r: 몸 기울기(도). 가운데 아래(150,300)를 축으로 돌린다.
+const put = (svg, x, y, s, r = 0) => `<g transform="translate(${x} ${y}) scale(${s}) rotate(${r} 150 300)">${svg}</g>`;
+const arrow = (x, y) => `<path transform="translate(${x} ${y})" d="M0 -14 h44 v-20 l40 34 l-40 34 v-20 h-44z" fill="#ffd34d" ${L}/>`;
+const desk = (c) => `<rect x="-10" y="430" width="520" height="120" fill="${c}" ${L}/>`;
+const laptop = (x, y, screen = "") => `<g transform="translate(${x} ${y})">
+  <rect x="0" y="0" width="190" height="122" rx="10" fill="#c9ccd3" ${L}/>
+  <rect x="12" y="12" width="166" height="98" rx="4" fill="#fff" stroke="#1e1e1e" stroke-width="3"/>${screen}
+  <path d="M-24 124 h238 l-10 16 h-218z" fill="#a9adb6" ${L}/></g>`;
+const calendar = (x, y, k = 1) => `<g transform="translate(${x} ${y}) scale(${k}) rotate(6 60 60)">
+  <rect x="0" y="0" width="120" height="120" rx="8" fill="#fff" ${L}/><rect x="0" y="0" width="120" height="34" rx="8" fill="#e5636b" ${L}/>
+  <text x="60" y="26" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">11월</text>
+  <text x="60" y="94" text-anchor="middle" font-size="46" font-weight="900" fill="#1e1e1e">30</text>
+  <ellipse cx="60" cy="78" rx="38" ry="30" fill="none" stroke="#e5636b" stroke-width="5"/></g>`;
+const paper = (x, y, r, title = "납부고지서", foot = "~11.30") => `<g transform="translate(${x} ${y}) rotate(${r})">
+  <rect x="0" y="0" width="150" height="190" rx="6" fill="#fff" ${L}/>
+  <text x="75" y="40" text-anchor="middle" font-size="22" font-weight="900">${title}</text>
+  <path d="M20 66 h110 M20 92 h110 M20 118 h70" stroke="#c9ccd3" stroke-width="6" stroke-linecap="round"/>
+  <text x="75" y="166" text-anchor="middle" font-size="19" font-weight="800" fill="#c62828">${foot}</text></g>`;
+const q = (x, y, k = 1) => `<text x="${x}" y="${y}" transform="rotate(-12 ${x} ${y})" font-size="${64 * k}" font-weight="900" fill="#271350" stroke="#fff" stroke-width="3" paint-order="stroke">?</text>`;
+const star = (x, y, s = 1) => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -22 l7 15 l16 2 l-12 11 l3 16 l-14 -8 l-14 8 l3 -16 l-12 -11 l16 -2z" fill="#ffd34d" stroke="#1e1e1e" stroke-width="4"/>`;
+
+const decks = {
+  "hometax-interim-prepayment-check": {
+    title: "11월, <b>중간예납</b> 고지서가 왔다",
+    date: "2026.11 · 1/8",
+    cells: [
+      { bg: "#dff0e3",
+        scene: calendar(350, 120, 1.2) + q(310, 170) + q(70, 210, 0.8) + desk("#7cbf8a") + laptop(300, 318)
+          + pic("cat-talk", 150, 600, 470, { rot: -4 }),
+        talk: [["", "11월엔 중간예납이<br>있다던데… 얼마지?"]] },
+      { bg: "#fbe1e8",
+        scene: focus(330, 330) + pic("cat-surprise", 330, 700, 520, { rot: 5 }) + marks(440, 130)
+          + pic("dog-talk", 90, 600, 330, { flip: true, rot: -6 }),
+        talk: [["이웃 사장님", "작년(2025년) 소득분 세금의<br><em>절반</em>을 미리 내요"], ["", "그렇게나?!", "r"]] },
+      { bg: "#fdf1d6",
+        scene: burst(380, 360) + desk("#e7b98e") + pic("cat-happy", 140, 620, 470, { rot: 8 }) + laptop(290, 318,
+          '<text x="95" y="44" text-anchor="middle" font-size="17" font-weight="900" fill="#271350">중간예납</text><text x="95" y="68" text-anchor="middle" font-size="17" font-weight="900" fill="#271350">고지 세액 조회</text><rect x="40" y="80" width="110" height="18" rx="9" fill="#c7ad89"/>')
+          + star(470, 260, 0.9) + star(300, 240, 0.6) + star(250, 470, 0.5),
+        talk: [["", "홈택스에서<br>내 금액이 보인다고?"]] },
+      { bg: "#e6e1f7",
+        scene: burst(330, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 110, 500, 330, { rot: -12 }) + motion(40, 470, 0.8)
+          + pic("dog-talk", 320, 600, 420, { flip: true, rot: 6 }) + arrow(410, 250) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "제가 알려 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
+  "hometax-income-certificate": {
+    title: "<b>소득금액증명</b> 내라는데요?",
+    date: "2026.11 · 1/6",
+    cells: [
+      { bg: "#e3eefb",
+        scene: paper(330, 150, 8, "소득금액증명", "제출 서류") + desk("#9cc1e8") + pic("cat-talk", 150, 600, 470, { rot: -4 }),
+        talk: [["은행", "대출 서류로<br>소득금액증명 내 주세요"], ["", "네! 준비할게요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: focus(300, 330) + pic("cat-surprise", 280, 700, 520, { rot: -5 }) + marks(420, 140),
+        talk: [["", "세무서까지<br>가야 하나?!"]] },
+      { bg: "#fdf1d6",
+        scene: burst(320, 380) + desk("#e7b98e") + pic("dog-talk", 330, 620, 450, { flip: true, rot: 4 }) + pic("cat-neutral", 110, 640, 330, { rot: -6 }) + q(70, 300, 0.8),
+        talk: [["이웃 사장님", "홈택스 <em>즉시발급 증명</em><br>메뉴에서 바로 떼요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(330, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 110, 500, 330, { rot: -12 }) + motion(40, 470, 0.8)
+          + pic("dog-talk", 320, 600, 420, { flip: true, rot: 6 }) + arrow(410, 250) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "제가 알려 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
+};
+
+const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
+document.getElementById("title").innerHTML = deck.title;
+document.getElementById("date").textContent = deck.date;
+document.getElementById("grid").innerHTML = deck.cells.map(c => `<div class="cell" style="background:${c.bg}">
+  <svg viewBox="0 0 500 540" preserveAspectRatio="xMidYMax slice">${c.scene}</svg>
+  <div class="talk">${c.talk.map(([who, t, side]) => `<div class="bubble ${side || ""}">${who ? `<small>${who}</small>` : ""}${t}</div>`).join("")}</div></div>`).join("");
+</script>
+</body>
+</html>

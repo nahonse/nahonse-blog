@@ -69,6 +69,18 @@
   .cap { margin-top: 30px; font-size: 38px; line-height: 1.45; font-weight: 600; }
   .when { position: absolute; right: 80px; bottom: 112px; font-size: 26px; color: var(--sub); }
 
+  /* 강아지 안내(덱에 guide: true): 설명 문장을 강아지 말풍선으로 */
+  .guide { margin-top: 26px; display: flex; align-items: flex-end; gap: 6px; }
+  .guide .cap { margin: 0 0 40px; flex: 1; background: #fff; border: 4px solid var(--ink); border-radius: 28px; padding: 22px 28px; position: relative; }
+  .guide .cap::after { content: ""; position: absolute; right: -22px; bottom: 30px; border: 14px solid transparent; border-left: 22px solid var(--ink); }
+  .guide .guide-pic { flex: none; height: 220px; }
+  .has-guide .shot img { max-height: 560px; }
+
+  /* 캐릭터가 띠 오른쪽에서 고개를 내밂(덱에 guide: true) */
+  .peek { position: absolute; top: 6px; right: 70px; height: 200px; z-index: 2; object-fit: cover; object-position: top; width: 150px; }
+  .duo { position: absolute; right: 70px; bottom: 120px; display: flex; }
+  .duo img { height: 300px; }
+
   /* end */
   .end .big { font-size: 64px; font-weight: 900; color: var(--brand); line-height: 1.3; letter-spacing: -1.5px; }
   .end .text { margin-top: 44px; font-size: 40px; line-height: 1.55; font-weight: 600; }
@@ -77,10 +89,12 @@
 </head>
 <body>
 <div id="root"></div>
+<script src="toon-chars.js"></script>
 <script>
 const decks = {
   "hometax-interim-prepayment-check": {
     date: "2026.11.04 기준",
+    guide: true,   // 설명 장에 강아지 안내(1장은 _tools/toon.html 네컷만화로 바꿔 끼움)
     slides: [
       { type: "cover", label: "종합소득세 중간예납", title: "11월 고지서,\n**내 금액** 홈택스로\n조회하는 법", badge: "📅 납부기한 11월 30일(월)", sub: "개인사업자라면 11월에 꼭 확인하세요" },
       { type: "facts", title: "중간예납이 뭐예요?", rows: [["11월 30일", "상반기분 종합소득세를 미리 내는 기한"], ["기준액의 ½", "2025년 귀속 중간예납·확정신고 세액 기준"], ["50만원 미만", "고지하지 않아요(징수 안 함)"]],
@@ -90,13 +104,14 @@ const decks = {
       { type: "step", step: 1, title: "메뉴 찾아가기", path: "전체메뉴 > 세금신고 > 종합소득세 신고 > 중간예납 고지 세액 조회", img: "assets/insta/hometax-interim-prepayment-check/src-menu.png", caption: "개인으로 로그인해도 이 화면은 열려요" },
       { type: "step", step: 2, title: "조회 누르기", path: "귀속년도 2026 확인 → ① 조회", img: "assets/insta/hometax-interim-prepayment-check/src-query.png", img2: "assets/insta/hometax-interim-prepayment-check/src-result.png", caption: "② 표에 고지세액이 나와요. 대상이 아니거나 50만원 미만이면 **조회된 결과가 없습니다**" },
       { type: "step", step: 3, title: "납부하기", path: "전체메뉴 > 납부·고지·환급 > 납부할 세액 조회/납부", img: "assets/insta/hometax-interim-prepayment-check/src-pay.png", caption: "조회 화면의 **납부하러 가기** 버튼으로도 갈 수 있어요" },
-      { type: "facts", title: "꼭 알아 두세요", rows: [["1천만원 초과", "일부를 나눠 낼 수 있어요(분납, 2027.2.1.까지)"], ["11월 30일", "넘기면 납부지연가산세가 붙을 수 있어요"]],
+      { type: "facts", title: "꼭 알아 두세요", pic: "cat-surprise", rows: [["1천만원 초과", "일부를 나눠 낼 수 있어요(분납, 2027.2.1.까지)"], ["11월 30일", "넘기면 납부지연가산세가 붙을 수 있어요"]],
         note: "고지가 없어도, 직전 연도 낸 세액이 없는 복식부기의무자가 상반기 사업소득이 있으면 11월 30일까지 신고·납부해야 해요" },
       { type: "end", title: "화면 전체 순서와\n분납·추계액 신고는\n블로그에 정리했어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 소득세법 제65·77·86조, 국세청 안내\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
   "hometax-income-certificate": {
     date: "2026.11.05 기준",
+    guide: true,
     slides: [
       { type: "cover", label: "민원증명 발급", title: "소득금액증명,\n**집에서** 홈택스로\n떼는 법", badge: "📄 즉시발급 증명 메뉴", sub: "대출·입찰·관공서에 소득 증명 낼 때" },
       { type: "facts", title: "언제부터 뗄 수 있어요?", rows: [["5월 1일~", "2025년 귀속 근로소득자용, 연말정산한 사업소득자용 등"], ["7월 1일~", "2025년 귀속 종합소득세 신고자용"], ["법인 불가", "법인사업자는 발급할 수 없어요"]],
@@ -132,12 +147,20 @@ if (s.type === "cover") {
     ${s.note ? `<p class="note redbox">${md(s.note)}</p>` : ""}</div>${foot}</div>`;
 } else if (s.type === "step") {
   const img = p => `<div class="shot"><img src="../${p}"></div>`;
-  root.innerHTML = `<div class="slide">${band(s.step, s.title)}<div class="body"><div class="path">${s.path}</div>
-    ${img(s.img)}${s.img2 ? img(s.img2) : ""}<p class="cap">${md(s.caption)}</p></div>
+  root.innerHTML = `<div class="slide${deck.guide ? " has-guide" : ""}">${band(s.step, s.title)}<div class="body"><div class="path">${s.path}</div>
+    ${img(s.img)}${s.img2 ? img(s.img2) : ""}${deck.guide
+      ? `<div class="guide"><p class="cap">${md(s.caption)}</p><img class="guide-pic" src="${TOON}${s.guide_pic || "dog-talk"}.png"></div>`
+      : `<p class="cap">${md(s.caption)}</p>`}</div>
     <div class="when">2026년 11월 기준 화면</div>${foot}</div>`;
 } else {
   root.innerHTML = `<div class="slide end">${band("", "더 자세한 내용은")}<div class="body"><p class="big">${s.title.replace(/\n/g, "<br>")}</p>
     <p class="text">${s.text.replace(/\n/g, "<br>")}</p><p class="src">${s.source.replace(/\n/g, "<br>")}</p></div>${foot}</div>`;
+}
+if (deck.guide && s.type !== "cover" && s.type !== "step") {
+  const slide = root.firstElementChild;
+  const P = s.pic || { facts: "cat-talk", calc: "dog-talk" }[s.type];
+  if (P) slide.insertAdjacentHTML("beforeend", `<img class="peek" src="${TOON}${P}.png">`);
+  if (s.type === "end") slide.insertAdjacentHTML("beforeend", `<div class="duo"><img src="${TOON}cat-happy.png"><img src="${TOON}dog-happy.png"></div>`);
 }
 </script>
 </body>
