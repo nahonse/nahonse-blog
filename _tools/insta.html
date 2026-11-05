@@ -160,7 +160,7 @@ if (deck.guide && s.type !== "cover" && s.type !== "step") {
   const slide = root.firstElementChild;
   const P = s.pic || { facts: "cat-talk", calc: "dog-talk" }[s.type];
   if (P) slide.insertAdjacentHTML("beforeend", `<img class="peek" src="${TOON}${P}.png">`);
-  if (s.type === "end") slide.insertAdjacentHTML("beforeend", `<div class="duo"><img src="${TOON}cat-happy.png"><img src="${TOON}dog-happy.png"></div>`);
+  if (s.type === "end") slide.insertAdjacentHTML("beforeend", `<div class="duo"><img src="${TOON}cat-cheer.png"><img src="${TOON}dog-cheer.png"></div>`);
 }
 </script>
 </body>
