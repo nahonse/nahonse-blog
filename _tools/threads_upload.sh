@@ -7,7 +7,8 @@
 #       주제 태그(선택, 1개만): assets/threads/<슬러그>/topic.txt (1~50자, 마침표·& 금지)
 #       블로그 글 링크는 _posts/에서 슬러그로 찾아 미리보기 카드(link_attachment)로 붙인다.
 #       이미지(선택): assets/threads/<슬러그>/image.png 가 있으면 글 + 이미지 1장으로 올린다(네컷만화, 2026-11-06).
-#                     이미지 글에는 링크 카드가 붙지 않으므로 post.txt 끝에 블로그 주소를 적는다. 이미지는 사이트에 먼저 올려 둔다.
+#                     이미지 글에는 링크 카드가 붙지 않으므로 reply.txt 가 있으면 바로 내 글에 답글을 달아 링크 카드를 붙인다.
+#                     이미 올린 글에 카드만 붙이기: bash _tools/threads_upload.sh linkreply <슬러그>
 #
 # 사용법
 #   bash _tools/threads_upload.sh check            # 계정·게시 가능 횟수 확인 (게시하지 않음)
@@ -50,6 +51,16 @@ check_text() {
   n="$(LC_ALL=C.UTF-8 wc -m < "$txt" | tr -d ' ')"
   echo "글자 수: $n / 500"
   [ "$n" -le 500 ] || { echo "500자를 넘습니다. 줄여 주세요." >&2; exit 1; }
+}
+
+# 이미지 글 아래에 블로그 링크 카드를 답글로 붙인다(이미지 글에는 link_attachment가 안 붙음). $1=내 사용자ID $2=글ID $3=답글 파일 $4=링크
+link_reply() {
+  local rc="$HOME/.tax-blog/threads_reply_upload.txt"; cp "$3" "$rc"; local rw; rw="$(cygpath -m "$rc" 2>/dev/null || echo "$rc")"
+  local r cid; r="$(cr -s -m 60 -X POST "$API/$1/threads" --data-urlencode "media_type=TEXT" --data-urlencode "text@$rw" \n        --data-urlencode "reply_to_id=$2" --data-urlencode "link_attachment=$4" --data-urlencode "access_token=$TOKEN")"
+  fail_if_error "$r"; cid="$(printf '%s' "$r" | jget id)"; [ -n "$cid" ] || { echo "링크 답글 컨테이너 실패: $r" >&2; return 1; }
+  sleep 30
+  r="$(curl -s -m 60 -X POST "$API/$1/threads_publish" --data-urlencode "creation_id=$cid" --data-urlencode "access_token=$TOKEN")"
+  fail_if_error "$r"; echo "링크 카드 답글 게시 완료: $4"
 }
 
 case "${1:-}" in
@@ -102,6 +113,19 @@ case "${1:-}" in
     fail_if_error "$r"; mid="$(printf '%s' "$r" | jget id)"
     plink="$(curl -s -m 30 -G "$API/$mid" --data-urlencode "fields=permalink" --data-urlencode "access_token=$TOKEN" | jget permalink | sed 's#\\/#/#g')"
     echo "게시 완료: ${plink:-$mid}"
+    if [ -n "$img" ] && [ -s "$dir/reply.txt" ]; then link_reply "$id" "$mid" "$dir/reply.txt" "$link"; fi
+    ;;
+  linkreply)   # 이미 올린 이미지 글(post.txt 첫 줄로 찾음)에 링크 카드 답글만 붙인다
+    slug="${2:?슬러그를 넣어 주세요}"; dir="$ROOT/assets/threads/$slug"
+    [ -s "$dir/reply.txt" ] || { echo "답글 파일이 없습니다: $dir/reply.txt" >&2; exit 1; }
+    link="$(post_url "$slug")"; load_token
+    r="$(cr -s -m 30 -G "$API/me" --data-urlencode "fields=id" --data-urlencode "access_token=$TOKEN")"; fail_if_error "$r"; id="$(printf '%s' "$r" | jget id)"
+    first="$(head -1 "$dir/post.txt" | tr -d '')"
+    mid="$(cr -s -m 30 -G "$API/me/threads" --data-urlencode "fields=id,text" --data-urlencode "limit=20" --data-urlencode "access_token=$TOKEN" |
+         FIRST="$first" node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const p=(JSON.parse(d).data||[]).find(x=>(x.text||"").split("
+")[0].trim()===process.env.FIRST.trim());if(p)console.log(p.id)})')"
+    [ -n "$mid" ] || { echo "그 글을 찾지 못했습니다(첫 줄: $first)" >&2; exit 1; }
+    link_reply "$id" "$mid" "$dir/reply.txt" "$link"
     ;;
   comments)
     load_token

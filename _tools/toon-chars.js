@@ -1,10 +1,13 @@
 // 나혼세 만화 캐릭터(고양이 사장님·강아지 이웃 사장님). toon.html(네컷만화)과 insta.html(설명 장)이 같이 쓴다.
-// 캐릭터 그림: assets/toon/*.png (사용자 제공 시트 이모션1~5에서 잘라 배경 투명, 원본 jpg는 커밋 안 함)
+// 캐릭터 그림: assets/toon/*.png (사용자 제공 시트 이모션1~6에서 잘라 배경 투명, 원본 jpg는 커밋 안 함)
 //   공통(dog-·cat-): neutral 기본, talk 말하기, surprise 놀람, panic 당황, happy 기쁨, cry 울음,
 //                    angry 화남, tired 지침, cheer 만세, laptop 노트북 작업, phone 통화 당황, slam 책상 쾅, faint 기절(몸 뒤쪽이 잘림 → 칸 아래로 자르기), yay 만세2
 //   강아지만: think 궁금(전구?), smug 팔짱 으쓱, bored 턱 괴기(상반신)   고양이만: idea 떠오름(전구), shock 파랗게 질림, wink 윙크, mad 팔짱 화남
 //   (이모션4·5) 공통: sly 팔짱 능청, wonder 갸웃(?), yawn 하품, tongue 메롱 윙크, sulk 팔짱 씩씩(김), sob 무릎 꿇고 펑펑, scared 파랗게 떨림, scheme 음흉한 웃음
 //   강아지만: giggle 입 가리고 윙크, grin 씨익   고양이만: excited 눈 반짝, cute 두 손 모으고 방긋
+//   (이모션6) 가리키기: dog-point-left·dog-point-left2(왼쪽), dog-point-right, cat-point-right, cat-point-both(양쪽)
+//            그 밖: dog-rub 손 비비기, dog-wave 씨익 손 흔들기, cat-kneel 무릎 꿇고 방긋, cat-present·cat-present2 손 내밀어 소개
+//   캡처 설명 장 강아지 기본값은 dog-point-left(말풍선이 왼쪽). 장마다 바꾸려면 슬라이드에 guide_pic.
 const L = 'stroke="#1e1e1e" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"';
 const TOON = "../assets/toon/";
 // SVG 안에 캐릭터 놓기. (x,y)=발 가운데, h=키. o.flip 좌우 반전, o.rot 기울기(도)

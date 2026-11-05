@@ -149,7 +149,7 @@ if (s.type === "cover") {
   const img = p => `<div class="shot"><img src="../${p}"></div>`;
   root.innerHTML = `<div class="slide${deck.guide ? " has-guide" : ""}">${band(s.step, s.title)}<div class="body"><div class="path">${s.path}</div>
     ${img(s.img)}${s.img2 ? img(s.img2) : ""}${deck.guide
-      ? `<div class="guide"><p class="cap">${md(s.caption)}</p><img class="guide-pic" src="${TOON}${s.guide_pic || "dog-talk"}.png"></div>`
+      ? `<div class="guide"><p class="cap">${md(s.caption)}</p><img class="guide-pic" src="${TOON}${s.guide_pic || "dog-point-left"}.png"></div>`
       : `<p class="cap">${md(s.caption)}</p>`}</div>
     <div class="when">2026년 11월 기준 화면</div>${foot}</div>`;
 } else {
