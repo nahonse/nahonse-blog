@@ -56,7 +56,8 @@ check_text() {
 # 이미지 글 아래에 블로그 링크 카드를 답글로 붙인다(이미지 글에는 link_attachment가 안 붙음). $1=내 사용자ID $2=글ID $3=답글 파일 $4=링크
 link_reply() {
   local rc="$HOME/.tax-blog/threads_reply_upload.txt"; cp "$3" "$rc"; local rw; rw="$(cygpath -m "$rc" 2>/dev/null || echo "$rc")"
-  local r cid; r="$(cr -s -m 60 -X POST "$API/$1/threads" --data-urlencode "media_type=TEXT" --data-urlencode "text@$rw" \n        --data-urlencode "reply_to_id=$2" --data-urlencode "link_attachment=$4" --data-urlencode "access_token=$TOKEN")"
+  local r cid; r="$(cr -s -m 60 -X POST "$API/$1/threads" --data-urlencode "media_type=TEXT" --data-urlencode "text@$rw" \
+        --data-urlencode "reply_to_id=$2" --data-urlencode "link_attachment=$4" --data-urlencode "access_token=$TOKEN")"
   fail_if_error "$r"; cid="$(printf '%s' "$r" | jget id)"; [ -n "$cid" ] || { echo "링크 답글 컨테이너 실패: $r" >&2; return 1; }
   sleep 30
   r="$(curl -s -m 60 -X POST "$API/$1/threads_publish" --data-urlencode "creation_id=$cid" --data-urlencode "access_token=$TOKEN")"
@@ -122,8 +123,7 @@ case "${1:-}" in
     r="$(cr -s -m 30 -G "$API/me" --data-urlencode "fields=id" --data-urlencode "access_token=$TOKEN")"; fail_if_error "$r"; id="$(printf '%s' "$r" | jget id)"
     first="$(head -1 "$dir/post.txt" | tr -d '')"
     mid="$(cr -s -m 30 -G "$API/me/threads" --data-urlencode "fields=id,text" --data-urlencode "limit=20" --data-urlencode "access_token=$TOKEN" |
-         FIRST="$first" node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const p=(JSON.parse(d).data||[]).find(x=>(x.text||"").split("
-")[0].trim()===process.env.FIRST.trim());if(p)console.log(p.id)})')"
+         FIRST="$first" node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const p=(JSON.parse(d).data||[]).find(x=>(x.text||"").split("\n")[0].trim()===process.env.FIRST.trim());if(p)console.log(p.id)})')"
     [ -n "$mid" ] || { echo "그 글을 찾지 못했습니다(첫 줄: $first)" >&2; exit 1; }
     link_reply "$id" "$mid" "$dir/reply.txt" "$link"
     ;;
