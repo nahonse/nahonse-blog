@@ -65,6 +65,12 @@ const cards = {
     stats: [["즉시발급", "홈택스 민원증명 메뉴"], ["2026.7.1~", "2025년 귀속 종소세 신고자용"], ["법인 불가", "법인사업자는 발급 불가"]],
     foot: "2026.11.05 기준 · 출처: 홈택스 화면 안내"
   },
+  "hometax-tax-clearance-certificate": {
+    label: "민원증명 발급",
+    title: "납세증명서(국세완납증명) 홈택스 발급",
+    stats: [["30일", "유효기간(발급일부터)"], ["대금 수령", "국가·지자체에서 대금 받을 때"], ["열람용 ✕", "열람용은 법적 효력 없음"]],
+    foot: "2026.11.05 기준 · 출처: 국세징수법, 홈택스 화면 안내"
+  },
 };
 const c = cards[decodeURIComponent(location.hash.slice(1))];
 document.getElementById("label").textContent = c.label;
