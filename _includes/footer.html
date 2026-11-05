@@ -1,0 +1,9 @@
+{%- comment -%} 나혼세 아래쪽 (minima footer.html 대신). 문의·개인정보처리방침 페이지를 만들면 nh-footer-links에 링크를 추가한다. {%- endcomment -%}
+<footer class="site-footer nh-footer">
+  <div class="wrapper">
+    <p class="nh-footer-name">나혼세 <span>나 혼자 세무신고</span></p>
+    <p>{{ site.description | escape }}</p>
+    <p>세무사가 아닌 개인이 공식 자료를 정리한 일반 안내예요. 개별 상황은 국세상담센터(126)에 문의하세요.</p>
+    <p class="nh-footer-links"><a href="{{ "/about/" | relative_url }}">소개</a> · <a href="{{ "/feed.xml" | relative_url }}">RSS</a></p>
+  </div>
+</footer>

@@ -337,3 +337,17 @@ body {
   &.past { opacity: .5; } }
 .nh-cal-empty { padding: 12px 0; color: #777; font-size: 14px; text-align: center; }
 .nh-cal-src { margin: 10px 0 0; font-size: 12px; color: #888; }
+
+// ---------- 홈 소개 한 줄 ----------
+.nh-intro { margin: 4px 0 14px; text-align: center; word-break: keep-all; }
+.nh-intro-title { margin: 0; font-size: 22px; font-weight: 800; color: $brand-color; letter-spacing: -0.4px;
+  @media (max-width: 480px) { font-size: 18px; } }
+.nh-intro-sub { margin: 4px 0 0; font-size: 13.5px; color: #6b6380; }
+
+// ---------- 아래쪽 (_includes/footer.html) ----------
+.nh-footer { margin-top: 40px; padding: 24px 0 32px; border-top: 3px solid $gold; background: #f7f5fa;
+  font-size: 13.5px; color: #6b6380; line-height: 1.6; word-break: keep-all;
+  p { margin: 0 0 6px; }
+  a { color: $brand-color; font-weight: 600; } }
+.nh-footer-name { font-size: 16px; font-weight: 800; color: $brand-color;
+  span { margin-left: 6px; font-size: 13px; font-weight: 600; color: $gold-dark; } }

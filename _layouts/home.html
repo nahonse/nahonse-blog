@@ -7,6 +7,10 @@ layout: default
   분야: 세무 일정, 세금계산서, 민원증명, 부가세, 종합소득세, 사업자 기본, 원천세·지급명세서(아이콘 없음, 최신 글에만)
 {%- endcomment -%}
 <div class="home">
+  <div class="nh-intro">
+    <p class="nh-intro-title">세무대리인 없이, 홈택스에서 직접 하는 방법</p>
+    <p class="nh-intro-sub">세무사가 아닌 개인이 국세청 자료를 바탕으로 정리했어요</p>
+  </div>
   {%- include tax-calendar.html -%}
   <nav class="nh-quick" aria-label="할 일별 글 모아보기">
     <button type="button" class="nh-q" id="invoice" data-topics="세금계산서" data-label="세금계산서">
@@ -76,7 +80,7 @@ layout: default
     // 분야 아이콘(group) 또는 검색어(q) 중 하나로 최신 글 목록을 거른다
     function show(group, q) {
       var topics = group ? group.getAttribute("data-topics").split("|") : null;
-      var words = (q || "").toLowerCase().split(/s+/).filter(Boolean), shown = 0;
+      var words = (q || "").toLowerCase().split(/\s+/).filter(Boolean), shown = 0;
       cards.forEach(function (c) {
         var text = (c.getAttribute("data-search") || "").toLowerCase();
         var on = (!topics || topics.indexOf(c.getAttribute("data-topic")) >= 0) &&
