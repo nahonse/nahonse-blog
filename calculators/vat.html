@@ -1,0 +1,208 @@
+---
+layout: page
+title: 부가세 예상 세액 계산기 (일반·간이과세자)
+permalink: /calculators/vat/
+description: 2026년 귀속 부가가치세를 일반과세자·간이과세자로 나눠 예상해 보는 계산기예요. 입력값은 저장되지 않아요.
+---
+{%- comment -%}
+  부가세 예상 세액 계산기. 브라우저 안에서만 계산한다(서버 전송·저장 없음, 외부 스크립트 없음).
+  세율·금액은 아래 RULES 한 곳에만 둔다. 해마다 1월에 귀속 연도와 조문을 다시 확인한다.
+  주소 끝에 ?test 를 붙이면 TESTS(입력 → 기대값)를 돌려 통과·실패를 화면에 보인다.
+{%- endcomment -%}
+<div class="calc">
+  <p class="calc-lead"><b>2026년 귀속</b> 부가가치세를 대략 계산해 보는 <b>참고용</b> 계산기예요. 실제 신고 세액과 다를 수 있어요. 입력값은 저장되지 않고, 이 화면 안에서만 계산해요.</p>
+
+  <div class="calc-tabs" role="tablist">
+    <button type="button" role="tab" id="tab-gen" aria-selected="true" aria-controls="pane-gen">일반과세자</button>
+    <button type="button" role="tab" id="tab-sim" aria-selected="false" aria-controls="pane-sim">간이과세자</button>
+  </div>
+
+  <!-- 일반과세자 -->
+  <section class="calc-pane" id="pane-gen" role="tabpanel" aria-labelledby="tab-gen">
+    <p class="calc-note">한 번의 신고 기간(예: 2026년 2기 7~12월) 금액을 넣으세요. 사업자등록증에 "일반과세자"로 적혀 있으면 이 탭이에요.</p>
+    <label class="calc-field"><span>매출 공급가액 <small>부가세를 뺀 금액, 세금계산서·카드·현금 매출 모두 합계</small></span>
+      <input inputmode="numeric" data-k="sales" placeholder="0"><em>원</em></label>
+    <label class="calc-field"><span>매입 공급가액 <small>세금계산서·카드로 받은 매입 중 공제되는 것만, 부가세를 뺀 금액</small></span>
+      <input inputmode="numeric" data-k="buy" placeholder="0"><em>원</em></label>
+    <label class="calc-field"><span>카드·현금영수증 매출 <small>손님에게 발급한 금액, 부가세 포함</small></span>
+      <input inputmode="numeric" data-k="card" placeholder="0"><em>원</em></label>
+    <label class="calc-check"><input type="checkbox" data-k="cardOn"> 카드 매출 세액공제 받는 사업자예요 <small>(개인사업자, 소매·음식점처럼 주로 소비자를 상대하는 업종, 직전 연도 공급가액 사업장 기준 10억원 이하)</small></label>
+    <label class="calc-field"><span>올해 이미 받은 카드 매출 세액공제 <small>2기 신고라면 1기에 받은 금액, 없으면 0</small></span>
+      <input inputmode="numeric" data-k="used" placeholder="0"><em>원</em></label>
+    <label class="calc-check"><input type="checkbox" data-k="efile" checked> 확정신고를 홈택스로 직접 해요 <small>(전자신고 세액공제)</small></label>
+  </section>
+
+  <!-- 간이과세자 -->
+  <section class="calc-pane" id="pane-sim" role="tabpanel" aria-labelledby="tab-sim" hidden>
+    <p class="calc-note">간이과세자는 1년(2026년 1~12월)을 한 번에 신고해요. 금액은 모두 <b>부가세를 포함한 금액(공급대가)</b>으로 넣으세요.</p>
+    <label class="calc-field"><span>업종</span>
+      <select data-k="biz">
+        <option value="0.15">소매업, 재생용 재료수집·판매업, 음식점업 (15%)</option>
+        <option value="0.20">제조업, 농업·임업·어업, 소화물 전문 운송업 (20%)</option>
+        <option value="0.25">숙박업 (25%)</option>
+        <option value="0.30">건설업, 운수·창고업, 정보통신업 (30%)</option>
+        <option value="0.40">금융·보험 관련 서비스업, 전문·과학·기술서비스업, 사업시설관리·사업지원·임대서비스업, 부동산 관련 서비스업, 부동산임대업 (40%)</option>
+        <option value="0.30" selected>그 밖의 서비스업 (30%)</option>
+      </select></label>
+    <label class="calc-field"><span>1년 매출 합계 <small>공급대가, 부가세 포함</small></span>
+      <input inputmode="numeric" data-k="sales" placeholder="0"><em>원</em></label>
+    <label class="calc-field"><span>세금계산서·카드로 받은 매입 <small>공급대가, 부가세 포함. 공제되는 것만(접대비, 비영업용 승용차 관련 등은 빼고)</small></span>
+      <input inputmode="numeric" data-k="buy" placeholder="0"><em>원</em></label>
+    <label class="calc-field"><span>카드·현금영수증 매출 <small>손님에게 발급한 금액</small></span>
+      <input inputmode="numeric" data-k="card" placeholder="0"><em>원</em></label>
+    <label class="calc-check"><input type="checkbox" data-k="cardOn"> 카드 매출 세액공제 받는 사업자예요 <small>(소매·음식점처럼 주로 소비자를 상대하는 업종이거나, 직전 연도 공급대가 4,800만원 미만·처음 사업을 시작한 간이과세자라면 해당)</small></label>
+    <label class="calc-check"><input type="checkbox" data-k="efile" checked> 신고를 홈택스로 직접 해요 <small>(전자신고 세액공제)</small></label>
+  </section>
+
+  <div class="calc-result" aria-live="polite">
+    <p class="calc-total"><span id="calc-label">예상 납부세액</span><b id="calc-total">0원</b></p>
+    <table class="calc-steps"><tbody id="calc-steps"></tbody></table>
+    <p class="calc-msg" id="calc-msg" hidden></p>
+  </div>
+
+  <div class="calc-info">
+    <p class="calc-info-title">이 계산기에 빠져 있는 것</p>
+    <ul>
+      <li>의제매입세액공제, 대손세액공제, 면세사업을 함께 하는 경우의 공통매입세액 안분</li>
+      <li>예정고지·예정신고로 이미 낸 세액 차감, 가산세</li>
+      <li>전자세금계산서 발급 세액공제, 그 밖의 감면</li>
+      <li>간이과세자: 두 업종 이상 겸영, 재고납부세액, 한 해 중간에 사업을 시작·폐업한 경우의 12개월 환산</li>
+    </ul>
+    <p class="calc-info-title">계산 방법과 근거</p>
+    <ul>
+      <li>일반과세자: 매출세액(공급가액 × 10%) − 매입세액 = 납부세액, 여기서 공제세액을 뺌 (부가가치세법 제30조·제37조)</li>
+      <li>간이과세자: 공급대가 × 업종별 부가가치율 × 10% = 납부세액 (부가가치세법 제63조②, 시행령 제111조②). 세금계산서 등으로 받은 매입은 공급대가 × 0.5%를 공제 (제63조③). 공제 합계는 납부세액을 넘지 못함 (제63조⑥)</li>
+      <li>간이과세자 1년 공급대가가 4,800만원 미만이면 납부의무 면제 (제69조①)</li>
+      <li>카드·현금영수증 매출 세액공제: 발급금액 × 1.3%, 연 1,000만원 한도 (2026년 12월 31일까지, 제46조①). 공제 전 납부할 세액을 넘지 못함 (제46조②)</li>
+      <li>전자신고 세액공제: 5천원 (조세특례제한법 제104조의8②, 시행령 제104조의5④, 2026.2.27. 이후 전자신고분)</li>
+      <li>끝수: 실제로 내거나 돌려받는 금액은 10원 미만 버림 (국고금 관리법 제47조①). 중간 단계의 원 미만 버림은 이 계산기의 처리 방식이에요</li>
+      <li>일반과세자 납부세액이 5천원보다 작으면 전자신고 공제를 0원까지만 빼요. 실제 결과는 다를 수 있어요</li>
+    </ul>
+    <p class="calc-info-foot">법령 확인일 2026-11-05. 세무사가 아닌 개인이 공식 자료를 정리해 만든 계산기예요. 개별 상황은 국세상담센터(<b>126</b>)에 문의하세요.</p>
+  </div>
+  <div id="calc-test" hidden></div>
+</div>
+
+<script>
+(function () {
+  // ===== 세율·금액 (2026년 귀속). 여기만 고친다 =====
+  var RULES = {
+    VAT_RATE: 0.10,           // 부가가치세법 제30조, 2026년 귀속
+    SIM_INPUT_RATE: 0.005,    // 간이 매입 세금계산서등 공제: 공급대가 × 0.5% (제63조③1호)
+    SIM_EXEMPT_UNDER: 48000000, // 간이 납부의무 면제: 공급대가 4,800만원 미만 (제69조①)
+    CARD_RATE: 0.013,         // 신용카드매출전표등 발행세액공제 1.3% (제46조①3호, 2026.12.31.까지)
+    CARD_LIMIT: 10000000,     // 같은 공제 연 한도 1,000만원 (제46조①3호, 2026.12.31.까지)
+    EFILE_CREDIT: 5000        // 전자신고 세액공제 (조특법 제104조의8②, 시행령 제104조의5④, 2026.2.27. 이후 신고분)
+  };
+  // ===================================================
+
+  function floor(x) { return Math.floor(x + 1e-9); }           // 원 미만 버림 (부동소수 오차 보정)
+  function trunc10(x) { return x < 0 ? -Math.floor(-x / 10) * 10 : Math.floor(x / 10) * 10; } // 10원 미만 버림
+
+  // 일반과세자. i = {sales, buy, card, cardOn, used, efile}
+  function general(i) {
+    var out = floor(i.sales * RULES.VAT_RATE), inp = floor(i.buy * RULES.VAT_RATE);
+    var a = out - inp;                                          // 납부세액(음수면 환급세액), 제37조②
+    var efile = i.efile && (i.sales > 0 || i.buy > 0) ? RULES.EFILE_CREDIT : 0; // 매출·매입이 모두 없으면 제외
+    var card = 0, total;
+    if (a >= 0) {
+      efile = Math.min(efile, a);
+      // shortcut: 전자신고 공제가 납부세액(0원 포함)보다 크면 0까지만 뺌. 일반과세자 초과분 환급 여부는 조문·해석례로 확인하지 못함(조특법 제104조의8②에 한도 문장 없음), 근거가 나오면 고친다
+      if (i.cardOn) card = Math.min(floor(i.card * RULES.CARD_RATE), Math.max(0, RULES.CARD_LIMIT - i.used), a - efile);
+      total = a - efile - card;
+    } else {
+      total = a - efile;                                        // 환급세액에 전자신고 공제 가산 (조특법 제104조의8②)
+    }
+    return { rows: [["매출세액 (공급가액 × 10%)", out], ["매입세액 (공급가액 × 10%)", -inp], [a >= 0 ? "납부세액" : "환급세액", a, 1],
+                    ["카드 매출 세액공제", -card], ["전자신고 세액공제", -efile]],
+             total: trunc10(total), exempt: false };
+  }
+
+  // 간이과세자. i = {rate, sales, buy, card, cardOn, efile}
+  function simple(i) {
+    var base = floor(i.sales * i.rate * RULES.VAT_RATE);        // 제63조②
+    var inp = floor(i.buy * RULES.SIM_INPUT_RATE);
+    var card = i.cardOn ? Math.min(floor(i.card * RULES.CARD_RATE), RULES.CARD_LIMIT) : 0;
+    var exempt = i.sales < RULES.SIM_EXEMPT_UNDER;
+    var dedTotal = Math.min(inp + card, base);                  // 제63조⑥
+    if (inp > base) inp = base;                                 // 표시용: 한도 안에서 매입 공제부터
+    card = dedTotal - inp;
+    var rest = base - dedTotal;
+    // 조특법 제104조의8② 단서의 한도에는 카드공제가 없지만, 간이는 0 아래로 안 내려가므로(제63조⑥) 최종액은 같음. 표시만 단순화
+    var efile = i.efile && !exempt ? Math.min(RULES.EFILE_CREDIT, rest) : 0;
+    var total = exempt ? 0 : rest - efile;
+    return { rows: [["납부세액 (공급대가 × " + Math.round(i.rate * 100) + "% × 10%)", base, 1], ["매입 세금계산서 등 공제 (× 0.5%)", -inp],
+                    ["카드 매출 세액공제", -card], ["전자신고 세액공제", -efile]],
+             total: trunc10(total), exempt: exempt };
+  }
+
+  // ===== 검산 예시 (입력 → 기대 최종 금액). 주소 끝 ?test =====
+  var TESTS = [
+    ["일반: 기본", general, { sales: 30000000, buy: 10000000, card: 22000000, cardOn: true, used: 0, efile: true }, 1709000],
+    ["일반: 환급 + 전자신고", general, { sales: 10000000, buy: 15000000, card: 0, cardOn: false, used: 0, efile: true }, -505000],
+    ["일반: 0원(매출·매입 없음)", general, { sales: 0, buy: 0, card: 0, cardOn: true, used: 0, efile: true }, 0],
+    ["일반: 카드공제 연한도 남은 1만원", general, { sales: 30000000, buy: 10000000, card: 22000000, cardOn: true, used: 9990000, efile: true }, 1985000],
+    ["일반: 카드공제 연한도 다 씀", general, { sales: 30000000, buy: 10000000, card: 22000000, cardOn: true, used: 10000000, efile: true }, 1995000],
+    ["일반: 카드공제가 납부세액에서 멈춤", general, { sales: 1000000, buy: 900000, card: 11000000, cardOn: true, used: 0, efile: true }, 0],
+    ["일반: 납부세액 딱 0원(전자신고 공제 0까지만)", general, { sales: 1000000, buy: 1000000, card: 0, cardOn: false, used: 0, efile: true }, 0],
+    ["일반: 끝수(원·10원 미만 버림)", general, { sales: 1234567, buy: 0, card: 0, cardOn: false, used: 0, efile: false }, 123450],
+    ["간이: 4,800만원 미만 면제(1원 아래)", simple, { rate: 0.30, sales: 47999999, buy: 0, card: 0, cardOn: true, efile: true }, 0],
+    ["간이: 4,800만원 정확히(소매)", simple, { rate: 0.15, sales: 48000000, buy: 20000000, card: 30000000, cardOn: true, efile: true }, 225000],
+    ["간이: 4,800만원 1원 위(소매)", simple, { rate: 0.15, sales: 48000001, buy: 0, card: 0, cardOn: true, efile: false }, 720000],
+    ["간이: 공제가 납부세액에서 멈춤(음식점)", simple, { rate: 0.15, sales: 50000000, buy: 40000000, card: 50000000, cardOn: true, efile: true }, 0],
+    ["간이: 그 밖의 서비스업", simple, { rate: 0.30, sales: 60000000, buy: 0, card: 0, cardOn: true, efile: true }, 1795000],
+    ["간이: 0원", simple, { rate: 0.15, sales: 0, buy: 0, card: 0, cardOn: true, efile: true }, 0]
+  ];
+  // ===================================================
+
+  var won = function (n) { return (n < 0 ? "−" : "") + Math.abs(n).toLocaleString("ko-KR") + "원"; };
+  var tabs = { gen: document.getElementById("pane-gen"), sim: document.getElementById("pane-sim") }, cur = "gen";
+
+  function read(pane) {
+    var v = {};
+    pane.querySelectorAll("[data-k]").forEach(function (el) {
+      var k = el.getAttribute("data-k");
+      v[k] = el.type === "checkbox" ? el.checked : el.tagName === "SELECT" ? +el.value : +(el.value.replace(/[^0-9]/g, "") || 0);
+    });
+    return v;
+  }
+  function render() {
+    var v = read(tabs[cur]), r;
+    if (cur === "gen") r = general(v); else { v.rate = v.biz; r = simple(v); }
+    document.getElementById("calc-label").textContent = r.total < 0 ? "예상 환급세액" : "예상 납부세액";
+    document.getElementById("calc-total").textContent = won(Math.abs(r.total));
+    document.getElementById("calc-steps").innerHTML = r.rows.map(function (x) {
+      return "<tr" + (x[2] ? " class=\"sub\"" : "") + "><th>" + x[0] + "</th><td>" + won(x[1]) + "</td></tr>";
+    }).join("");
+    var msg = document.getElementById("calc-msg");
+    msg.hidden = !r.exempt;
+    msg.textContent = "1년 공급대가가 4,800만원 미만이라 납부의무가 면제돼요(부가가치세법 제69조①). 확정신고는 해야 해요(제67조①).";
+  }
+
+  document.querySelectorAll(".calc-tabs button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      cur = b.id === "tab-gen" ? "gen" : "sim";
+      document.querySelectorAll(".calc-tabs button").forEach(function (x) { x.setAttribute("aria-selected", x === b); });
+      tabs.gen.hidden = cur !== "gen"; tabs.sim.hidden = cur !== "sim";
+      render();
+    });
+  });
+  document.querySelectorAll(".calc input, .calc select").forEach(function (el) {
+    el.addEventListener("input", function () {
+      if (el.inputMode === "numeric") { var n = el.value.replace(/[^0-9]/g, ""); el.value = n ? (+n).toLocaleString("ko-KR") : ""; }
+      render();
+    });
+    el.addEventListener("change", render);
+  });
+  render();
+
+  if (/[?&]test\b/.test(location.search)) {
+    var box = document.getElementById("calc-test"), fails = 0;
+    box.hidden = false;
+    box.innerHTML = "<p class=\"calc-info-title\">검산</p>" + TESTS.map(function (t) {
+      var got = t[1](t[2]).total, ok = got === t[3]; if (!ok) fails++;
+      return "<div class=\"" + (ok ? "pass" : "fail") + "\">" + (ok ? "통과" : "실패") + " · " + t[0] + " · 기대 " + t[3] + " / 계산 " + got + "</div>";
+    }).join("") + "<p id=\"calc-test-summary\">" + (fails ? "TEST FAIL " + fails : "TEST PASS " + TESTS.length) + "</p>";
+  }
+})();
+</script>
