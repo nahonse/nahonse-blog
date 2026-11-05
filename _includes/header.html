@@ -10,6 +10,7 @@
       <a href="{{ "/#cert" | relative_url }}">민원증명 발급</a>
       <a href="{{ "/#vat" | relative_url }}">부가가치세</a>
       <a href="{{ "/#income" | relative_url }}">종합소득세</a>
+      <a href="{{ "/calculators/vat/" | relative_url }}"{% if page.url contains "/calculators/" %} aria-current="page"{% endif %}>간이계산기</a>
       <a href="{{ "/about/" | relative_url }}"{% if page.url == "/about/" %} aria-current="page"{% endif %}>소개</a>
     </nav>
   </div>
