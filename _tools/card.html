@@ -83,6 +83,12 @@ const cards = {
     stats: [["공급한 때", "발급 시기(원칙)"], ["다음 달 10일", "월합계 등 발급 기한"], ["8천만원 이상", "개인 전자 발급 의무"]],
     foot: "2026.11.07 기준 · 출처: 부가가치세법·시행령, 국세청"
   },
+  "hometax-business-card": {
+    label: "부가세",
+    title: "사업용 신용카드, 홈택스 등록하기",
+    stats: [["대표자·기업 명의", "신용·체크카드만 등록"], ["등록한 달부터", "사용내역 조회 시작"], ["최대 50장", "등록할 수 있는 카드 수"]],
+    foot: "2026.11.07 기준 · 출처: 홈택스 화면 안내"
+  },
 };
 const c = cards[decodeURIComponent(location.hash.slice(1))];
 document.getElementById("label").textContent = c.label;

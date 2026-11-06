@@ -1,7 +1,7 @@
 <!doctype html><html><body><pre id="out"></pre>
 <script>
 // 검사할 글 주소(/YYYY/MM/DD/ 다음 부분). 새 글을 쓰면 여기에 추가
-const posts=["2026/11/03/tax-calendar-for-small-business","2026/11/04/hometax-interim-prepayment-check","2026/11/05/hometax-income-certificate","2026/11/05/hometax-tax-clearance-certificate","2026/11/06/hometax-business-registration","2026/11/07/hometax-e-tax-invoice","topics/invoice","topics/cert","topics/vat","topics/income"];
+const posts=["2026/11/03/tax-calendar-for-small-business","2026/11/04/hometax-interim-prepayment-check","2026/11/05/hometax-income-certificate","2026/11/05/hometax-tax-clearance-certificate","2026/11/06/hometax-business-registration","2026/11/07/hometax-e-tax-invoice","topics/invoice","topics/cert","topics/vat","topics/income","2026/11/07/hometax-business-card"];
 const out=document.getElementById('out');
 window.addEventListener('message',e=>{out.textContent+=e.data+"\n";});
 posts.forEach(p=>{
