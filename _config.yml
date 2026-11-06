@@ -24,7 +24,7 @@ webmaster_verifications:
   google: JNesJdCFjHPs4-IqlGFbQmUTzLks_FrzeA2Czef8YbY
 naver_site_verification:
   - 27e6dcedad89942bc91d33e70315c2782dad968a
-# google_analytics:
+google_analytics: G-18162RB0V6
 
 exclude:
   - CLAUDE.md
