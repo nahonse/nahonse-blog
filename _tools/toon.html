@@ -175,6 +175,25 @@ const decks = {
         talk: [["이웃 사장님", "발급 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-vat-data-calculator": {
+    title: "<b>부가세</b>, 얼마 나올까?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + paper(340, 240, 8, "부가세 신고", "~1.25") + pic("cat-tired", 170, 650, 430, { rot: -3 }),
+        talk: [["", "1월에 부가세 신고…<br>얼마나 나올지 모르겠어"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("dog-think", 345, 620, 410, { flip: true, rot: 4 }) + pic("cat-wonder", 130, 640, 420, { rot: -4 }),
+        talk: [["이웃 사장님", "홈택스 <em>신고자료 통합조회</em><br>봤어요?", "r"], ["", "그게 뭐예요?"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("dog-lecture", 330, 640, 450, { rot: 2 }) + pic("cat-memo", 120, 650, 380, { rot: -4 }),
+        talk: [["이웃 사장님", "매출·매입 숫자를 모아 보고<br><em>계산기</em>에 넣으면 돼요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-excited", 128, 505, 320, { rot: -6 })
+          + pic("dog-talk", 320, 600, 420, { flip: true, rot: 6 }) + star(220, 200, 0.7) + star(455, 210, 0.6),
+        talk: [["이웃 사장님", "옮기는 법 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];

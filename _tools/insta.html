@@ -192,6 +192,23 @@ const decks = {
       { type: "end", title: "고르는 항목 정리와\n증명서 견본은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 홈택스 화면·사업자등록증명 문구(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-vat-data-calculator": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "부가세", title: "부가세,\n**신고 전에**\n미리 계산하기", badge: "📊 신고자료 통합조회", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제까지 신고해요?", rows: [["일반 2기", "2026년 7~12월분 → **2027년 1월 25일**"], ["간이", "2026년 1~12월분 → **2027년 1월 25일**"], ["카드 자료", "10~12월분은 1월 15일경부터 통합조회에 보여요"]],
+        note: "1월 초에 조회하면 숫자가 덜 들어와 있을 수 있어요" },
+      { type: "step", step: 1, title: "통합조회 찾아가기", path: "전체메뉴 > 세금신고 > 부가가치세 신고 > 신고도움 자료 조회 > 신고자료 통합조회", img: "assets/images/posts/hometax-vat-data-calculator/01-menu.png", caption: "사업자로 로그인해서 들어가요" },
+      { type: "step", step: 2, title: "기간 골라 조회하기", path: "과세기간 → 신고구분(예정+확정 / 간이는 확정) → 조회", img: "assets/images/posts/hometax-vat-data-calculator/03-table.png", caption: "예정신고를 안 한 개인 일반과세자는 **6개월**을 한꺼번에 봐요 (금액은 개업 직후라 0원)" },
+      { type: "facts", title: "계산기로 옮기는 법", rows: [["매출", "전자세금계산서 + **신용카드 ÷ 1.1** + 현금영수증 + 판매(결제)대행"], ["매입", "전자세금계산서 + 사업용카드 + 현금영수증(+화물운전자 복지카드) − 공제 안 되는 것"], ["카드매출", "신용카드 + 현금영수증 (부가세 포함)"]],
+        note: "전자계산서(면세)는 매입에서 빼고, 통합조회에 없는 현금매출·종이 세금계산서는 직접 더해요" },
+      { type: "step", step: 3, title: "계산기에 넣어 보기", path: "nahonse.kr 홈 '간이계산기' → 부가세 예상 세액 계산기", img: "assets/images/posts/hometax-vat-data-calculator/05-calc-result.png", caption: "가상의 예시 결과 **1,973,400원**. 카드 매출 공제는 요건을 갖춘 개인사업자만 받아요" },
+      { type: "facts", title: "마지막에 직접 할 것", rows: [["일반", "**예정고지세액**은 결과에서 빼요 (안 냈다면 그 고지서는 따로 내요)"], ["간이", "예정부과·예정신고 때 **실제로 낸** 세액을 빼요"], ["4,800만원", "간이 1년 공급대가 미만이면 납부 면제, 신고는 해야 해요"]],
+        note: "계산기는 참고용이에요. 실제 세액은 홈택스 신고서에서 정해져요" },
+      { type: "end", title: "칸별 설명·가상 예시와\n계산기 링크는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법, 국세청 세무일정, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
