@@ -137,6 +137,25 @@ const decks = {
         talk: [["이웃 사장님", "발급 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-business-card": {
+    title: "<b>카드 영수증</b>, 다 모아야 해요?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + paper(335, 255, 7, "카드전표", "사업용") + pic("cat-tired", 155, 650, 410, { rot: -3 }),
+        talk: [["", "카드 영수증,<br>부가세 때 다 정리해야 하나…"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("dog-think", 340, 620, 410, { flip: true, rot: 4 }) + pic("cat-wonder", 130, 640, 420, { rot: -4 }),
+        talk: [["이웃 사장님", "사업용 카드<br>홈택스에 등록했어요?", "r"], ["", "그런 게 있어요?"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("dog-smug", 300, 600, 420, { rot: 2 }) + pic("cat-idea", 105, 650, 380, { rot: -6 }),
+        talk: [["이웃 사장님", "등록하면 <em>사용내역</em>을<br>홈택스에서 볼 수 있어요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cheer", 138, 505, 320, { rot: -8 })
+          + pic("dog-talk", 320, 600, 420, { flip: true, rot: 6 }) + star(220, 200, 0.7) + star(455, 210, 0.6),
+        talk: [["이웃 사장님", "등록 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
