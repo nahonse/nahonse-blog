@@ -22,8 +22,8 @@ timezone: Asia/Seoul
 # 서치 콘솔·네이버·GA4
 webmaster_verifications:
   google: JNesJdCFjHPs4-IqlGFbQmUTzLks_FrzeA2Czef8YbY
-# naver_site_verification:
-#   -
+naver_site_verification:
+  - 27e6dcedad89942bc91d33e70315c2782dad968a
 # google_analytics:
 
 exclude:
