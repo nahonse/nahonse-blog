@@ -156,6 +156,25 @@ const decks = {
         talk: [["이웃 사장님", "등록 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-business-registration-certificate": {
+    title: "<b>사업자등록증명</b> 내래요!",
+    date: "2026.11",
+    cells: [
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-phone", 230, 640, 470, { rot: -3 }) + marks(400, 160, 0.8),
+        talk: [["거래처", "계약하려면<br>사업자등록증명 주세요"], ["", "증명이요…?", "r"]] },
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + paper(330, 250, 8, "사업자등록증명", "어디서?") + pic("cat-panic", 160, 660, 440, { rot: -4 }),
+        talk: [["", "세무서 가서<br>떼야 하나?!"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("dog-point-left", 325, 640, 440, { rot: 2 }) + pic("cat-excited", 128, 650, 380, { rot: -6 }),
+        talk: [["이웃 사장님", "홈택스 <em>즉시발급 증명</em>에서<br>바로 나와요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-yay", 120, 505, 320, { rot: -8 })
+          + pic("dog-wave", 320, 600, 420, { flip: true, rot: 4 }) + star(220, 200, 0.7) + star(455, 210, 0.6),
+        talk: [["이웃 사장님", "발급 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];

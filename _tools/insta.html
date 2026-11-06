@@ -176,6 +176,22 @@ const decks = {
       { type: "end", title: "공제 요건·가상 예시\n자세한 설명은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 홈택스 화면 안내, 부가가치세법·시행령(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-business-registration-certificate": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "민원증명 발급", title: "사업자등록증명,\n**홈택스에서**\n바로 떼는 법", badge: "📄 즉시발급 증명 메뉴", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "사업자등록증명이 뭐예요?", rows: [["무엇을", "상호·등록번호·소재지·개업일·업태·종목 등을 **발급일 현재** 기준으로 증명"], ["처리기간", "**즉시**(증명서 표기)"], ["다른 서류", "사업자등록증 **재발급**과는 다른 메뉴예요"]],
+        note: "운영자가 2026년 11월 본인 사업자 계정으로 직접 신청한 화면이에요" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "전체메뉴 > 증명·등록·신청·사업장현황 > 민원증명 > 즉시발급 증명 > 사업자등록증명", img: "assets/images/posts/hometax-business-registration-certificate/01-allmenu.png", caption: "운영자는 사업자로 로그인해서 신청했어요" },
+      { type: "step", step: 2, title: "신청내용 고르기", path: "발급유형 → 사용용도·제출처 → 주민번호 공개 여부 → 수령방법 → 수량", img: "assets/images/posts/hometax-business-registration-certificate/02-form.png", caption: "민원인 정보는 미리 채워져 있어요 (사진 속 정보는 가상값)" },
+      { type: "step", step: 3, title: "작성완료 → 신청하기", path: "작성완료 → 확인 창에서 신청하기", img: "assets/images/posts/hometax-business-registration-certificate/03-confirm.png", caption: "신청한 뒤에는 고치거나 취소할 수 없다고 안내돼요" },
+      { type: "step", step: 4, title: "처리결과에서 열기", path: "민원처리결과 조회 → 처리완료 → 열람", img: "assets/images/posts/hometax-business-registration-certificate/05-result.png", caption: "증명서는 **새 창**으로 떠요" },
+      { type: "facts", title: "수령방법, 이것만 조심", rows: [["인터넷발급", "프린터출력"], ["인터넷열람", "화면조회 — **열람용이라 법적 효력이 없다**고 찍혀요"], ["그 밖에", "한글·영문 증명, 주민번호 공개·비공개, 1~9매"]],
+        note: "2026년 11월 이 증명서 화면 기준이에요. 제출할 서류라면 어떤 형식으로 내야 하는지 제출처에 먼저 확인하세요" },
+      { type: "end", title: "고르는 항목 정리와\n증명서 견본은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 홈택스 화면·사업자등록증명 문구(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
