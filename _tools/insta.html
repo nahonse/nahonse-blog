@@ -141,6 +141,24 @@ const decks = {
       { type: "end", title: "기한·가산세·업종코드\n자세한 설명은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법·시행령, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-e-tax-invoice": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "세금계산서", title: "전자세금계산서,\n**홈택스로**\n발급하는 법", badge: "🧾 건별발급", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제 발급해요?", rows: [["공급한 때", "발급 시기(원칙)"], ["다음 달 10일", "월합계 등은 공급한 달의 다음 달 10일까지 (공휴일·토요일이면 다음 영업일)"], ["다음 날", "국세청 전송 기한, **홈택스 발급은 즉시 자동 전송**"]],
+        note: "공급가액(면세 포함) 8천만원 이상인 해의 다음 해 7월 1일부터 전자 발급 의무 (개인사업자)" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "전체메뉴 > 계산서·영수증·카드 > 전자(세금)계산서 발급 > 전자(세금)계산서 건별발급", img: "assets/images/posts/hometax-e-tax-invoice/01-allmenu.jpg", caption: "사업자로 로그인해서 들어가요" },
+      { type: "step", step: 2, title: "거래처·품목 넣기", path: "공급받는 자 등록번호 → 확인 → 작성일자 → 품목·수량·단가", img: "assets/images/posts/hometax-e-tax-invoice/02-filled.jpg", caption: "수량·단가를 넣으면 공급가액·세액이 자동으로 채워졌어요 (사진은 가상값)" },
+      { type: "step", step: 3, title: "미리보기로 확인하기", path: "청구/영수 선택 → 발급미리보기", img: "assets/images/posts/hometax-e-tax-invoice/04-preview.png", caption: "발급 전에 거래처·금액을 **미리보기**로 한 번 더 봐요" },
+      { type: "step", step: 4, title: "발급하고 전자서명", path: "발급하기 → 전자서명", img: "assets/images/posts/hometax-e-tax-invoice/03-buttons.jpg", caption: "공동인증서·간편인증·생체인증·보안카드 중 하나로 서명해요" },
+      { type: "calc", title: "세액은 이렇게 나와요", tag: "가상의 예시", rows: [["공급가액", "100,000원"], ["세액(10%)", "10,000원"]], total: ["합계금액", "110,000원"],
+        note: "부가가치세율은 10%예요" },
+      { type: "facts", title: "가산세, 이것만 조심", rows: [["1%", "발급 시기를 넘겨 확정신고 기한 안에 늦게 발급"], ["2%", "확정신고 기한까지 발급하지 않음"], ["1%", "등록번호·공급가액 등 필요적 기재사항을 잘못 적음 (거래사실이 확인되면 제외)"]],
+        note: "월합계도 다음 달 10일을 넘기면 늦은 발급이에요" },
+      { type: "end", title: "가산세·의무 대상\n자세한 설명은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법·시행령, 국세청, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");

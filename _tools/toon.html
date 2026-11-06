@@ -118,6 +118,25 @@ const decks = {
         talk: [["이웃 사장님", "신청 순서대로 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-e-tax-invoice": {
+    title: "<b>세금계산서</b> 끊어 달래요!",
+    date: "2026.11",
+    cells: [
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-phone", 230, 640, 470, { rot: -3 }) + marks(400, 160, 0.8),
+        talk: [["거래처", "세금계산서<br>끊어 주실 수 있죠?"], ["", "네…? 끊어요?", "r"]] },
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + pic("cat-wonder", 250, 650, 440, { rot: -3 }),
+        talk: [["", "세금계산서 발급,<br>어디서 하는 거지?"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("dog-smug", 330, 640, 450, { rot: 3 }) + pic("cat-idea", 105, 650, 380, { rot: -6 }),
+        talk: [["이웃 사장님", "홈택스 <em>건별발급</em>에서<br>바로 발급돼요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cheer", 110, 500, 330, { rot: -12 }) + motion(40, 470, 0.8)
+          + pic("dog-talk", 320, 600, 420, { flip: true, rot: 6 }) + arrow(410, 250) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "발급 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
