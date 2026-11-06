@@ -77,6 +77,12 @@ const cards = {
     stats: [["20일 이내", "사업 개시일부터 신청"], ["2일 이내", "등록증 발급(휴일 제외)"], ["1%", "늦게 신청하면 가산세"]],
     foot: "2026.11.06 기준 · 출처: 부가가치세법·시행령"
   },
+  "hometax-e-tax-invoice": {
+    label: "세금계산서",
+    title: "전자세금계산서, 홈택스 건별발급",
+    stats: [["공급한 때", "발급 시기(원칙)"], ["다음 달 10일", "월합계 등 발급 기한"], ["8천만원 이상", "개인 전자 발급 의무"]],
+    foot: "2026.11.07 기준 · 출처: 부가가치세법·시행령, 국세청"
+  },
 };
 const c = cards[decodeURIComponent(location.hash.slice(1))];
 document.getElementById("label").textContent = c.label;
