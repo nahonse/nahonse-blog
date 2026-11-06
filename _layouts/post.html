@@ -11,6 +11,17 @@ layout: default
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
+    {%- comment -%} 분야 모음 페이지로 가는 길(topics/*.md 와 맞춘다) {%- endcomment -%}
+    {%- case page.topic -%}
+      {%- when "세금계산서" -%}{%- assign hub_url = "/topics/invoice/" -%}{%- assign hub_name = "세금계산서 모음" -%}
+      {%- when "민원증명", "사업자 기본" -%}{%- assign hub_url = "/topics/cert/" -%}{%- assign hub_name = "민원증명·사업자등록 모음" -%}
+      {%- when "부가세" -%}{%- assign hub_url = "/topics/vat/" -%}{%- assign hub_name = "부가가치세 모음" -%}
+      {%- when "종합소득세" -%}{%- assign hub_url = "/topics/income/" -%}{%- assign hub_name = "종합소득세 모음" -%}
+      {%- else -%}{%- assign hub_url = nil -%}
+    {%- endcase -%}
+    {%- if hub_url %}
+    <p class="nh-crumb"><a href="{{ "/" | relative_url }}">홈</a> › <a href="{{ hub_url | relative_url }}">{{ hub_name }}</a></p>
+    {%- endif %}
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">

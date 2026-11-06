@@ -6,10 +6,10 @@
     </a>
     <nav class="nh-nav" aria-label="주요 메뉴">
       <a href="{{ "/" | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>홈</a>
-      <a href="{{ "/#invoice" | relative_url }}">세금계산서</a>
-      <a href="{{ "/#cert" | relative_url }}">민원증명 발급</a>
-      <a href="{{ "/#vat" | relative_url }}">부가가치세</a>
-      <a href="{{ "/#income" | relative_url }}">종합소득세</a>
+      <a href="{{ "/topics/invoice/" | relative_url }}"{% if page.url == "/topics/invoice/" %} aria-current="page"{% endif %}>세금계산서</a>
+      <a href="{{ "/topics/cert/" | relative_url }}"{% if page.url == "/topics/cert/" %} aria-current="page"{% endif %}>민원증명 발급</a>
+      <a href="{{ "/topics/vat/" | relative_url }}"{% if page.url == "/topics/vat/" %} aria-current="page"{% endif %}>부가가치세</a>
+      <a href="{{ "/topics/income/" | relative_url }}"{% if page.url == "/topics/income/" %} aria-current="page"{% endif %}>종합소득세</a>
       <a href="{{ "/calculators/vat/" | relative_url }}"{% if page.url contains "/calculators/" %} aria-current="page"{% endif %}>간이계산기</a>
       <a href="{{ "/about/" | relative_url }}"{% if page.url == "/about/" %} aria-current="page"{% endif %}>소개</a>
     </nav>

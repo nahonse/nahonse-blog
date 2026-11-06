@@ -402,3 +402,9 @@ body {
 .calc-info-title { margin: 16px 0 4px; font-weight: 800; color: $brand-color; }
 .calc-info-foot { margin-top: 12px; color: #777; }
 #calc-test { margin-top: 16px; font-size: 13px; .pass { color: #1b7f3b; } .fail { color: #b3261e; font-weight: 700; } }
+
+/* 분야 모음 페이지 길잡이(글 제목 위)와 모음 페이지 아래 안내 */
+.nh-crumb { margin: 0 0 6px; font-size: 14px; color: #6b6478; }
+.nh-crumb a { color: #6b6478; text-decoration: none; }
+.nh-crumb a:hover { color: #271350; text-decoration: underline; }
+.nh-topic-note { margin-top: 28px; font-size: 14px; color: #6b6478; }

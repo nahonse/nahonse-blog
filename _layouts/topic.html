@@ -1,0 +1,44 @@
+---
+layout: default
+---
+{%- comment -%} 분야별 모음 페이지. 머리말 topics: [글 topic, ...] 에 맞는 글을 홈과 같은 카드로 보여 준다. {%- endcomment -%}
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+  <div class="post-content">
+    {{ content }}
+  </div>
+  {%- assign count = 0 %}
+  <ul class="post-cards">
+    {%- for post in site.posts %}
+    {%- if page.topics contains post.topic %}
+    {%- assign count = count | plus: 1 %}
+    {%- assign parts = post.title | split: ": " %}
+    {%- assign main_title = parts | first %}
+    {%- assign sub_title = post.title | remove_first: main_title | remove_first: ": " %}
+    <li class="post-card">
+      <a class="post-card-link" href="{{ post.url | relative_url }}">
+        {%- if post.image %}
+        <img class="post-card-thumb" src="{{ post.image | relative_url }}" alt="" loading="lazy" width="1200" height="630">
+        {%- endif %}
+        <div class="post-card-body">
+          <div class="post-card-meta">
+            {%- if post.topic %}<span class="post-card-topic">{{ post.topic }}</span>{% endif %}
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          </div>
+          <h2 class="post-card-title">{{ main_title | escape }}</h2>
+          {%- if sub_title != "" %}
+          <p class="post-card-sub">{{ sub_title | escape }}</p>
+          {%- endif %}
+        </div>
+      </a>
+    </li>
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+  {%- if count == 0 %}
+  <p class="post-cards-empty">이 분야의 글은 준비 중이에요.</p>
+  {%- endif %}
+  <p class="nh-topic-note">이 블로그는 세무사가 아닌 개인이 공식 자료를 정리한 일반 안내예요. 개별 상황은 국세상담센터(126)에 확인하세요.</p>
+</article>
