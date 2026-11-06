@@ -89,6 +89,12 @@ const cards = {
     stats: [["대표자·기업 명의", "신용·체크카드만 등록"], ["등록한 달부터", "사용내역 조회 시작"], ["최대 50장", "등록할 수 있는 카드 수"]],
     foot: "2026.11.07 기준 · 출처: 홈택스 화면 안내"
   },
+  "hometax-business-registration-certificate": {
+    label: "민원증명 발급",
+    title: "사업자등록증명, 홈택스 즉시발급",
+    stats: [["즉시", "처리기간(증명서 표기)"], ["2가지", "프린터출력 · 화면열람"], ["열람용 ✕", "열람용은 법적 효력 없음"]],
+    foot: "2026.11.07 기준 · 출처: 홈택스 화면·증명서 문구"
+  },
 };
 const c = cards[decodeURIComponent(location.hash.slice(1))];
 document.getElementById("label").textContent = c.label;
