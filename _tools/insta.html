@@ -123,6 +123,24 @@ const decks = {
       { type: "end", title: "헷갈리는 항목 정리와\n다른 증명 목록은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 홈택스 화면 안내(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-business-registration": {
+    date: "2026.11.06 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "사업자 기본", title: "사업자등록,\n**홈택스로**\n신청하는 법", badge: "📝 개인 사업자등록 신청", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제까지 신청해요?", rows: [["20일 이내", "**사업 개시일부터** 신청 (개업 전 신청도 가능)"], ["2일 이내", "등록증 발급이 원칙 (휴일 제외, 확인이 필요하면 연장)"], ["1%", "기한을 넘기면 사업 개시일부터 신청 전날까지 공급가액의 1% 가산세"]],
+        note: "다른 사람 이름으로 등록하거나 남의 등록을 빌려 사업하면 공급가액의 2% 가산세 (배우자 명의 등 일부 제외)" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "증명·등록·신청·사업장현황 > 사업자등록 신청·정정·휴폐업 > 개인 사업자등록 신청", img: "assets/images/posts/hometax-business-registration/01-menu.jpg", caption: "저는 개인으로 로그인해서 신청했어요" },
+      { type: "step", step: 2, title: "사업특성 질문에 답하기", path: "휴대전화·이메일 입력 → 질문 8개 예·아니오 → 다음", img: "assets/images/posts/hometax-business-registration/02-start.jpg", caption: "공동사업·임차 여부 등 답에 따라 다음 화면이 달라져요" },
+      { type: "step", step: 3, title: "업종코드 고르기", path: "업종 입력/수정 → 키워드 검색 → 업종 선택", img: "assets/images/posts/hometax-business-registration/05-code-scope.jpg", caption: "옆에 나오는 **적용범위 및 기준**을 꼭 읽어 보세요" },
+      { type: "step", step: 4, title: "사업자 유형 고르기", path: "업종 추가설명 → 사업자 유형(일반·간이) → 저장 후 다음 이동", img: "assets/images/posts/hometax-business-registration/06-type.jpg", caption: "간이과세가 되는지는 **간이과세 사전검토** 버튼으로 미리 봐요" },
+      { type: "step", step: 5, title: "확인하고 제출하기", path: "제출서류 선택 → 최종확인 체크 → 제출서류 확인하기 → 신청서 제출하기", img: "assets/images/posts/hometax-business-registration/09-final.png", caption: "제출서류 확인하기를 먼저 눌러야 제출 버튼이 눌려요" },
+      { type: "step", step: 6, title: "처리결과 확인하기", path: "민원신청 처리결과 조회 → 처리되면 등록증 출력", img: "assets/images/posts/hometax-business-registration/11-certificate.png", caption: "처리되면 등록증을 출력해요 (사진 속 번호·이름·주소는 가상값)" },
+      { type: "facts", title: "일반 vs 간이, 미리 볼 것", rows: [["1억 400만원", "직전 연도(새로 시작하면 올해 예상) 공급대가가 이보다 적으면 간이과세 가능 (일부 업종·지역 등 제외)"], ["첫 과세기간", "신규 간이과세자는 세금계산서 대신 **영수증** 발급"], ["사전검토", "신청서 화면의 간이과세 사전검토 버튼"]],
+        note: "거래처가 세금계산서를 요구하는 사업이면 유형을 미리 확인하세요" },
+      { type: "end", title: "기한·가산세·업종코드\n자세한 설명은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법·시행령, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
