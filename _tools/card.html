@@ -71,6 +71,12 @@ const cards = {
     stats: [["30일", "유효기간(발급일부터)"], ["대금 수령", "국가·지자체에서 대금 받을 때"], ["열람용 ✕", "열람용은 법적 효력 없음"]],
     foot: "2026.11.05 기준 · 출처: 국세징수법, 홈택스 화면 안내"
   },
+  "hometax-business-registration": {
+    label: "사업자 기본",
+    title: "개인 사업자등록, 홈택스로 신청하기",
+    stats: [["20일 이내", "사업 개시일부터 신청"], ["2일 이내", "등록증 발급(휴일 제외)"], ["1%", "늦게 신청하면 가산세"]],
+    foot: "2026.11.06 기준 · 출처: 부가가치세법·시행령"
+  },
 };
 const c = cards[decodeURIComponent(location.hash.slice(1))];
 document.getElementById("label").textContent = c.label;
