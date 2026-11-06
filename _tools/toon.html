@@ -99,6 +99,25 @@ const decks = {
         talk: [["이웃 사장님", "제가 알려 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-business-registration": {
+    title: "<b>사업자등록</b>, 어디서 해요?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: burst(300, 360) + paper(330, 150, -6, "개업 준비", "체크리스트") + pic("cat-excited", 170, 640, 470, { rot: -4 }) + star(380, 120, 0.7),
+        talk: [["", "드디어 내 사업 시작!<br>준비 다 했다~"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("dog-think", 340, 620, 410, { flip: true, rot: 4 }) + pic("cat-wonder", 130, 640, 420, { rot: -4 }),
+        talk: [["이웃 사장님", "사업자등록은<br>하셨어요?", "r"], ["", "그거 세무서 가서<br>하는 거 아니에요?"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("dog-smug", 330, 640, 450, { rot: 3 }) + pic("cat-idea", 105, 650, 380, { rot: -6 }),
+        talk: [["이웃 사장님", "사업 시작 전이나 시작하고<br><em>20일 안에</em> 홈택스로도 돼요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cheer", 110, 500, 330, { rot: -12 }) + motion(40, 470, 0.8)
+          + pic("dog-talk", 320, 600, 420, { flip: true, rot: 6 }) + arrow(410, 250) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "신청 순서대로 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
