@@ -26,6 +26,7 @@ set -euo pipefail
 TOKEN_FILE="${THREADS_TOKEN_FILE:-$HOME/.tax-blog/threads.token}"
 API="https://graph.threads.com/v1.0"
 SITE="https://nahonse.kr"
+UTM="?utm_source=threads&utm_medium=social"   # 링크 카드 클릭을 GA4에서 쓰레드 유입으로 구분
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 cr() { curl --retry 4 --retry-delay 3 --retry-all-errors "$@"; }
