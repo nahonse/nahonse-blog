@@ -57,7 +57,7 @@ check_text() {
 link_reply() {
   local rc="$HOME/.tax-blog/threads_reply_upload.txt"; cp "$3" "$rc"; local rw; rw="$(cygpath -m "$rc" 2>/dev/null || echo "$rc")"
   local r cid; r="$(cr -s -m 60 -X POST "$API/$1/threads" --data-urlencode "media_type=TEXT" --data-urlencode "text@$rw" \
-        --data-urlencode "reply_to_id=$2" --data-urlencode "link_attachment=$4" --data-urlencode "access_token=$TOKEN")"
+        --data-urlencode "reply_to_id=$2" --data-urlencode "link_attachment=$4$UTM" --data-urlencode "access_token=$TOKEN")"
   fail_if_error "$r"; cid="$(printf '%s' "$r" | jget id)"; [ -n "$cid" ] || { echo "링크 답글 컨테이너 실패: $r" >&2; return 1; }
   sleep 30
   r="$(curl -s -m 60 -X POST "$API/$1/threads_publish" --data-urlencode "creation_id=$cid" --data-urlencode "access_token=$TOKEN")"
@@ -99,7 +99,7 @@ case "${1:-}" in
     if [ -n "$img" ]; then
       args=( --data-urlencode "media_type=IMAGE" --data-urlencode "image_url=$img" --data-urlencode "text@$tw" )
     else
-      args=( --data-urlencode "media_type=TEXT" --data-urlencode "text@$tw" --data-urlencode "link_attachment=$link" )
+      args=( --data-urlencode "media_type=TEXT" --data-urlencode "text@$tw" --data-urlencode "link_attachment=$link$UTM" )
     fi
     if [ -n "$topic" ]; then
       pcopy="$HOME/.tax-blog/threads_topic.txt"; printf '%s' "$topic" > "$pcopy"
