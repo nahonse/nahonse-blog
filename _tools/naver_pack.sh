@@ -17,7 +17,7 @@ while [ $# -ge 2 ]; do
   tags=$(awk '/^\[태그\]/{getline; print; exit}' "$src")
   cat=$(awk '/^\[카테고리\]/{getline; print; exit}' "$src")
   catline=""; [ -n "$cat" ] && catline="<p><b>0. 카테고리</b> <b style=\"color:#c2410c\">$cat</b> (발행 설정에서 선택)</p>"
-  body=$(awk '/^\[본문\]/{f=1;next} /^\[(카테고리|태그)\]/{f=0} f' "$src" | sed -E 's/&/\&amp;/g; s/</\&lt;/g; s#^\[사진 ([0-9]+)\]$#<p><img src="'"$SITE"'/assets/insta/'"$s"'/\1.png" width="540"></p>#; t; s#^$#<p>\&nbsp;</p>#; t; s#^(.*)$#<p>\1</p>#')
+  body=$(awk '/^\[본문\]/{f=1;next} /^\[(카테고리|태그)\]/{f=0} f' "$src" | sed -E 's/&/\&amp;/g; s/</\&lt;/g; s#^\[사진 ([0-9]+)\]$#<p><img src="'"$SITE"'/assets/insta/'"$s"'/\1.png" width="540"></p>#; t; s#^$#<p>\&nbsp;</p>#; t; s#\*\*([^*]+)\*\*#<b style="color:\#c0392b">\1</b>#g; s#^(.*)$#<p>\1</p>#')  # **문장** = 빨간 굵은 글씨(링크 안내 강조)
   # 점선 테두리는 복사 영역(#copy) 바깥 .frame에 둔다. 안에 두면 네이버 본문에 테두리가 같이 붙는다(11-07 확인).
   cat > "$d/한번에복사.html" <<EOF
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><title>$name</title>
