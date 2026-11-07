@@ -259,6 +259,40 @@ const decks = {
       { type: "end", title: "요건 정리와\n신청 화면 순서는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 조세특례제한법, 국세청 세무일정·안내, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-tax-invoice-correction": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "세금계산서", title: "잘못 보낸 세금계산서\n**수정발급**으로\n고치는 법", badge: "🧾 사유부터 고르기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "처음 작성일자로 발급", rows: [["착오 정정", "금액·등록번호 등 잘못 적음 → 취소분 + 수정분 **2장**"], ["이중발급 등", "두 번 발급·면세 거래에 발급 → 취소 **1장**"], ["내국신용장", "과세기간 끝난 뒤 25일 안에 개설 → 취소 + 영세율"]],
+        note: "세무조사 통지·과세자료 해명 안내를 받은 뒤에는 착오 정정을 할 수 없어요" },
+      { type: "facts", title: "사유가 생긴 날로 발급", rows: [["금액 변동", "늘거나 줄어든 금액만큼 **1장**(변동 사유가 생긴 날)"], ["계약 해제", "당초분 취소 **1장**(계약 해제일)"], ["반품(환입)", "반품 금액만 음(−)으로 **1장**(환입된 날)"]],
+        note: "일반·간이 과세유형이 바뀐 뒤 그 전 거래라면 처음 작성일자로 적고 비고란에 사유 발생일을 적어요" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "계산서·영수증·카드 > 전자(세금)계산서 발급 > 전자(세금)계산서 수정발급", img: "assets/images/posts/hometax-tax-invoice-correction/01-menu.png", caption: "사업자로 로그인해서 들어가요" },
+      { type: "step", step: 2, title: "고칠 세금계산서 고르기", path: "전자 발급분은 승인번호 입력 → 확인 / 종이 발급분은 직접 입력 발급하기", img: "assets/images/posts/hometax-tax-invoice-correction/02-step1.png", caption: "처음 세금계산서는 **지워지지 않고** 취소분·변경분이 새로 발급돼요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "사유 고르기", path: "사유 버튼 6개 중 하나 → 발급하기", img: "assets/images/posts/hometax-tax-invoice-correction/03-reasons.png", caption: "신고기한이 지난 뒤 착오를 고치면 **수정신고**까지 해야 해요", guide_pic: "dog-checklist" },
+      { type: "facts", title: "이것만 조심", rows: [["이메일", "주소만 틀렸으면 수정 대상 아님 → **메일 재발송**"], ["1년", "필요적 기재사항을 착오 외의 사유로 잘못 적었으면 공급일이 속한 과세기간 확정신고기한 다음 날부터 1년 안에"], ["화면에 없는 사유", "세율 착오 등은 어느 버튼인지 126에 확인"]],
+        note: "2026년 11월 화면 기준. 운영자는 사유 선택 화면까지만 보고 실제 발급은 하지 않았어요" },
+      { type: "end", title: "사유별 작성일자 표와\n화면 순서는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법·시행령 제70조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-cash-receipt-issue": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "현금영수증", title: "단말기 없어도\n**홈택스로**\n현금영수증 발급", badge: "🧾 발급 사업자 신청부터", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "누가 발급하나요?", rows: [["가맹점", "손님이 요청하면 **발급 거부 금지**"], ["가입 의무", "소비자상대업종 + 직전 수입 2,400만원 이상 등 → **60일 안**(수입 요건은 3월 31일까지)"], ["의무발행업종", "건당 **10만원 이상** 현금이면 요청 없어도 발급"]],
+        note: "10만원은 부가세 포함 금액이에요. 세금계산서·계산서를 발급했으면 따로 안 해도 돼요" },
+      { type: "step", step: 1, title: "발급 메뉴 위치", path: "계산서·영수증·카드 > 현금영수증(가맹점) > 발급 > 현금영수증 건별 발급", img: "assets/images/posts/hometax-cash-receipt-issue/01-menu.png", caption: "사업자로 로그인해서 들어가요" },
+      { type: "step", step: 2, title: "먼저 발급 사업자 신청", path: "가맹점 가입의무 조회 및 가입방법 > 현금영수증 발급 사업자 신청 및 수정", img: "assets/images/posts/hometax-cash-receipt-issue/04-join-menu.png", caption: "내 가입 의무는 **가산세 및 가맹점 가입의무 조회**에서 봐요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "담당자 넣고 신청", path: "가맹점 담당자명·연락처 → 신청하기 → 승인 문자", img: "assets/images/posts/hometax-cash-receipt-issue/06-apply.png", caption: "승인 문자를 받은 뒤부터 홈택스에서 발급할 수 있어요", guide_pic: "dog-talk" },
+      { type: "step", step: 4, title: "발급 화면 안내", path: "건별 발급은 당일 거래만", img: "assets/images/posts/hometax-cash-receipt-issue/02-notice.png", caption: "손님이 원하지 않으면 **010-000-1234**로 무기명 발급해요. 지난 거래는 126에 확인" },
+      { type: "step", step: 5, title: "거래정보 넣고 발급", path: "자진발급 여부 → 발급수단번호 → 총 거래금액", img: "assets/images/posts/hometax-cash-receipt-issue/03-form.png", caption: "가맹점이 아니면 이렇게 **입력칸이 잠겨** 있어요(운영자 계정)", guide_pic: "dog-checklist" },
+      { type: "facts", title: "가산세, 이것만 조심", rows: [["의무 미발급", "미발급 금액의 **20%**(착오·누락으로 10일 안에 자진 발급하면 10%)"], ["발급 거부", "금액의 **5%**(5천원 이상 거래가 신고된 건, 건별 최소 5천원)"], ["미가입", "그해 가입대상 수입금액 × 미가입일수 ÷ 365(윤년 366) × **1%**, 세금계산서·계산서 발급분은 빼요"]],
+        note: "주민등록번호·사업자등록번호를 3번 연속 잘못 넣으면 발급 서비스가 제한돼요" },
+      { type: "end", title: "가산세 표와\n신청·발급 화면 순서는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 소득세법·시행령, 국세청 고시, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");

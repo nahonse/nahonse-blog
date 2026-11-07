@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  고양이 털색 통일(2026-11-07 사용자 요청): 기준 cat-happy의 회색 털 평균색에 맞춘다.
+  털 = 채도 낮은 회색(최대-최소 < 40, 밝기 80~215, 파랑 >= 빨강-5). 앞치마(황토)·흰자·검은 선·소품은 건드리지 않는다.
+  그림마다 털 평균색을 재서 기준과의 차이만큼 옮긴다(차이가 작으면 건너뜀).
+  크롬 headless --dump-dom → <pre id="out">에 "이름 판정 base64PNG".
+-->
+<meta charset="utf-8">
+<pre id="out"></pre>
+<script>
+const NAMES = ["cat-angry","cat-cashier","cat-cheer","cat-clipboard","cat-contract","cat-cry","cat-cute","cat-dizzy","cat-excited","cat-faint","cat-guide","cat-happy","cat-idea","cat-kneel","cat-laptop","cat-listen","cat-mad","cat-memo-kneel","cat-memo","cat-moneybags","cat-neutral","cat-panic","cat-papers","cat-phone","cat-point-both","cat-point-right","cat-present","cat-present2","cat-rich","cat-scared","cat-scheme","cat-shock","cat-sit-idea","cat-sit","cat-slam","cat-sly","cat-sob","cat-stamp","cat-sulk","cat-surprise","cat-talk","cat-tired","cat-tongue","cat-wink","cat-wonder","cat-yawn","cat-yay"], REFNAME = "cat-happy";
+const out = document.getElementById("out");
+const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = "../assets/toon/" + n + ".png"; });
+const fur = (p, k) => { const r = p[k*4], g = p[k*4+1], b = p[k*4+2], mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  return p[k*4+3] > 200 && mx - mn < 40 && mx >= 80 && mx <= 215 && b >= r - 5 && g <= b + 4; }; // 초록 소품(책상)은 빼려고 g <= b+4
+const meanOf = (p, N) => { let s = [0, 0, 0], c = 0; for (let k = 0; k < N; k++) if (fur(p, k)) { s[0] += p[k*4]; s[1] += p[k*4+1]; s[2] += p[k*4+2]; c++; } return c ? s.map(v => v / c) : null; };
+(async () => {
+  const ri = await load(REFNAME), rc = document.createElement("canvas"); rc.width = ri.naturalWidth; rc.height = ri.naturalHeight;
+  const rg = rc.getContext("2d"); rg.drawImage(ri, 0, 0); const TARGET = meanOf(rg.getImageData(0, 0, rc.width, rc.height).data, rc.width * rc.height);
+  out.textContent += "TARGET " + TARGET.map(Math.round).join(",") + " -\n";
+  for (const name of NAMES) {
+    const img = await load(name), w = img.naturalWidth, h = img.naturalHeight, c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d"); g.drawImage(img, 0, 0); const d = g.getImageData(0, 0, w, h), p = d.data, N = w * h;
+    const m = meanOf(p, N); if (!m) { out.textContent += name + " nofur -\n"; continue; }
+    const OFF = TARGET.map((t, i) => t - m[i]), dist = Math.hypot(...OFF);
+    if (dist < 3) { out.textContent += name + " skip_d" + Math.round(dist) + " -\n"; continue; }
+    // 밝기는 그림의 명암을 살리고(기준 평균 밝기로 옮김), 색 기운(파랑·보라)은 기준과 똑같이 맞춘다
+    const lu = c => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2], LT = lu(TARGET), LM = lu(m), TC = TARGET.map(v => v - LT);
+    for (let k = 0; k < N; k++) if (fur(p, k)) { const L = lu([p[k*4], p[k*4+1], p[k*4+2]]) + (LT - LM); for (let ch = 0; ch < 3; ch++) p[k*4+ch] = Math.max(0, Math.min(255, Math.round(L + TC[ch]))); }
+    g.putImageData(d, 0, 0);
+    out.textContent += name + " fix_d" + Math.round(dist) + " " + c.toDataURL("image/png").split(",")[1] + "\n";
+  }
+  out.dataset.done = "1";
+})();
+</script>
