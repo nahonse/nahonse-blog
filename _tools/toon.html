@@ -253,6 +253,44 @@ const decks = {
         talk: [["이웃 사장님", "<em>개인 로그인</em>부터!<br>따라와 봐요", "r"]] },
     ],
   },
+  "hometax-cash-receipt-issue": {
+    title: "<b>현금영수증</b> 달라는데?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + pic("cat-cashier", 230, 650, 430, { rot: -2 }) + q(400, 150),
+        talk: [["", "손님이 현금 내고<br>현금영수증 달래요"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-present", 125, 640, 370, { rot: -3 }) + pic("dog-talk", 348, 630, 375, { rot: 3 }),
+        talk: [["", "카드 단말기가 없는데요?"], ["이웃 사장님", "<em>홈택스</em>에서도<br>발급할 수 있어요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-sit-idea", 120, 650, 360, { rot: -2 }) + pic("dog-point-left2", 345, 635, 390, { rot: 2 }),
+        talk: [["이웃 사장님", "먼저 <em>발급 사업자 신청</em>부터<br>해 두면 돼요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-yay", 115, 520, 300, { rot: -6 })
+          + pic("dog-point-right", 300, 620, 390, { rot: 2 }) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "신청 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
+  "hometax-tax-invoice-correction": {
+    title: "<b>세금계산서</b> 잘못 썼다면?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + paper(330, 140, 8, "세금계산서", "금액 착오") + pic("cat-panic", 170, 650, 430, { rot: -3 }),
+        talk: [["", "금액을 잘못 적어서<br>보냈어…"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-contract", 130, 640, 370, { rot: -3 }) + pic("dog-point-left", 352, 630, 390, { rot: 2 }),
+        talk: [["", "지우고 다시 쓰면 되나요?"], ["이웃 사장님", "<em>수정발급</em>으로 고쳐요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-guide", 125, 645, 370, { rot: -3 }) + pic("dog-checklist", 318, 640, 430, { flip: true, rot: 2 }),
+        talk: [["이웃 사장님", "사유마다<br><em>작성일자</em>가 달라요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cute", 115, 520, 300, { rot: -6 })
+          + pic("dog-talk", 320, 610, 400, { flip: true, rot: 4 }) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "사유 고르는 법 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
