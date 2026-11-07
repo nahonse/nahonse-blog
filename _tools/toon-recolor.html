@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+  이미 잘라 둔 강아지 그림(assets/toon/dog-*.png) 중 몸이 진한 갈색·주둥이가 회베이지인 것만 골라
+  기본 강아지 색(얼굴·주둥이 199,152,108, 몸 +42,42,50)으로 맞춘다(2026-11-07 사용자 요청, toon-cut.html과 같은 규칙).
+  크롬 headless --dump-dom 으로 열면 <pre id="out">에 "이름 판정 base64PNG" 줄이 나온다(판정 skip이면 그대로 둠).
+-->
+<meta charset="utf-8">
+<pre id="out"></pre>
+<script>
+const NAMES = ["dog-angry","dog-bored","dog-cashier","dog-checklist","dog-cheer","dog-cry","dog-dizzy","dog-faint","dog-giggle","dog-grin","dog-happy","dog-laptop","dog-lecture","dog-mic","dog-neutral","dog-panic","dog-phone","dog-point-left","dog-point-left2","dog-point-right","dog-reach","dog-rich","dog-rub","dog-scared","dog-scheme","dog-slam","dog-sly","dog-smug","dog-sob","dog-stamp","dog-sulk","dog-surprise","dog-talk","dog-think","dog-tired","dog-tongue","dog-wave","dog-wonder","dog-yawn","dog-yay"];
+const out = document.getElementById("out");
+const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = "../assets/toon/" + n + ".png"; });
+(async () => {
+  for (const name of NAMES) {
+    const img = await load(name), w = img.naturalWidth, h = img.naturalHeight, c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d"); g.drawImage(img, 0, 0); const d = g.getImageData(0, 0, w, h), p = d.data, N = w * h;
+    const bg = k => p[k*4+3] < 20;
+    // 참고값: 주황갈색 픽셀 평균 R(진한 강아지 150~170, 기본 강아지 180~190)
+    let sr = 0, sn = 0;
+    for (let k = 0; k < N; k++) { if (bg(k)) continue; const r = p[k*4], g2 = p[k*4+1], b = p[k*4+2], mx = Math.max(r, g2, b), mn = Math.min(r, g2, b);
+      if (mx < 60 || mx !== r || mx === mn) continue; const hue = 60 * (g2 - b) / (mx - mn); if (hue < 20 || hue > 45 || (mx - mn) / mx < 0.35) continue; sr += r; sn++; }
+    const avgR = sn ? sr / sn : 255;
+    const REF = [174, 158, 140], TO = [199, 152, 108];
+    const near = k => !bg(k) && Math.hypot(p[k*4]-REF[0], p[k*4+1]-REF[1], p[k*4+2]-REF[2]) < 34;
+    const lim = w * Math.floor(h * 0.55), seen = new Uint8Array(N); let best = [];
+    for (let s0 = 0; s0 < lim; s0++) { if (seen[s0] || !near(s0)) continue; const q = [s0], mem = []; seen[s0] = 1;
+      while (q.length) { const k = q.pop(); mem.push(k); const i = k % w;
+        for (const n of [i > 0 ? k - 1 : -1, i < w - 1 ? k + 1 : -1, k - w, k + w]) if (n >= 0 && n < lim && !seen[n] && near(n)) { seen[n] = 1; q.push(n); } }
+      if (mem.length > best.length) best = mem; }
+    const lum = k => 0.3 * p[k*4] + 0.59 * p[k*4+1] + 0.11 * p[k*4+2], L0 = 0.3 * REF[0] + 0.59 * REF[1] + 0.11 * REF[2];
+    // 판정: 몸 갈색 평균 R이 170 미만이면 진한 강아지(이모션4~7). 기본 강아지(이모션1~3)는 175~190이라 건드리지 않는다.
+    if (avgR >= 170) { out.textContent += name + " skip_R" + Math.round(avgR) + "_m" + best.length + " -\n"; continue; }
+    if (best.length < 100) best = []; // 표정 때문에 주둥이가 거의 안 보이면 몸 색만 바꾼다
+    for (const k of best) { const dl = 0.5 * (lum(k) - L0); for (let ch = 0; ch < 3; ch++) p[k*4+ch] = Math.max(0, Math.min(255, Math.round(TO[ch] + dl))); }
+    const ring = new Set(best);
+    for (let it = 0; it < 3; it++) { const add = [];
+      for (const k of ring) for (const n of [k - 1, k + 1, k - w, k + w]) { if (n < 0 || n >= N || ring.has(n) || bg(n)) continue;
+        const mx = Math.max(p[n*4], p[n*4+1], p[n*4+2]), mn = Math.min(p[n*4], p[n*4+1], p[n*4+2]); if (mx > 70 && (mx - mn) / mx < 0.45 && p[n*4] >= p[n*4+2]) add.push(n); }
+      for (const n of add) { if (ring.has(n)) continue; ring.add(n); const dl = 0.5 * (lum(n) - L0); for (let ch = 0; ch < 3; ch++) p[n*4+ch] = Math.max(0, Math.min(255, Math.round(TO[ch] + dl))); } }
+    // 그림마다 몸 색이 조금씩 달라서, 이 그림의 몸 평균색(채도 0.5 이상·밝기 90 이상 주황갈색)을 재서 기본 몸색(199,152,108)과의 차이만큼 옮긴다
+    let mr = 0, mg = 0, mb = 0, mc = 0;
+    for (let k = 0; k < N; k++) { if (bg(k) || ring.has(k)) continue; const r = p[k*4], g2 = p[k*4+1], b = p[k*4+2], mx = Math.max(r, g2, b), mn = Math.min(r, g2, b);
+      if (mx < 90 || mx !== r || mx === mn || (mx - mn) / mx < 0.5) continue; const hue = 60 * (g2 - b) / (mx - mn); if (hue < 20 || hue > 45) continue; mr += r; mg += g2; mb += b; mc++; }
+    const OFF = mc ? [TO[0] - mr / mc, TO[1] - mg / mc, TO[2] - mb / mc] : [42, 42, 50];
+    for (let k = 0; k < N; k++) { if (bg(k) || ring.has(k)) continue; const r = p[k*4], g2 = p[k*4+1], b = p[k*4+2], mx = Math.max(r, g2, b), mn = Math.min(r, g2, b);
+      if (mx < 40 || mx !== r || mx === mn) continue; const hue = 60 * (g2 - b) / (mx - mn); if (hue < 20 || hue > 45) continue;
+      const t = Math.max(0, Math.min(1, ((mx - mn) / mx - 0.3) / 0.2)); if (!t) continue;
+      for (let ch = 0; ch < 3; ch++) p[k*4+ch] = Math.min(255, Math.round(p[k*4+ch] + t * OFF[ch])); }
+    g.putImageData(d, 0, 0);
+    out.textContent += name + " fix_R" + Math.round(avgR) + "_m" + best.length + " " + c.toDataURL("image/png").split(",")[1] + "\n";
+  }
+  out.dataset.done = "1";
+})();
+</script>
