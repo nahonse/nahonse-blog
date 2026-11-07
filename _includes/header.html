@@ -1,8 +1,8 @@
-{%- comment -%} 나혼세 상단 바: 보라 띠 + 로고 + 메뉴 (minima header.html 대신) {%- endcomment -%}
+{%- comment -%} 나혼세 상단 바: 흰 바탕 + 고양이 로고 + 메뉴 (2026-11-07 디자인 시안 A, minima header.html 대신) {%- endcomment -%}
 <header class="site-header nh-header">
   <div class="wrapper nh-header-inner">
     <a class="nh-brand" href="{{ "/" | relative_url }}">
-      <img src="{{ "/assets/images/logo-96.png" | relative_url }}" alt="나혼세 (나 혼자 세무신고)" width="48" height="48">
+      <img src="{{ "/assets/images/favicon-192.png" | relative_url }}" alt="" width="40" height="40"><span>나혼세</span>
     </a>
     <nav class="nh-nav" aria-label="주요 메뉴">
       <a href="{{ "/" | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>홈</a>
