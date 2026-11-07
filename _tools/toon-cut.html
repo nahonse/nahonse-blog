@@ -82,6 +82,17 @@ const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Ima
         const t = Math.max(0, Math.min(1, ((mx - mn) / mx - 0.3) / 0.2)); if (!t) continue;
         for (let c = 0; c < 3; c++) p[k*4+c] = Math.min(255, Math.round(p[k*4+c] + t * OFF[c]));
       }
+    // 주둥이 둘레 옅은 선 지우기(2026-11-07 사용자 지적): 몸 색을 바꾼 뒤 주둥이와 그 둘레 6px 안에서 얼굴색에 가까운 픽셀(검은 선·코·입·혀 제외)을 얼굴색으로 칠한다
+    if (ring.size) { const zone = new Set(ring); for (let it = 0; it < 6; it++) { const add = [];
+      for (const k of zone) for (const n of [k - 1, k + 1, k - w, k + w]) if (n >= 0 && n < N && !zone.has(n) && !bg[n]) add.push(n);
+      for (const n of add) zone.add(n); }
+      // 칠할 색: 둘레 바로 바깥(4px 띠) 얼굴색의 평균 → 둘레와 똑같은 색이 되어 경계가 보이지 않는다
+      const faceLike = n => { const r = p[n*4], g2 = p[n*4+1], b = p[n*4+2]; return Math.hypot(r - TO[0], g2 - TO[1], b - TO[2]) < 75 && g2 >= 0.62 * r; };
+      const outer = new Set(zone); let fr = 0, fg = 0, fb = 0, fc = 0;
+      for (let it = 0; it < 4; it++) { const add = []; for (const k of outer) for (const n of [k - 1, k + 1, k - w, k + w]) if (n >= 0 && n < N && !outer.has(n) && !bg[n]) add.push(n);
+        for (const n of add) { if (outer.has(n)) continue; outer.add(n); if (faceLike(n)) { fr += p[n*4]; fg += p[n*4+1]; fb += p[n*4+2]; fc++; } } }
+      const FILL = fc ? [fr / fc, fg / fc, fb / fc].map(Math.round) : TO;
+      for (const n of zone) if (faceLike(n)) { p[n*4] = FILL[0]; p[n*4+1] = FILL[1]; p[n*4+2] = FILL[2]; } }
     }
     let x0 = w, y0 = h, x1 = 0, y1 = 0;
     for (let k = 0; k < N; k++) { if (bg[k]) { p[k * 4 + 3] = 0; continue; } const i = k % w, j = (k - i) / w;

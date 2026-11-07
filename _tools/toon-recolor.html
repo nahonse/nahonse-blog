@@ -9,7 +9,7 @@
 <script>
 const NAMES = ["dog-angry","dog-bored","dog-cashier","dog-checklist","dog-cheer","dog-cry","dog-dizzy","dog-faint","dog-giggle","dog-grin","dog-happy","dog-laptop","dog-lecture","dog-mic","dog-neutral","dog-panic","dog-phone","dog-point-left","dog-point-left2","dog-point-right","dog-reach","dog-rich","dog-rub","dog-scared","dog-scheme","dog-slam","dog-sly","dog-smug","dog-sob","dog-stamp","dog-sulk","dog-surprise","dog-talk","dog-think","dog-tired","dog-tongue","dog-wave","dog-wonder","dog-yawn","dog-yay"];
 const out = document.getElementById("out");
-const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = "../assets/toon/" + n + ".png"; });
+const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => { i.onerror = null; i.src = "../assets/toon/" + n + ".png"; }; i.src = "../_captures/toon-orig/" + n + ".png"; }); // 원본(고치기 전)이 있으면 원본에서 시작
 (async () => {
   for (const name of NAMES) {
     const img = await load(name), w = img.naturalWidth, h = img.naturalHeight, c = document.createElement("canvas"); c.width = w; c.height = h;
@@ -46,6 +46,17 @@ const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i
       if (mx < 40 || mx !== r || mx === mn) continue; const hue = 60 * (g2 - b) / (mx - mn); if (hue < 20 || hue > 45) continue;
       const t = Math.max(0, Math.min(1, ((mx - mn) / mx - 0.3) / 0.2)); if (!t) continue;
       for (let ch = 0; ch < 3; ch++) p[k*4+ch] = Math.min(255, Math.round(p[k*4+ch] + t * OFF[ch])); }
+    // 주둥이 둘레 옅은 선 지우기(2026-11-07 사용자 지적): 몸 색을 바꾼 뒤 주둥이와 그 둘레 6px 안에서 얼굴색에 가까운 픽셀(검은 선·코·입·혀 제외)을 얼굴색으로 칠한다
+    if (ring.size) { const zone = new Set(ring); for (let it = 0; it < 6; it++) { const add = [];
+      for (const k of zone) for (const n of [k - 1, k + 1, k - w, k + w]) if (n >= 0 && n < N && !zone.has(n) && !bg(n)) add.push(n);
+      for (const n of add) zone.add(n); }
+      // 칠할 색: 둘레 바로 바깥(4px 띠) 얼굴색의 평균 → 둘레와 똑같은 색이 되어 경계가 보이지 않는다
+      const faceLike = n => { const r = p[n*4], g2 = p[n*4+1], b = p[n*4+2]; return Math.hypot(r - TO[0], g2 - TO[1], b - TO[2]) < 75 && g2 >= 0.62 * r; };
+      const outer = new Set(zone); let fr = 0, fg = 0, fb = 0, fc = 0;
+      for (let it = 0; it < 4; it++) { const add = []; for (const k of outer) for (const n of [k - 1, k + 1, k - w, k + w]) if (n >= 0 && n < N && !outer.has(n) && !bg(n)) add.push(n);
+        for (const n of add) { if (outer.has(n)) continue; outer.add(n); if (faceLike(n)) { fr += p[n*4]; fg += p[n*4+1]; fb += p[n*4+2]; fc++; } } }
+      const FILL = fc ? [fr / fc, fg / fc, fb / fc].map(Math.round) : TO;
+      for (const n of zone) if (faceLike(n)) { p[n*4] = FILL[0]; p[n*4+1] = FILL[1]; p[n*4+2] = FILL[2]; } }
     g.putImageData(d, 0, 0);
     out.textContent += name + " fix_R" + Math.round(avgR) + "_m" + best.length + " " + c.toDataURL("image/png").split(",")[1] + "\n";
   }
