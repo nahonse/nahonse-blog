@@ -242,6 +242,23 @@ const decks = {
       { type: "end", title: "날짜별 메뉴 경로와\n화면은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법, 국세청 세무일정, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-incentive-late-application": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "근로·자녀장려금", title: "장려금 놓쳤다면\n**기한 후 신청**\n11월 30일까지", badge: "📅 2025년 귀속", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "누가 받을 수 있나요?", rows: [["단독", "총소득 **2,200만원 미만**, 최대 165만원"], ["홑벌이", "총소득 **3,200만원 미만**, 최대 285만원"], ["맞벌이", "총소득 **4,400만원 미만**, 최대 330만원"], ["자녀", "총소득 7,000만원 미만, 자녀 1명당 최대 **100만원**"]],
+        note: "가구 재산 합계 2억 4천만원 미만(2025년 6월 1일 기준)이어야 해요. 근로·사업소득 등이 있어야 해요" },
+      { type: "step", step: 1, title: "개인으로 로그인", path: "사업자로 로그인하면 신청 화면이 안 열려요", img: "assets/images/posts/hometax-incentive-late-application/02-biz-blocked.png", caption: "사업자로 들어가면 \"해당 화면은 **개인사업자는 이용할 수 없습니다**\"가 떠요", guide_pic: "dog-talk" },
+      { type: "step", step: 2, title: "통합화면 열기", path: "장려금·연말정산·기부금 > 근로·자녀장려금 통합화면", img: "assets/images/posts/hometax-incentive-late-application/01-menu.png", caption: "정기 신청 아래 **직접입력 신청**을 바로 눌러도 돼요" },
+      { type: "step", step: 3, title: "안내대상인지 확인", path: "통합화면 맨 위 안내 → 직접입력신청", img: "assets/images/posts/hometax-incentive-late-application/03-portal.png", caption: "안내대상자가 아니면 증빙을 첨부해 **직접입력신청**으로 신청해요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 4, title: "기한 후 신청서 작성", path: "인적사항 → 소득명세 → 전세금명세 → 계좌정보 → 신청확인 및 전송", img: "assets/images/posts/hometax-incentive-late-application/06-form.png", caption: "제목에 **2025년귀속, 기한후**가 붙어 있어요" },
+      { type: "step", step: 5, title: "가구원 명세 확인", path: "2025.12.31 현재 배우자·부양자녀·같이 사는 직계존비속", img: "assets/images/posts/hometax-incentive-late-application/07-household.png", caption: "빠진 가족이 있으면 가구 유형과 금액이 달라져요", guide_pic: "dog-checklist" },
+      { type: "facts", title: "이것만 조심", rows: [["마감", "**11월 30일(월)** 안에(국세청 한 페이지는 12.1로 적혀 있어요)"], ["금액", "기한 후 신청은 계산 금액의 **95%**"], ["재산", "1억 7천만원 이상이면 **50%**만"], ["자녀공제", "같은 자녀로 자녀세액공제를 받았으면 공제액만큼 줄어요"]],
+        note: "국세청 안내 기준 신청일부터 4개월 안에 지급돼요. 심사에 따라 줄거나 늦어질 수 있어요" },
+      { type: "end", title: "요건 정리와\n신청 화면 순서는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 조세특례제한법, 국세청 세무일정·안내, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
