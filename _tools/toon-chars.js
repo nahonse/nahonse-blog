@@ -8,6 +8,9 @@
 //   (이모션6) 가리키기: dog-point-left·dog-point-left2(왼쪽), dog-point-right, cat-point-right, cat-point-both(양쪽)
 //            그 밖: dog-rub 손 비비기, dog-wave 씨익 손 흔들기, cat-kneel 무릎 꿇고 방긋, cat-present·cat-present2 손 내밀어 소개
 //   (이모션7) 강의: dog-lecture 강단 설명(말풍선 …!? 포함), dog-mic 마이크 발표 / cat-memo·cat-memo-kneel 메모, cat-listen 듣기, cat-sit 앉아 듣기, cat-sit-idea 앉아서 전구
+//   (이모션8·9, `_tools/toon-cut.html`로 자름) 강아지: checklist 체크리스트 가리키기(오른쪽 봄), reach 손 내밀어 다가가기(오른쪽), cashier 금고·돈주머니, stamp 계약서 도장(오른쪽 봄), rich 돈 받고 신남, dizzy 휴대폰 보며 어질(앉음)
+//            고양이: clipboard 서류철 들고 오른쪽 봄, guide 서류 내밀고 메모장(오른쪽), contract 계약서 내밀고 메모장(오른쪽), papers 서류 더미에 어질, cashier 금고·돈주머니, moneybags 돈주머니(오른쪽 봄), stamp 도장 찍기(오른쪽 봄), rich 돈 받고 신남, dizzy 휴대폰 보며 어질
+//   마주 보기: 왼쪽 고양이는 오른쪽 보는 그림, 오른쪽 강아지는 dog-talk·dog-point-left·dog-point-left2(뒤집지 않음) 또는 오른쪽 보는 그림을 flip
 //   캡처 설명 장 강아지 기본값은 dog-point-left(말풍선이 왼쪽). 장마다 바꾸려면 슬라이드에 guide_pic.
 const L = 'stroke="#1e1e1e" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"';
 const TOON = "../assets/toon/";

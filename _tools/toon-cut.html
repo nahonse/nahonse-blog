@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+  캐릭터 시트(이모션N.jpg, 커밋 안 함)에서 자세 하나씩 잘라 배경을 투명하게 만든다.
+  CUTS에 [시트, 이름, x, y, w, h, 지울 사각형들(선택)] 을 적고 크롬 headless --dump-dom 으로 열면
+  <pre id="out">에 "이름 base64PNG" 줄이 나온다 → 셸에서 assets/toon/이름.png 로 저장.
+  배경: 가장자리와 이어진 밝은 색만 지움(눈 흰자는 남음). 자른 칸 테두리에 닿은 조각(옆 캐릭터)은 지운다.
+-->
+<meta charset="utf-8">
+<pre id="out"></pre>
+<script>
+const CUTS = [
+  ["이모션8", "dog-checklist", 60, 40, 350, 380], ["이모션8", "dog-reach", 425, 50, 285, 365], ["이모션8", "dog-cashier", 795, 40, 395, 370],
+  ["이모션8", "cat-clipboard", 15, 500, 211, 390], ["이모션8", "cat-guide", 222, 500, 233, 390], ["이모션8", "cat-papers", 450, 440, 345, 450],
+  ["이모션8", "cat-cashier", 770, 500, 254, 390, [[1006, 500, 1024, 683], [1018, 740, 1024, 890], [965, 760, 1024, 830]]], ["이모션8", "cat-moneybags", 1003, 500, 197, 390, [[1003, 683, 1022, 750], [1003, 600, 1009, 683]]],
+  ["이모션9", "dog-stamp", 60, 40, 350, 380], ["이모션9", "dog-rich", 435, 15, 385, 400], ["이모션9", "dog-dizzy", 870, 0, 330, 420],
+  ["이모션9", "cat-stamp", 15, 500, 192, 390], ["이모션9", "cat-contract", 207, 500, 248, 390], ["이모션9", "cat-rich", 450, 440, 350, 450],
+  ["이모션9", "cat-dizzy", 1003, 420, 197, 470, [[1003, 683, 1022, 750], [1003, 600, 1009, 683]]],
+];
+const out = document.getElementById("out"), sheets = {};
+const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = "../" + n + ".jpg"; }));
+(async () => {
+  for (const [sheet, name, x, y, w, h, erase = []] of CUTS) {
+    const img = await load(sheet), c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d"); g.drawImage(img, x, y, w, h, 0, 0, w, h);
+    g.fillStyle = "#fff"; for (const [a, b, c2, d2] of erase) g.fillRect(a - x, b - y, c2 - a, d2 - b); // 옆 캐릭터와 겹친 곳(시트 좌표)
+    const d = g.getImageData(0, 0, w, h), p = d.data, N = w * h;
+    const light = k => p[k * 4] > 228 && p[k * 4 + 1] > 228 && p[k * 4 + 2] > 228;
+    const bg = new Uint8Array(N), st = [];
+    for (let i = 0; i < w; i++) st.push(i, N - w + i);
+    for (let j = 0; j < h; j++) st.push(j * w, j * w + w - 1);
+    while (st.length) { const k = st.pop(); if (bg[k] || !light(k)) continue; bg[k] = 1; const i = k % w;
+      if (i > 0) st.push(k - 1); if (i < w - 1) st.push(k + 1); if (k >= w) st.push(k - w); if (k < N - w) st.push(k + w); }
+    // 전경 조각 나누기: 가장 큰 조각(캐릭터)은 남기고, 테두리에 닿은 다른 조각(옆 캐릭터)과 아주 작은 점은 지운다
+    const lab = new Int32Array(N); let id = 0; const parts = [];
+    for (let s = 0; s < N; s++) {
+      if (bg[s] || lab[s]) continue; id++; const q = [s], mem = []; let edge = false; lab[s] = id;
+      while (q.length) { const k = q.pop(); mem.push(k); const i = k % w, j = (k - i) / w;
+        if (i === 0 || j === 0 || i === w - 1 || j === h - 1) edge = true;
+        for (const n of [i > 0 ? k - 1 : -1, i < w - 1 ? k + 1 : -1, j > 0 ? k - w : -1, j < h - 1 ? k + w : -1])
+          if (n >= 0 && !bg[n] && !lab[n]) { lab[n] = id; q.push(n); } }
+      parts.push({ mem, edge });
+    }
+    const big = parts.reduce((a, b) => (b.mem.length > a.mem.length ? b : a));
+    for (const t of parts) if (t !== big && (t.edge || t.mem.length < 40)) for (const k of t.mem) bg[k] = 1;
+    let x0 = w, y0 = h, x1 = 0, y1 = 0;
+    for (let k = 0; k < N; k++) { if (bg[k]) { p[k * 4 + 3] = 0; continue; } const i = k % w, j = (k - i) / w;
+      x0 = Math.min(x0, i); x1 = Math.max(x1, i); y0 = Math.min(y0, j); y1 = Math.max(y1, j); }
+    g.putImageData(d, 0, 0);
+    const t = document.createElement("canvas"); t.width = x1 - x0 + 1; t.height = y1 - y0 + 1;
+    t.getContext("2d").drawImage(c, x0, y0, t.width, t.height, 0, 0, t.width, t.height);
+    out.textContent += name + " " + t.toDataURL("image/png").split(",")[1] + "\n";
+  }
+  out.dataset.done = "1";
+})();
+</script>
