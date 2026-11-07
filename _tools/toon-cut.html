@@ -46,6 +46,20 @@ const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Ima
     }
     const big = parts.reduce((a, b) => (b.mem.length > a.mem.length ? b : a));
     for (const t of parts) if (t !== big && (t.edge || t.mem.length < 40)) for (const k of t.mem) bg[k] = 1;
+    // 새 시트(이모션8·9) 강아지는 주둥이가 회베이지라, 옛 강아지 주둥이 색(196,151,110)으로 맞춘다(사용자 요청 2026-11-07).
+    // 위쪽 55% 안에서 회베이지(174,158,140) 근처 색이 이어진 가장 큰 덩어리만 바꾸고, 원래 명암 차이는 살린다.
+    if (name.startsWith("dog-")) {
+      const REF = [174, 158, 140], TO = [196, 151, 110], near = k => !bg[k] && Math.hypot(p[k*4]-REF[0], p[k*4+1]-REF[1], p[k*4+2]-REF[2]) < 34;
+      const seen = new Uint8Array(N); let best = [];
+      for (let s0 = 0; s0 < w * Math.floor(h * 0.55); s0++) {
+        if (seen[s0] || !near(s0)) continue; const q = [s0], mem = []; seen[s0] = 1;
+        while (q.length) { const k = q.pop(); mem.push(k); const i = k % w;
+          for (const n of [i > 0 ? k - 1 : -1, i < w - 1 ? k + 1 : -1, k - w, k + w])
+            if (n >= 0 && n < w * Math.floor(h * 0.55) && !seen[n] && near(n)) { seen[n] = 1; q.push(n); } }
+        if (mem.length > best.length) best = mem;
+      }
+      for (const k of best) for (let c = 0; c < 3; c++) p[k*4+c] = Math.max(0, Math.min(255, TO[c] + p[k*4+c] - REF[c]));
+    }
     let x0 = w, y0 = h, x1 = 0, y1 = 0;
     for (let k = 0; k < N; k++) { if (bg[k]) { p[k * 4 + 3] = 0; continue; } const i = k % w, j = (k - i) / w;
       x0 = Math.min(x0, i); x1 = Math.max(x1, i); y0 = Math.min(y0, j); y1 = Math.max(y1, j); }
