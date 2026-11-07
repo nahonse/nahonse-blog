@@ -10,7 +10,7 @@
 <script>
 const CUTS = [
   ["이모션8", "dog-checklist", 60, 40, 350, 380], ["이모션8", "dog-reach", 425, 50, 285, 365], ["이모션8", "dog-cashier", 795, 40, 395, 370],
-  ["이모션8", "cat-clipboard", 15, 500, 211, 390], ["이모션8", "cat-guide", 222, 500, 233, 390], ["이모션8", "cat-papers", 450, 440, 345, 450],
+  ["이모션8", "cat-clipboard", 15, 500, 211, 390, [[[217, 652], [245, 652], [245, 780], [201, 780], [201, 753], [225.5, 680], [224, 678], [217, 678]]]], ["이모션8", "cat-guide", 222, 500, 233, 390], ["이모션8", "cat-papers", 450, 440, 345, 450],
   ["이모션8", "cat-cashier", 770, 500, 254, 390, [[1006, 500, 1024, 683], [1018, 740, 1024, 890], [965, 760, 1024, 830]]], ["이모션8", "cat-moneybags", 1003, 500, 197, 390, [[1003, 683, 1022, 750], [1003, 600, 1009, 683]]],
   ["이모션9", "dog-stamp", 60, 40, 350, 380], ["이모션9", "dog-rich", 435, 15, 385, 400], ["이모션9", "dog-dizzy", 870, 0, 330, 420],
   ["이모션9", "cat-stamp", 15, 500, 192, 390], ["이모션9", "cat-contract", 207, 500, 248, 390], ["이모션9", "cat-rich", 450, 440, 350, 450],
@@ -22,7 +22,11 @@ const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Ima
   for (const [sheet, name, x, y, w, h, erase = []] of CUTS) {
     const img = await load(sheet), c = document.createElement("canvas"); c.width = w; c.height = h;
     const g = c.getContext("2d"); g.drawImage(img, x, y, w, h, 0, 0, w, h);
-    g.fillStyle = "#fff"; for (const [a, b, c2, d2] of erase) g.fillRect(a - x, b - y, c2 - a, d2 - b); // 옆 캐릭터와 겹친 곳(시트 좌표)
+    g.fillStyle = "#fff"; // 옆 캐릭터와 겹친 곳(시트 좌표): [x0,y0,x1,y1] 사각형 또는 [[x,y],...] 다각형
+    for (const e of erase) {
+      if (typeof e[0] === "number") { g.fillRect(e[0] - x, e[1] - y, e[2] - e[0], e[3] - e[1]); continue; }
+      g.beginPath(); e.forEach(([px, py], i) => (i ? g.lineTo : g.moveTo).call(g, px - x, py - y)); g.closePath(); g.fill();
+    }
     const d = g.getImageData(0, 0, w, h), p = d.data, N = w * h;
     const light = k => p[k * 4] > 228 && p[k * 4 + 1] > 228 && p[k * 4 + 2] > 228;
     const bg = new Uint8Array(N), st = [];
