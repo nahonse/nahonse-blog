@@ -49,7 +49,7 @@ const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Ima
     // 새 시트(이모션8·9) 강아지는 주둥이가 회베이지라, 옛 강아지 주둥이 색(196,151,110)으로 맞춘다(사용자 요청 2026-11-07).
     // 위쪽 55% 안에서 회베이지(174,158,140) 근처 색이 이어진 가장 큰 덩어리만 바꾸고, 원래 명암 차이는 살린다.
     if (name.startsWith("dog-")) {
-      const REF = [174, 158, 140], TO = [196, 151, 110], near = k => !bg[k] && Math.hypot(p[k*4]-REF[0], p[k*4+1]-REF[1], p[k*4+2]-REF[2]) < 34;
+      const REF = [174, 158, 140], TO = [199, 152, 108], near = k => !bg[k] && Math.hypot(p[k*4]-REF[0], p[k*4+1]-REF[1], p[k*4+2]-REF[2]) < 34;
       const seen = new Uint8Array(N); let best = [];
       for (let s0 = 0; s0 < w * Math.floor(h * 0.55); s0++) {
         if (seen[s0] || !near(s0)) continue; const q = [s0], mem = []; seen[s0] = 1;
@@ -58,7 +58,27 @@ const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Ima
             if (n >= 0 && n < w * Math.floor(h * 0.55) && !seen[n] && near(n)) { seen[n] = 1; q.push(n); } }
         if (mem.length > best.length) best = mem;
       }
-      for (const k of best) for (let c = 0; c < 3; c++) p[k*4+c] = Math.max(0, Math.min(255, TO[c] + p[k*4+c] - REF[c]));
+      // 옛 강아지는 주둥이가 얼굴과 같은 색이라, 회색 기운은 버리고 밝기 차이의 절반만 남긴다(명암만 살짝)
+      const lum = k => 0.3 * p[k*4] + 0.59 * p[k*4+1] + 0.11 * p[k*4+2], L0 = 0.3 * REF[0] + 0.59 * REF[1] + 0.11 * REF[2];
+      for (const k of best) { const dl = 0.5 * (lum(k) - L0); for (let c = 0; c < 3; c++) p[k*4+c] = Math.max(0, Math.min(255, Math.round(TO[c] + dl))); }
+      // 주둥이 둘레의 채도 낮은 중간색(옅은 원으로 보임)만 3px까지 주둥이 색으로 채운다. 얼굴 갈색·검은 선은 건드리지 않는다.
+      const ring = new Set(best); // 주둥이는 아래 몸 색 바꾸기에서 뺀다
+      for (let it = 0; it < 3; it++) { const add = [];
+        for (const k of ring) for (const n of [k - 1, k + 1, k - w, k + w]) {
+          if (n < 0 || n >= N || ring.has(n) || bg[n]) continue; const mx = Math.max(p[n*4], p[n*4+1], p[n*4+2]), mn = Math.min(p[n*4], p[n*4+1], p[n*4+2]);
+          if (mx > 70 && (mx - mn) / mx < 0.45 && p[n*4] >= p[n*4+2]) add.push(n); }
+        for (const n of add) { if (ring.has(n)) continue; ring.add(n); const dl = 0.5 * (lum(n) - L0); for (let c = 0; c < 3; c++) p[n*4+c] = Math.max(0, Math.min(255, Math.round(TO[c] + dl))); } }
+      // 몸·귀 갈색도 옛 강아지에 맞춤: 새 몸(157,110,58)→옛 몸(199,152,110), 새 귀(112,79,44)→옛 귀(150,112,82)라 둘 다 대략 +(42,42,50)만큼 밝다.
+      // 곱하기로 바꾸면 주둥이 경계 중간색이 분홍으로 튀어서, 더하기로 바꾸고 채도 0.3~0.5 사이는 조금씩만 바꿔 경계를 부드럽게 잇는다.
+      // 주황갈색(색상 20~45도)만 바꿔서 돈주머니(채도 낮음)·도장·계산기 같은 소품은 그대로 둔다.
+      const OFF = [42, 42, 50];
+      for (let k = 0; k < N; k++) {
+        if (bg[k] || ring.has(k)) continue; const r = p[k*4], g2 = p[k*4+1], b = p[k*4+2], mx = Math.max(r, g2, b), mn = Math.min(r, g2, b);
+        if (mx < 40 || mx !== r || mx === mn) continue;
+        const hue = 60 * (g2 - b) / (mx - mn); if (hue < 20 || hue > 45) continue;
+        const t = Math.max(0, Math.min(1, ((mx - mn) / mx - 0.3) / 0.2)); if (!t) continue;
+        for (let c = 0; c < 3; c++) p[k*4+c] = Math.min(255, Math.round(p[k*4+c] + t * OFF[c]));
+      }
     }
     let x0 = w, y0 = h, x1 = 0, y1 = 0;
     for (let k = 0; k < N; k++) { if (bg[k]) { p[k * 4 + 3] = 0; continue; } const i = k % w, j = (k - i) / w;
