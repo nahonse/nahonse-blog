@@ -52,7 +52,7 @@ layout: default
     <button type="button" class="nh-reset" hidden>전체 보기</button>
   </div>
   {%- comment -%} 4컷만화(assets/insta/슬러그/1.png)가 있으면 카드 그림으로 쓴다(시안 A) {%- endcomment -%}
-  {%- assign toon_files = site.static_files | where_exp: "f", "f.path contains /assets/insta/" | map: "path" | join: "|" | append: "|" %}
+  {%- capture toon_files -%}{%- for f in site.static_files -%}{%- if f.path contains "/assets/insta/" and f.name == "1.png" -%}{{ f.path }}|{%- endif -%}{%- endfor -%}{%- endcapture -%}
   <ul class="post-cards">
     {%- for post in site.posts %}
     {%- assign toon = "/assets/insta/" | append: post.slug | append: "/1.png" %}
