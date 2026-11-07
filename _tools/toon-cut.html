@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   캐릭터 시트(이모션N.jpg, 커밋 안 함)에서 자세 하나씩 잘라 배경을 투명하게 만든다.
-  CUTS에 [시트, 이름, x, y, w, h, 지울 사각형들(선택), 흰 틈 씨앗 점들(선택)] 을 적고 크롬 headless --dump-dom 으로 열면
+  CUTS에 [시트, 이름, x, y, w, h, 지울 사각형들(선택), 흰 틈 씨앗 점들(선택), 이 x보다 왼쪽 작은 조각 지우기(선택)] 을 적고 크롬 headless --dump-dom 으로 열면
   <pre id="out">에 "이름 base64PNG" 줄이 나온다 → 셸에서 assets/toon/이름.png 로 저장.
   배경: 가장자리와 이어진 밝은 색만 지움(눈 흰자는 남음). 자른 칸 테두리에 닿은 조각(옆 캐릭터)은 지운다.
 -->
@@ -11,15 +11,15 @@
 const CUTS = [
   ["이모션8", "dog-checklist", 60, 40, 350, 380], ["이모션8", "dog-reach", 425, 50, 285, 365], ["이모션8", "dog-cashier", 795, 40, 395, 370, [], [[1053, 283]]],
   ["이모션8", "cat-clipboard", 15, 500, 211, 390, [[[217, 652], [245, 652], [245, 780], [201, 780], [201, 753], [225.5, 680], [224, 678], [217, 678]]]], ["이모션8", "cat-guide", 222, 500, 233, 390], ["이모션8", "cat-papers", 450, 440, 345, 450],
-  ["이모션8", "cat-cashier", 770, 500, 254, 390, [[1006, 500, 1024, 683], [1018, 740, 1024, 890], [965, 760, 1024, 830]]], ["이모션8", "cat-moneybags", 1003, 500, 197, 390, [[1003, 683, 1022, 750], [1003, 600, 1009, 683]]],
+  ["이모션8", "cat-cashier", 770, 500, 254, 390, [[1006, 500, 1024, 683], [1018, 740, 1024, 890], [965, 760, 1024, 830]]], ["이모션8", "cat-moneybags", 1003, 500, 197, 390, [[1003, 683, 1022, 750], [1003, 600, 1009, 683], [1003, 683, 1019, 790]], [], 1045],
   ["이모션9", "dog-stamp", 60, 40, 350, 380], ["이모션9", "dog-rich", 435, 15, 385, 400], ["이모션9", "dog-dizzy", 870, 0, 330, 420],
   ["이모션9", "cat-stamp", 15, 500, 192, 390], ["이모션9", "cat-contract", 207, 500, 248, 390], ["이모션9", "cat-rich", 450, 440, 350, 450],
-  ["이모션9", "cat-dizzy", 1003, 420, 197, 470, [[1003, 683, 1022, 750], [1003, 600, 1009, 683]]],
+  ["이모션9", "cat-dizzy", 1003, 420, 197, 470, [[1003, 683, 1022, 750], [1003, 600, 1009, 683]], [], 1045],
 ];
 const out = document.getElementById("out"), sheets = {};
 const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = "../" + n + ".jpg"; }));
 (async () => {
-  for (const [sheet, name, x, y, w, h, erase = [], holes = []] of CUTS) {
+  for (const [sheet, name, x, y, w, h, erase = [], holes = [], dropLeftOf = 0] of CUTS) {
     const img = await load(sheet), c = document.createElement("canvas"); c.width = w; c.height = h;
     const g = c.getContext("2d"); g.drawImage(img, x, y, w, h, 0, 0, w, h);
     g.fillStyle = "#fff"; // 옆 캐릭터와 겹친 곳(시트 좌표): [x0,y0,x1,y1] 사각형 또는 [[x,y],...] 다각형
@@ -46,7 +46,9 @@ const load = n => sheets[n] || (sheets[n] = new Promise(r => { const i = new Ima
       parts.push({ mem, edge });
     }
     const big = parts.reduce((a, b) => (b.mem.length > a.mem.length ? b : a));
-    for (const t of parts) if (t !== big && (t.edge || t.mem.length < 40)) for (const k of t.mem) bg[k] = 1;
+    // dropLeftOf: 지운 자리에 남은 떨어진 조각(시트 x가 이 값보다 왼쪽에만 있는 작은 조각)도 지운다
+    const leftOnly = t => dropLeftOf && t.mem.length < 600 && t.mem.every(k => x + (k % w) < dropLeftOf);
+    for (const t of parts) if (t !== big && (t.edge || t.mem.length < 40 || leftOnly(t))) for (const k of t.mem) bg[k] = 1;
     // 새 시트(이모션8·9) 강아지는 주둥이가 회베이지라, 옛 강아지 주둥이 색(196,151,110)으로 맞춘다(사용자 요청 2026-11-07).
     // 위쪽 55% 안에서 회베이지(174,158,140) 근처 색이 이어진 가장 큰 덩어리만 바꾸고, 원래 명암 차이는 살린다.
     if (name.startsWith("dog-")) {

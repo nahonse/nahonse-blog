@@ -234,6 +234,25 @@ const decks = {
         talk: [["이웃 사장님", "날짜 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-incentive-late-application": {
+    title: "<b>장려금</b>, 5월에 놓쳤다면?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + pic("cat-dizzy", 220, 650, 440, { rot: -2 }),
+        talk: [["", "근로장려금 신청…<br>5월에 깜빡했어"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-memo", 125, 640, 370, { rot: -3 }) + pic("dog-point-left", 350, 630, 390, { rot: 2 }),
+        talk: [["", "이제 못 받나요?"], ["이웃 사장님", "<em>11월 30일</em>까지<br>기한 후 신청이 있어요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-moneybags", 95, 660, 370, { rot: -3 }) + pic("dog-cashier", 330, 650, 500, { rot: 1 }),
+        talk: [["이웃 사장님", "대신 계산 금액의<br><em>95%</em>를 받아요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cheer", 115, 520, 300, { rot: -6 })
+          + pic("dog-cheer", 318, 615, 410, { rot: 3 }) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "<em>개인 로그인</em>부터!<br>따라와 봐요", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
