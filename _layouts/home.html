@@ -7,9 +7,15 @@ layout: default
   분야: 세무 일정, 세금계산서, 민원증명, 부가세, 종합소득세, 사업자 기본, 원천세·지급명세서(아이콘 없음, 최신 글에만)
 {%- endcomment -%}
 <div class="home">
-  <div class="nh-intro">
-    <p class="nh-intro-title">세무대리인 없이, 홈택스에서 직접 하는 방법</p>
-    <p class="nh-intro-sub">세무사가 아닌 개인이 국세청 자료를 바탕으로 정리했어요</p>
+  <div class="nh-hero">
+    <div class="nh-hero-text">
+      <h1 class="nh-hero-title">혼자 하는 사장님도<br><b>홈택스 화면 그대로</b> 따라 해요</h1>
+      <p class="nh-hero-sub">실제 홈택스 화면에 순서를 표시해 정리했어요. 어려운 말은 풀어서, 숫자는 법 조문으로 확인해서요.<br><small>세무사가 아닌 개인이 국세청 자료를 바탕으로 정리한 정보예요</small></p>
+    </div>
+    <div class="nh-hero-chars" aria-hidden="true">
+      <img src="{{ "/assets/toon/cat-happy.png" | relative_url }}" alt="" class="c1">
+      <img src="{{ "/assets/toon/dog-point-left.png" | relative_url }}" alt="" class="c2">
+    </div>
   </div>
   {%- include tax-calendar.html -%}
   <nav class="nh-quick" aria-label="할 일별 글 모아보기">
@@ -45,14 +51,20 @@ layout: default
     <h2 class="post-list-heading" id="posts">최신 글</h2>
     <button type="button" class="nh-reset" hidden>전체 보기</button>
   </div>
+  {%- comment -%} 4컷만화(assets/insta/슬러그/1.png)가 있으면 카드 그림으로 쓴다(시안 A) {%- endcomment -%}
+  {%- assign toon_files = site.static_files | where_exp: "f", "f.path contains /assets/insta/" | map: "path" | join: "|" | append: "|" %}
   <ul class="post-cards">
     {%- for post in site.posts %}
+    {%- assign toon = "/assets/insta/" | append: post.slug | append: "/1.png" %}
     {%- assign parts = post.title | split: ": " %}
     {%- assign main_title = parts | first %}
     {%- assign sub_title = post.title | remove_first: main_title | remove_first: ": " %}
     <li class="post-card" data-topic="{{ post.topic | default: '기타' }}" data-search="{{ post.title | append: ' ' | append: post.topic | append: ' ' | append: post.content | strip_html | strip_newlines | truncate: 2000 | escape }}">
       <a class="post-card-link" href="{{ post.url | relative_url }}">
-        {%- if post.image %}
+        {%- assign toon_key = toon | append: "|" %}
+        {%- if toon_files contains toon_key %}
+        <div class="post-card-toon"><img src="{{ toon | relative_url }}" alt="" loading="lazy" width="1080" height="1350"></div>
+        {%- elsif post.image %}
         <img class="post-card-thumb" src="{{ post.image | relative_url }}" alt="" loading="lazy" width="1200" height="630">
         {%- endif %}
         <div class="post-card-body">
@@ -60,6 +72,7 @@ layout: default
             {%- if post.topic %}<span class="post-card-topic">{{ post.topic }}</span>{% endif %}
             {%- if post.hub %}<span class="post-card-hub">총정리</span>{% endif %}
             {%- if post.deadline %}{% assign dl = post.deadline | date: "%Y%m%d" | plus: 0 %}{% assign built = site.time | date: "%Y%m%d" | plus: 0 %}<span class="post-card-closed" data-deadline="{{ post.deadline | date: '%Y-%m-%d' }}"{% if built <= dl %} hidden{% endif %}>신고 기간 지남</span>{% endif %}
+            {%- if post.deadline %}<span class="post-card-dday" data-deadline="{{ post.deadline | date: %Y-%m-%d }}" hidden></span>{% endif %}
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
           </div>
           <h3 class="post-card-title">{{ main_title | escape }}</h3>
@@ -110,6 +123,12 @@ layout: default
     function fromHash() { var b = location.hash && document.getElementById(location.hash.slice(1)); if (b && b.classList.contains("nh-q")) show(b); }
     window.addEventListener("hashchange", fromHash); fromHash();
   })();
+  // 마감 남은 날 배지(D-n): 방문자 오늘 날짜 기준, 지나면 숨김
+  document.querySelectorAll(".post-card-dday").forEach(function (b) {
+    var d = b.getAttribute("data-deadline").split("-"), t = new Date();
+    var n = Math.round((new Date(+d[0], +d[1] - 1, +d[2]) - new Date(t.getFullYear(), t.getMonth(), t.getDate())) / 864e5);
+    if (n >= 0) { b.textContent = n === 0 ? "오늘 마감" : "D-" + n; b.hidden = false; }
+  });
   // 신고 기간 지남 배지: 방문자 브라우저의 오늘 날짜로 다시 판단 (빌드가 없던 날에도 맞게)
   document.querySelectorAll(".post-card-closed").forEach(function (b) {
     var d = b.getAttribute("data-deadline").split("-");
