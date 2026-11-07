@@ -3,7 +3,7 @@
   나혼세 네컷만화 첫 장(세로 1080x1350) 초안. 고양이 사장님 + 강아지 이웃 사장님(임시 SVG 그림).
   캡처: chrome --headless=new --hide-scrollbars --window-size=1080,1350 --virtual-time-budget=8000
         --screenshot="assets/insta/슬러그/1.png" "file:///.../_tools/toon.html#슬러그"
-  칸: { bg, scene(그림 SVG 문자열), talk:[[말한 사람, 대사], ...] }
+  칸: { bg, scene(그림 SVG 문자열), talk:[[말한 사람, 대사], ...] } — 말한 사람을 비우면 고양이("초보 사장님")
   대사의 기한·금액은 검토를 거친 블로그 글과 같게 쓰고 tax-fact-checker 검토를 받는다. 겁주는 장면은 쓰지 않는다(당황 → 해결).
 -->
 <html lang="ko">
@@ -221,7 +221,7 @@ document.getElementById("title").innerHTML = deck.title;
 document.getElementById("date").textContent = deck.date;
 document.getElementById("grid").innerHTML = deck.cells.map(c => `<div class="cell" style="background:${c.bg}">
   <svg viewBox="0 0 500 540" preserveAspectRatio="xMidYMax slice">${c.scene}</svg>
-  <div class="talk">${c.talk.map(([who, t, side]) => `<div class="bubble ${side || ""}">${who ? `<small>${who}</small>` : ""}${t}</div>`).join("")}</div></div>`).join("");
+  <div class="talk">${c.talk.map(([who, t, side]) => `<div class="bubble ${side || ""}"><small>${who || "초보 사장님"}</small>${t}</div>`).join("")}</div></div>`).join("");
 </script>
 </body>
 </html>
