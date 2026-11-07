@@ -209,6 +209,22 @@ const decks = {
       { type: "end", title: "칸별 설명·가상 예시와\n계산기 링크는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법, 국세청 세무일정, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-tax-clearance-certificate": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "민원증명 발급", title: "납세증명서,\n**홈택스에서**\n바로 떼는 법", badge: "📄 즉시발급 증명 메뉴", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "납세증명서가 뭐예요?", rows: [["뭘 증명", "발급일 현재 **체납액이 없다**는 사실"], ["언제 내나", "국가·지자체 등에서 **대금을 받을 때**, 해외이주 신고 때 등"], ["유효기간", "**발급일부터 30일**(고지된 국세가 있으면 더 짧을 수 있어요)"]],
+        note: "대금을 받아도 일부 수의계약 등은 예외라, 내야 하는지 발주기관에 먼저 확인하세요" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "전체메뉴 > 증명·등록·신청·사업장현황 > 즉시발급 증명 > 납세증명서(국세완납증명)", img: "assets/images/posts/hometax-tax-clearance-certificate/01-menu.png", caption: "사업자가 아닌 **개인 로그인**으로 2026년 11월 직접 발급받았어요" },
+      { type: "step", step: 2, title: "신청서 채우기", path: "수령방법 → 사용목적 → 제출처 → 작성완료", img: "assets/images/posts/hometax-tax-clearance-certificate/03-form.png", caption: "제출용이면 수령방법은 **인터넷발급**으로 골라요(캡처는 열람을 고른 화면). 주소·주민번호는 처음에 비공개였어요", guide_pic: "dog-talk" },
+      { type: "step", step: 3, title: "신청하기", path: "작성완료 → 확인 창에서 신청하기", img: "assets/images/posts/hometax-tax-clearance-certificate/04-confirm.png", caption: "신청한 뒤에는 **고치거나 취소할 수 없어요**" },
+      { type: "step", step: 4, title: "처리결과에서 열기", path: "민원처리결과 조회 → 처리완료 → 열람", img: "assets/images/posts/hometax-tax-clearance-certificate/06-result.png", caption: "신청 완료 화면에서 ⑥ 민원처리결과 조회를 누르면 이 화면이에요. 증명서는 **새 창**으로 열려요", guide_pic: "dog-point-left2" },
+      { type: "facts", title: "이것만 조심", rows: [["열람용", "인터넷열람으로 연 증명서에는 **법적 효력이 없다**고 찍혀요"], ["제출용", "인터넷발급(프린터출력·전자문서지갑) 중 **제출처가 원하는 형식**으로"], ["체납", "체납액이 있으면 발급받기 어려워요"]],
+        note: "해외이주용은 즉시발급이 아니라 신청일부터 10일(영업일) 안에 처리돼요" },
+      { type: "end", title: "증명서 견본과\n고르는 항목 정리는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 국세징수법·시행령, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");

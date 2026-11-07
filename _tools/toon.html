@@ -194,6 +194,26 @@ const decks = {
         talk: [["이웃 사장님", "옮기는 법 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
   },
+  // 대화 칸은 마주 보게: 왼쪽 고양이는 오른쪽을, 오른쪽 강아지는 왼쪽을 보는 그림(dog-talk·dog-point-left2는 뒤집지 않음)
+  "hometax-tax-clearance-certificate": {
+    title: "대금 받으려면 <b>납세증명서</b>?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdf1d6",
+        scene: paper(325, 120, 7, "납세증명서", "대금 수령") + pic("cat-surprise", 175, 640, 420, { rot: -3 }),
+        talk: [["", "관공서 대금 받으려면<br>납세증명서를 내래요"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-talk", 118, 630, 370, { rot: -3 }) + pic("dog-talk", 350, 620, 370, { rot: 3 }),
+        talk: [["", "세무서 가서<br>떼야 하나요?"], ["이웃 사장님", "홈택스에서도 돼요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-memo-kneel", 115, 640, 330, { rot: -3 }) + pic("dog-point-left2", 340, 630, 380, { rot: 2 }),
+        talk: [["이웃 사장님", "<em>즉시발급 증명</em> 메뉴에서<br>신청하면 돼요", "r"]] },
+      { bg: "#fbe1e8",
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cute", 110, 520, 300, { rot: -6 })
+          + pic("dog-point-right", 285, 620, 380, { rot: 2 }) + arrow(395, 380) + star(220, 200, 0.7),
+        talk: [["이웃 사장님", "신청 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
+    ],
+  },
 };
 
 const deck = decks[location.hash.slice(1)] || Object.values(decks)[0];
