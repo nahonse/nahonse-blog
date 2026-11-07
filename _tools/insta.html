@@ -225,6 +225,23 @@ const decks = {
       { type: "end", title: "증명서 견본과\n고르는 항목 정리는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 국세징수법·시행령, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "vat-return-checklist-january": {
+    date: "2026.11.07 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "부가세", title: "1월 부가세 신고 전\n**미리 할 일**\n6가지", badge: "📅 2027.1.25 마감", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "날짜 순서로 보면", rows: [["12월 중", "사업용 카드 **등록 확인**"], ["~1.11(월)", "12월분 월합계 **세금계산서 발급**"], ["1.15경~", "카드·현금영수증 **공제 확인**, 통합조회"], ["1월 중순", "예정고지 **낸 것 확인**"], ["~1.25(월)", "**신고·납부**"]],
+        note: "2026년 2기 확정(일반)·2026년 간이 신고 기준이에요" },
+      { type: "step", step: 1, title: "사업용 카드 등록 확인", path: "계산서·영수증·카드 > 신용카드 매입 > 사업용 신용카드 등록 및 조회", img: "assets/images/posts/hometax-business-card/04-registered.png", caption: "**등록한 달 사용분부터** 조회돼요. 아직이면 12월 안에", guide_pic: "dog-checklist" },
+      { type: "step", step: 2, title: "12월분 세금계산서 마무리", path: "계산서·영수증·카드 > 전자(세금)계산서 발급 > 전자(세금)계산서 건별발급", img: "assets/images/posts/hometax-e-tax-invoice/01-allmenu.jpg", caption: "월합계는 **1월 11일(월)**까지(10일이 일요일). 늦으면 1%, 1월 25일까지도 안 하면 2%" },
+      { type: "step", step: 3, title: "현금영수증 공제 확인", path: "계산서·영수증·카드 > 사업자 매입·지출증빙 조회/변경 > 현금영수증 세액공제 확인/변경", img: "assets/images/posts/vat-return-checklist-january/02-cash-receipt.png", caption: "**선택불공제** 건이 사업 관련이면 공제로 바꿔요. 사업용 카드는 사업용 신용카드 사용내역 > 매입세액 공제 확인/변경에서 같은 방식으로" },
+      { type: "step", step: 4, title: "통합조회로 숫자 모으기", path: "세금신고 > 부가가치세 신고 > 신고도움 자료 조회 > 신고자료 통합조회", img: "assets/images/posts/hometax-vat-data-calculator/03-table.png", caption: "사업용 카드 자료는 **1월 15일경**부터 들어와요. 그 뒤에 조회해요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 5, title: "예정고지 낸 것 확인", path: "납부·고지·환급 > 납부 > 납부내역 조회", img: "assets/images/posts/vat-return-checklist-january/03-payment.png", caption: "(일반과세자) 확정신고 때 빼더라도 **안 낸 고지서는 따로** 내야 해요. 간이과세자는 실제로 낸 세액만 빼요" },
+      { type: "facts", title: "이것만 조심", rows: [["간이과세자", "1년 공급대가 4,800만원 미만이면 납부 면제지만 **신고는 해요**"], ["공제 분류", "공제로 분류돼도 **개인 지출·접대비**는 불공제로"], ["카드 등록", "1월에 등록하면 지난 내역은 **자동으로 안 들어와요**"]],
+        note: "그해 새로 시작한 간이과세자는 12개월로 환산한 금액으로 따져요" },
+      { type: "end", title: "날짜별 메뉴 경로와\n화면은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법, 국세청 세무일정, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
