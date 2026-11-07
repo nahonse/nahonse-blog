@@ -60,14 +60,7 @@ layout: default
   </script>
   {%- endif -%}
 
-  {%- comment -%} 4컷만화가 있으면 글 맨 위에 보여 주고 글자 요약 카드는 숨긴다(시안 A) {%- endcomment -%}
-  {%- assign toon = "/assets/insta/" | append: page.slug | append: "/1.png" %}
-  {%- assign toon_hit = site.static_files | where: "path", toon | size %}
-  {%- if toon_hit > 0 %}
-  <figure class="post-toon"><img src="{{ toon | relative_url }}" alt="{{ page.title | split: ": " | first | escape }} 네컷만화" width="1080" height="1350"></figure>
-  {%- endif %}
-
-  <div class="post-content e-content{% if toon_hit > 0 %} has-toon{% endif %}" itemprop="articleBody">
+  <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
 
