@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- 네이버 블로그 타이틀 이미지(가로 966, 세로 240). 사이트 홈 머리(보라+금색, 고양이·강아지)와 같은 느낌. 만들기:
+     chrome --headless=new --hide-scrollbars --window-size=966,240 --virtual-time-budget=8000
+            --screenshot="assets/brand/naver-title.png" "file:///.../_tools/naver-title.html" -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;width:966px;height:240px;overflow:hidden}
+.t{position:relative;width:966px;height:240px;background:linear-gradient(100deg,#1c0d3c 0%,#2f1862 60%,#3a1f72 100%);font-family:"Noto Sans KR";overflow:hidden}
+.ring{position:absolute;border:2px solid #c7ad89;border-radius:50%;opacity:.14}
+.txt{position:absolute;left:64px;top:46px}
+.bar{width:52px;height:4px;border-radius:2px;background:#c7ad89;margin-bottom:16px}
+h1{margin:0;font-size:54px;font-weight:900;color:#f1e7d6;letter-spacing:-1px;line-height:1.1}
+h1 b{color:#c7ad89}
+p{margin:12px 0 0;font-size:22px;font-weight:500;color:#e2d3bd}
+small{display:block;margin-top:8px;font-size:16px;color:#c7ad89;opacity:.8;letter-spacing:1px}
+.c{position:absolute;bottom:-6px;height:215px}
+</style></head><body>
+<div class="t">
+  <div class="ring" style="width:360px;height:360px;right:-40px;top:-60px"></div>
+  <div class="ring" style="width:480px;height:480px;right:-100px;top:-120px"></div>
+  <div class="txt">
+    <div class="bar"></div>
+    <h1><b>나혼세</b> 나 혼자 세무신고</h1>
+    <p>홈택스 화면 그대로, 순서대로 따라 해요</p>
+    <small>세금계산서 · 민원증명 · 부가세 · 종합소득세</small>
+  </div>
+  <img class="c" src="../assets/toon/cat-happy.png" style="right:190px">
+  <img class="c" src="../assets/toon/dog-point-left.png" style="right:30px">
+</div></body></html>
