@@ -15,6 +15,8 @@
   #w { position: relative; overflow: hidden; }
   #w img { position: absolute; left: 0; top: 0; }
   .box { position: absolute; border: 4px solid #e0322b; border-radius: 8px; box-sizing: border-box; }
+  .hide { position: absolute; background: #d9d6df; color: #6b6478; border-radius: 4px; text-align: center; overflow: hidden;
+          font: 800 15px 'Noto Sans KR', sans-serif; }
   .n { position: absolute; width: 34px; height: 34px; border-radius: 50%; background: #e0322b; color: #fff;
        font: 800 20px/34px 'Noto Sans KR', sans-serif; text-align: center; }
 </style></head><body><div id="w"></div>
@@ -39,6 +41,13 @@ img.onload = () => {
       Object.assign(n.style, { left: x - cx + bw - 20 + 'px', top: Math.max(0, y - cy - 16) + 'px' });
       w.appendChild(n);
     }
+  });
+  // hide: [[x,y,w,h,"글자"],...] 개인정보 칸을 회색 상자로 덮음(글자 생략 시 "가림")
+  (cfg.hide || []).forEach(([x, y, bw, bh, label]) => {
+    const h = document.createElement('div');
+    h.className = 'hide'; h.textContent = label || '가림';
+    Object.assign(h.style, { left: x - cx + 'px', top: y - cy + 'px', width: bw + 'px', height: bh + 'px', lineHeight: bh + 'px' });
+    w.appendChild(h);
   });
 };
 img.src = cfg.img;

@@ -4,6 +4,7 @@
 //     꼬리 왼쪽 잘림 cat-happy·cat-wink·cat-dizzy·cat-moneybags(몸 왼쪽도), 꼬리 오른쪽 cat-sob, 몸 왼쪽 선 cat-mad, 오른쪽 가장자리 cat-faint·cat-panic·cat-shock,
 //     서류 왼쪽 끝 cat-guide("TAX" 첫 글자)·cat-contract, 귀 오른쪽 dog-surprise·dog-think, 귀 왼쪽 dog-panic·dog-smug
 //     (고침: cat-stamp 얼굴 오른쪽은 이모션9에서 다시 자름, 발 워터마크 8종·얼룩 3종 지움)
+//   쓰지 않음(2026-11-08 사용자): 콩알눈 cat-neutral·cat-talk. 사용자가 지움(11-08): cat-faint·cat-wink·dog-angry·dog-bored·dog-faint·dog-neutral·dog-smug·dog-surprise·dog-wave (옛 만화 칸에 dog-smug·dog-wave가 남아 있어 그 덱은 다시 찍지 않음). dog-talk은 흰자위 있는 사용자 제공 그림으로 바꿈. 강아지 털색은 모두 dog-point-left2 기준(_tools/toon-dogtone.html)
 //   공통(dog-·cat-): neutral 기본, talk 말하기, surprise 놀람, panic 당황, happy 기쁨, cry 울음,
 //                    angry 화남, tired 지침, cheer 만세, laptop 노트북 작업, phone 통화 당황, slam 책상 쾅, faint 기절(몸 뒤쪽이 잘림 → 칸 아래로 자르기), yay 만세2
 //   강아지만: think 궁금(전구?), smug 팔짱 으쓱, bored 턱 괴기(상반신)   고양이만: idea 떠오름(전구), shock 파랗게 질림, wink 윙크, mad 팔짱 화남

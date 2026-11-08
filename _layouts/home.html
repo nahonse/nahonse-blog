@@ -9,12 +9,12 @@ layout: default
 <div class="home">
   <div class="nh-hero">
     <div class="nh-hero-text">
-      <h1 class="nh-hero-title">혼자 하는 사장님도<br><b>홈택스 화면 그대로</b> 따라 해요</h1>
+      <h1 class="nh-hero-title">혼자 하는 사장님도<br><b>홈택스 화면 그대로</b> <span class="nw">따라 해요</span></h1>
       <p class="nh-hero-sub">실제 홈택스 화면에 순서를 표시해 정리했어요. 어려운 말은 풀어서, 숫자는 법 조문으로 확인해서요.<br><small>세무사가 아닌 개인이 국세청 자료를 바탕으로 정리한 정보예요</small></p>
     </div>
     <div class="nh-hero-chars" aria-hidden="true">
       <img src="{{ "/assets/toon/cat-happy.png" | relative_url }}" alt="" class="c1">
-      <img src="{{ "/assets/toon/dog-point-left.png" | relative_url }}" alt="" class="c2">
+      <img src="{{ "/assets/toon/dog-yay.png" | relative_url }}" alt="" class="c2">
     </div>
   </div>
   {%- include tax-calendar.html -%}
@@ -25,7 +25,7 @@ layout: default
     </button>
     <button type="button" class="nh-q" id="cert" data-topics="민원증명|사업자 기본" data-label="민원증명 발급">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 8h36v6H6z"/><path d="M10 14v24h20"/><path d="M38 14v14"/><path class="g" d="M15 21h18M15 27h14"/><circle class="g" cx="35" cy="35" r="5"/><path class="g" d="M32 39l-2 7 5-3 5 3-2-7"/></svg>
-      <span>민원증명 발급</span>
+      <span>민원증명</span>
     </button>
     <button type="button" class="nh-q" id="vat" data-topics="부가세|세무 일정" data-label="부가가치세">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 34h38v9H5z"/><path d="M20 39h8"/><path d="M9 34l3-12h24l3 12"/><path d="M27 22v-7h12v7"/><path class="g" d="M11 22V6h11v16"/><path class="g" d="M14 15l5-6M14 9h0M19 15h0"/><path d="M17 27h2M23 27h2M29 27h2"/></svg>
@@ -44,7 +44,7 @@ layout: default
 
   <div class="nh-search" role="search">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
-    <input type="search" id="nh-search" placeholder="궁금한 신고나 서류를 검색해 보세요 (예: 납세증명서)" aria-label="글 검색" autocomplete="off">
+    <input type="search" id="nh-search" placeholder="신고·서류 검색" aria-label="글 검색" autocomplete="off">
   </div>
 
   <div class="nh-list-head">
@@ -52,18 +52,21 @@ layout: default
     <button type="button" class="nh-reset" hidden>전체 보기</button>
   </div>
   {%- comment -%} 4컷만화(assets/insta/슬러그/1.png)가 있으면 카드 그림으로 쓴다(시안 A) {%- endcomment -%}
-  {%- capture toon_files -%}{%- for f in site.static_files -%}{%- if f.path contains "/assets/insta/" and f.name == "1.png" -%}{{ f.path }}|{%- endif -%}{%- endfor -%}{%- endcapture -%}
+  {%- capture toon_files -%}{%- for f in site.static_files -%}{%- if f.path contains "/assets/insta/" and f.name == "thumb.jpg" or f.path contains "/assets/insta/" and f.name == "1.png" -%}{{ f.path }}|{%- endif -%}{%- endfor -%}{%- endcapture -%}
   <ul class="post-cards">
     {%- for post in site.posts %}
     {%- assign toon = "/assets/insta/" | append: post.slug | append: "/1.png" %}
+    {%- assign thumb = "/assets/insta/" | append: post.slug | append: "/thumb.jpg" %}
     {%- assign parts = post.title | split: ": " %}
     {%- assign main_title = parts | first %}
     {%- assign sub_title = post.title | remove_first: main_title | remove_first: ": " %}
     <li class="post-card" data-topic="{{ post.topic | default: '기타' }}" data-search="{{ post.title | append: ' ' | append: post.topic | append: ' ' | append: post.content | strip_html | strip_newlines | truncate: 2000 | escape }}">
       <a class="post-card-link" href="{{ post.url | relative_url }}">
-        {%- assign toon_key = toon | append: "|" %}
-        {%- if toon_files contains toon_key %}
-        <div class="post-card-toon"><img src="{{ toon | relative_url }}" alt="" loading="lazy" width="1080" height="1350"></div>
+        {%- assign toon_key = toon | append: "|" %}{%- assign thumb_key = thumb | append: "|" %}
+        {%- if toon_files contains thumb_key %}
+        <div class="post-card-toon"><img src="{{ thumb | relative_url }}" alt="{{ main_title | escape }} 네컷만화" loading="lazy" width="600" height="389"></div>
+        {%- elsif toon_files contains toon_key %}
+        <div class="post-card-toon"><img src="{{ toon | relative_url }}" alt="{{ main_title | escape }} 네컷만화" loading="lazy" width="1080" height="1350"></div>
         {%- elsif post.image %}
         <img class="post-card-thumb" src="{{ post.image | relative_url }}" alt="" loading="lazy" width="1200" height="630">
         {%- endif %}

@@ -1,0 +1,36 @@
+<!doctype html>
+<!--
+  강아지 그림(assets/toon/dog-*.png) 털색을 기준 그림 dog-point-left2의 털색으로 맞춘다(2026-11-08 사용자: "모든 강아지 피부톤은 dog-point-left2로 통일").
+  털 픽셀 = 주황갈색(색상 15~40°, 채도 0.2 이상, 밝기 90 이상). 넥타이(파랑)·입(빨강)·볼(분홍)·흰자·테두리는 건드리지 않는다.
+  그림마다 털 픽셀의 채널별 중앙값을 기준 그림 중앙값에 맞추는 배율을 곱한다(귀 같은 진한 털도 같은 배율로 함께 바뀜).
+  크롬 headless --dump-dom 으로 열면 <pre id="out">에 "이름 배율 base64PNG" 줄이 나온다. ?names=a,b 로 일부만.
+-->
+<meta charset="utf-8">
+<pre id="out"></pre>
+<script>
+const ALL = ["dog-cashier","dog-checklist","dog-cheer","dog-cry","dog-dizzy","dog-giggle","dog-grin","dog-happy","dog-laptop","dog-lecture","dog-mic","dog-panic","dog-phone","dog-point-left","dog-point-right","dog-reach","dog-rich","dog-rub","dog-scared","dog-scheme","dog-slam","dog-sly","dog-sob","dog-stamp","dog-sulk","dog-talk","dog-think","dog-tired","dog-tongue","dog-wonder","dog-yawn","dog-yay"];
+const q = new URLSearchParams(location.search).get("names");
+const NAMES = q ? q.split(",") : ALL, REF = "dog-point-left2";
+const out = document.getElementById("out");
+const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = "../assets/toon/" + n + ".png"; });
+const fur = (r, g, b, a) => { if (a < 128) return false; const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  if (mx < 90 || mx !== r || mx === mn || (mx - mn) / mx < 0.2) return false; const h = 60 * (g - b) / (mx - mn); return h >= 15 && h <= 40; };
+const med = a => { a.sort((x, y) => x - y); return a[a.length >> 1]; };
+function stats(p) { const R = [], G = [], B = []; for (let k = 0; k < p.length; k += 4) if (fur(p[k], p[k+1], p[k+2], p[k+3])) { R.push(p[k]); G.push(p[k+1]); B.push(p[k+2]); } return [med(R), med(G), med(B), R.length]; }
+function data(img) { const c = document.createElement("canvas"); c.width = img.naturalWidth; c.height = img.naturalHeight; const g = c.getContext("2d"); g.drawImage(img, 0, 0); return [c, g, g.getImageData(0, 0, c.width, c.height)]; }
+(async () => {
+  const [, , rd] = data(await load(REF)); const ref = stats(rd.data);
+  out.textContent += `REF ${ref.slice(0, 3).join(",")}\n`;
+  for (const name of NAMES) {
+    const im = await load(name); if (!im) { out.textContent += `${name} missing
+`; continue; }
+    const [c, g, d] = data(im), p = d.data, s = stats(p);
+    const k3 = [0, 1, 2].map(i => ref[i] / s[i]);
+    if (k3.every(k => Math.abs(k - 1) < 0.025)) { out.textContent += `${name} skip ${s.slice(0, 3).join(",")}\n`; continue; }
+    for (let k = 0; k < p.length; k += 4) if (fur(p[k], p[k+1], p[k+2], p[k+3])) for (let i = 0; i < 3; i++) p[k+i] = Math.min(255, Math.round(p[k+i] * k3[i]));
+    g.putImageData(d, 0, 0);
+    out.textContent += `${name} ${k3.map(k => k.toFixed(3)).join(",")} ${c.toDataURL("image/png").split(",")[1]}\n`;
+  }
+  out.textContent += "DONE\n";
+})();
+</script>
