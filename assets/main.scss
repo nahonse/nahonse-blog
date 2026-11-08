@@ -444,10 +444,11 @@ body { background: $cream; }
   small { display: block; margin-top: 4px; font-size: 13px; color: #9a93a8; }
   @media (max-width: 600px) { font-size: 14px; } }
 .nh-hero-chars { position: relative; flex: none; width: 300px; height: 230px;
-  img { position: absolute; bottom: 0; height: auto; }
-  .c1 { left: 0; width: 132px; }
-  .c2 { right: 0; width: 158px; }
-  @media (max-width: 600px) { width: 116px; height: 104px; .c1 { width: 54px; } .c2 { width: 66px; } } }
+  // 고양이·강아지 키를 같게(높이로 맞춤, 2026-11-08 사용자)
+  img { position: absolute; bottom: 0; height: 196px; width: auto; }
+  .c1 { left: 6px; }
+  .c2 { right: 6px; }
+  @media (max-width: 600px) { width: 116px; height: 104px; img { height: 82px; } .c1 { left: 0; } .c2 { right: 0; } } }
 
 // 할 일 버튼·검색: 더 둥글고 부드럽게
 .nh-q { border-radius: 16px; border-color: #eee3cf; }
