@@ -1,0 +1,10 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- 인스타 하이라이트 표지(1080 정사각, 가운데 원만 보임). 사용법: highlight.html#글자
+     chrome --headless=new --hide-scrollbars --window-size=1080,1080 --screenshot="assets/brand/highlight-x.png" "file:///.../_tools/highlight.html#부가세" -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1080px;height:1080px;overflow:hidden;background:#271350;font-family:"Noto Sans KR"}
+.r{position:absolute;left:190px;top:190px;width:700px;height:700px;border-radius:50%;border:14px solid #c7ad89;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+#t{color:#c7ad89;font-weight:900;font-size:190px;letter-spacing:-6px}</style></head><body>
+<div class="r"><div id="t"></div></div>
+<script>const t=decodeURIComponent(location.hash.slice(1));const e=document.getElementById("t");e.textContent=t;if(t.length>=3)e.style.fontSize="170px";</script>
+</body></html>

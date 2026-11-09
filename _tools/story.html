@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- 인스타 스토리(1080×1920): 새 글 알림 + 링크 스티커 자리. 사용법: story.html#<슬러그>|<짧은 제목>
+     chrome --headless=new --hide-scrollbars --window-size=1080,1920 --virtual-time-budget=8000
+            --screenshot="assets/insta/<슬러그>/story.png" "file:///.../_tools/story.html#슬러그|제목"
+     링크 스티커는 API로 못 붙여서 사용자가 앱에서 아래 빈 자리에 붙인다. -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#3a1f72,#1c0d3c);font-family:"Noto Sans KR";color:#c7ad89}
+.badge{position:absolute;top:150px;left:0;right:0;text-align:center}
+.badge span{display:inline-block;border:3px solid #c7ad89;border-radius:40px;padding:10px 34px;font-weight:700;font-size:40px}
+#t{position:absolute;top:250px;left:70px;right:70px;text-align:center;font-weight:900;font-size:68px;line-height:1.3;color:#f3e9d8;word-break:keep-all}
+#c{position:absolute;top:480px;left:140px;width:800px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.go{position:absolute;top:1530px;left:0;right:0;text-align:center;font-weight:700;font-size:44px}
+.brand{position:absolute;bottom:40px;left:0;right:0;text-align:center;font-size:30px;opacity:.7}</style></head><body>
+<div class="badge"><span>나혼세 새 글</span></div>
+<div id="t"></div>
+<img id="c">
+<div class="go">홈택스 화면 순서는 블로그에서 👇</div>
+<div class="brand">나혼세 · 나 혼자 세무신고</div>
+<script>
+const [slug, title] = decodeURIComponent(location.hash.slice(1)).split("|");
+document.getElementById("t").textContent = title || "";
+document.getElementById("c").src = "../assets/insta/" + slug + "/1.png";
+</script></body></html>
