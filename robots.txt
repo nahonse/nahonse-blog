@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nahonse.kr/sitemap.xml
+
+#DaumWebMasterTool:2a9ec65b3622c1c2316bf2351285cc8589308e8b3016ab47b6683cba8730144c:fjbPToQo9CIdABBLcO2OJw==
