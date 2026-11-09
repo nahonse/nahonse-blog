@@ -13,6 +13,7 @@
 #   bash _tools/insta_upload.sh reel <슬러그> [nofeed]  # 릴스 게시: assets/insta/<슬러그>/reel.mp4 (_tools/insta_reel.sh로 만듦, 사용자 확인 후 실행)
 #                                    nofeed: 프로필 격자에는 안 보이고 릴스 탭에만 (같은 세트 슬라이드와 겹치지 않게)
 #                                    표지는 영상 첫 장면(thumb_offset=0). 카드 이미지(4:5)를 표지로 주면 세로 화면에서 잘려 보인다.
+#   bash _tools/insta_upload.sh story <슬러그>   # 스토리 게시: assets/insta/<슬러그>/story.png (링크 스티커 없음, 사용자 확인 후)
 #   bash _tools/insta_upload.sh refresh          # (이 방식은 만료 없는 토큰이라 갱신하지 않음, 안내만 출력)
 #
 # 규칙: CLAUDE.md — 카드뉴스는 독립 팩트체크를 거치고, 사용자가 "올려"라고 한 뒤에만 post 를 실행한다.
@@ -130,9 +131,22 @@ case "${1:-}" in
     link="$(curl -s -m 30 -G "$API/$mid" --data-urlencode "fields=permalink" --data-urlencode "access_token=$TOKEN" | jget permalink | sed 's#\\/#/#g')"
     echo "게시 완료: $link"
     ;;
+  story)  # 스토리 게시: assets/insta/<슬러그>/story.png (API로는 링크 스티커를 못 붙여서 그림에 "프로필 링크" 안내를 넣음)
+    slug="${2:?슬러그를 넣어 주세요}"
+    url="$SITE/assets/insta/$slug/story.png"
+    c="$(curl -s -o /dev/null -w '%{http_code}' -m 30 "$url")"
+    [ "$c" = 200 ] || { echo "사이트에 파일이 없습니다($c): $url" >&2; exit 1; }
+    id="$(ig_id)"
+    r="$(cr -s -m 60 -X POST "$API/$id/media" --data-urlencode "media_type=STORIES" \
+          --data-urlencode "image_url=$url" --data-urlencode "access_token=$TOKEN")"
+    fail_if_error "$r"; cid="$(printf '%s' "$r" | jget id)"; wait_ready "$cid"
+    r="$(curl -s -m 60 -X POST "$API/$id/media_publish" --data-urlencode "creation_id=$cid" --data-urlencode "access_token=$TOKEN")"
+    fail_if_error "$r"   # shortcut: 2207051이어도 실제 게시됐을 수 있음, 실패 보고 시 앱에서 스토리 확인
+    echo "스토리 게시 완료(24시간 노출): $(printf '%s' "$r" | jget id)"
+    ;;
   refresh)
     echo "통합 로그인(시스템 사용자) 토큰은 만료되지 않아 갱신하지 않습니다. check 가 실패하면 Meta 앱에서 토큰을 새로 만들어 $TOKEN_FILE 에 넣으세요."
     ;;
   *)
-    sed -n '2,14p' "$0"; exit 1 ;;
+    sed -n '2,16p' "$0"; exit 1 ;;
 esac
