@@ -1,0 +1,16 @@
+{%- comment -%}
+  시작 페이지(/start/)의 썸네일 링크 카드. 사용: {% include step-card.html slug="hometax-business-card" note="한 줄 설명(선택)" %}
+  slug는 _posts 파일 이름에서 날짜를 뺀 부분. 없는 글이면 아래 include가 실패해 빌드가 멈춘다(post_url처럼 깨진 링크 방지).
+{%- endcomment -%}
+{%- assign p = site.posts | where: "slug", include.slug | first -%}
+{%- unless p %}{% include missing-post--{{ include.slug }}.html %}{% endunless -%}
+{%- assign thumb_path = "/assets/insta/" | append: p.slug | append: "/thumb.jpg" -%}
+{%- assign thumb = nil -%}
+{%- for f in site.static_files -%}{%- if f.path == thumb_path -%}{%- assign thumb = thumb_path -%}{%- break -%}{%- endif -%}{%- endfor -%}
+{%- assign main_title = p.title | split: ": " | first -%}
+{%- assign sub_title = p.title | remove_first: main_title | remove_first: ": " -%}
+<a class="step-card" href="{{ p.url | relative_url }}">
+  {%- if thumb %}<img src="{{ thumb | relative_url }}" alt="" loading="lazy" width="600" height="389">
+  {%- else %}<img src="{{ p.image | relative_url }}" alt="" loading="lazy" width="1200" height="630">{% endif %}
+  <span class="step-card-text"><b>{{ main_title | escape }}</b><small>{{ include.note | default: sub_title | escape }}</small></span>
+</a>
