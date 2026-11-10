@@ -23,9 +23,9 @@ threads=""
 if [ -s "$HOME/.tax-blog/threads.token" ]; then
   T="$(tr -d ' \r\n' < "$HOME/.tax-blog/threads.token")"
   threads="$(curl -s -m 30 -G "https://graph.threads.com/v1.0/me/threads" --data-urlencode "fields=link_attachment_url" \
-             --data-urlencode "limit=100" --data-urlencode "access_token=$T" | grep -o 'link_attachment_url":"[^"]*' | sed 's#\\/#/#g; s#.*/\([a-z0-9-]*\)/$#\1#' | sort -u | tr '\n' ' ')"
+             --data-urlencode "limit=100" --data-urlencode "access_token=$T" | grep -o 'link_attachment_url":"[^"]*' | sed 's#\\/#/#g; s#.*/\([a-z0-9-]*\)/$#\1#' | sort -u | tr '\n' ' ' || true)"
 fi
-insta="$(grep -o '\(성공\|게시 확인([^)]*)\) [a-z0-9-]*' "$INSTA_LOG" 2>/dev/null | awk '{print $NF}' | sort -u | tr '\n' ' ')"
+insta="$(grep -o '\(성공\|게시 확인([^)]*)\) [a-z0-9-]*' "$INSTA_LOG" 2>/dev/null | awk '{print $NF}' | sort -u | tr '\n' ' ' || true)"
 
 ROOT="$ROOT" DAYS="$DAYS" MARKS="$MARKS" INSTA="$insta" THREADS="$threads" node -e '
 const fs = require("fs"), path = require("path"), root = process.env.ROOT;
