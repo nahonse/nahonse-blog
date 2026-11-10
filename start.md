@@ -7,7 +7,7 @@ description: 개인사업자를 막 시작한 사장님이 홈택스에서 해 �
 {%- comment -%}
   처음 온 사람용 시작 페이지(2026-11-10). 새 글은 맞는 단계에 한 줄씩 넣는다.
   숫자·기한은 여기 쓰지 않고 각 글로 넘긴다(이 페이지는 팩트체크 대상 숫자를 두지 않음).
-  게시 대기: hometax-vat-amend-refund(⑨)를 올리면 4단계에, hometax-worker-refund-claim(⑩)은 "필요할 때" 아래에 넣는다.
+  게시 대기: hometax-worker-refund-claim(⑩)은 "필요할 때" 아래에 넣는다.
 {%- endcomment -%}
 
 혼자 사업을 시작하면 "홈택스에서 뭘 먼저 해야 하지?"부터 막혀요. 처음 할 일부터 신고 준비까지 순서대로 모았어요. 각 단계 글에 실제 홈택스 화면과 순서 번호를 표시해 두었어요.
@@ -50,6 +50,7 @@ description: 개인사업자를 막 시작한 사장님이 홈택스에서 해 �
 
 - [1월 부가세 신고 전 체크리스트]({% post_url 2026-11-07-vat-return-checklist-january %})
 - [신고자료 통합조회로 내 세액 미리 계산하기]({% post_url 2026-11-07-hometax-vat-data-calculator %})
+- [신고한 뒤 틀린 걸 알았다면: 수정신고·경정청구·기한후신고]({% post_url 2026-11-10-hometax-vat-amend-refund %})
 
 ## 5. 일정 챙기기 {#step5}
 
