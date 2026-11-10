@@ -443,6 +443,8 @@ body { background: $cream; }
 .nh-hero-sub { margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #6b6478;
   small { display: block; margin-top: 4px; font-size: 13px; color: #9a93a8; }
   @media (max-width: 600px) { font-size: 14px; } }
+.nh-start { display: inline-block; margin-top: 14px; padding: 10px 18px; border-radius: 999px; background: $accent; color: #fff !important; font-weight: 700; font-size: 15px; text-decoration: none;
+  &:hover { opacity: .9; text-decoration: none; } }
 .nh-hero-chars { position: relative; flex: none; width: 300px; height: 230px;
   // 고양이·강아지 키를 같게(높이로 맞춤, 2026-11-08 사용자)
   img { position: absolute; bottom: 0; height: 196px; width: auto; }
