@@ -38,14 +38,14 @@ fail_if_error() { if printf '%s' "$1" | grep -q '"error"'; then echo "API 오류
 
 ig_id() { printf '%s' "$IG_ID"; }
 
-wait_ready() {  # 컨테이너 처리 완료까지 대기 (두 번째 인자: 확인 횟수, 3초 간격)
+wait_ready() {  # 컨테이너 처리 완료까지 대기 (두 번째 인자: 확인 횟수, 10초 간격 — 2207051 줄이려고 요청 수를 줄임, 2026-11-10)
   local id="$1" r s
-  for _ in $(seq 1 "${2:-30}"); do
+  for _ in $(seq 1 "${2:-9}"); do
     r="$(cr -s -m 30 -G "$API/$id" --data-urlencode "fields=status_code" --data-urlencode "access_token=$TOKEN")"
     s="$(printf '%s' "$r" | jget status_code)"
     [ "$s" = "FINISHED" ] && return 0
     [ "$s" = "ERROR" ] || [ "$s" = "EXPIRED" ] && { echo "컨테이너 처리 실패($id): $r" >&2; exit 1; }
-    sleep 3
+    sleep 10
   done
   echo "컨테이너 처리 시간 초과: $id" >&2; exit 1
 }
@@ -126,7 +126,7 @@ case "${1:-}" in
     r="$(cr -s -m 60 -X POST "$API/$id/media" --data-urlencode "media_type=REELS" \
           --data-urlencode "video_url=$SITE/assets/insta/$slug/reel.mp4" --data-urlencode "thumb_offset=0" \
           --data-urlencode "share_to_feed=$feed" --data-urlencode "caption@$capw" --data-urlencode "access_token=$TOKEN")"
-    fail_if_error "$r"; cid="$(printf '%s' "$r" | jget id)"; echo "영상 처리 중..."; wait_ready "$cid" 100
+    fail_if_error "$r"; cid="$(printf '%s' "$r" | jget id)"; echo "영상 처리 중..."; wait_ready "$cid" 30
     mid="$(publish "$id" "$cid" "$capw")"
     link="$(curl -s -m 30 -G "$API/$mid" --data-urlencode "fields=permalink" --data-urlencode "access_token=$TOKEN" | jget permalink | sed 's#\\/#/#g')"
     echo "게시 완료: $link"
