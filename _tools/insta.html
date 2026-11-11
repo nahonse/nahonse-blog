@@ -293,6 +293,135 @@ const decks = {
       { type: "end", title: "가산세 표와\n신청·발급 화면 순서는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 소득세법·시행령, 국세청 고시, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-year-end-preview": {
+    date: "2026.11.08 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "연말정산", title: "회사 정산 전에\n**연말정산 미리보기**로\n예상 세액 보기", badge: "🧮 N잡 사장님도", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "미리보기, 이것부터", rows: [["메뉴", "장려금·연말정산·기부금 > 편리한 연말정산 > (근로자용) 연말정산 미리보기"], ["로그인", "운영자는 **개인 로그인**으로 이용"], ["이용 시간", "**06:00~24:00**(새벽엔 서비스 중지)"]],
+        note: "미리 계산해 보는 서비스라 실제 연말정산 결과와 차이가 날 수 있어요" },
+      { type: "step", step: 1, title: "메뉴 찾아가기", path: "전체메뉴 > 장려금·연말정산·기부금 > (근로자용) 연말정산 미리보기", img: "assets/images/posts/hometax-year-end-preview/01-menu.png", caption: "편리한 연말정산 아래 **(근로자용) 연말정산 미리보기**를 눌러요" },
+      { type: "step", step: 2, title: "지난해 근무처 불러오기", path: "전년도 지급명세서 > 불러오기 → 근무처 고르고 반영하기", img: "assets/images/posts/hometax-year-end-preview/03-prev-workplace.png", caption: "근무처가 여러 곳이면 **주된 한 곳**을 골라요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "총급여·기납부세액 고치기", path: "급여 및 기납부세액 > 수정하기", img: "assets/images/posts/hometax-year-end-preview/04-salary.png", caption: "기납부세액은 **지방소득세를 빼고** 넣어요", guide_pic: "dog-talk" },
+      { type: "step", step: 4, title: "카드 불러오고 예상액 넣기", path: "신용카드 사용 현황 > 불러오기(1~9월) → 10~12월 예상액 → 계산하기", img: "assets/images/posts/hometax-year-end-preview/06-card-table.png", caption: "남은 석 달 예상액을 넣으면 **예상 절감세액**이 나와요", guide_pic: "dog-checklist" },
+      { type: "step", step: 5, title: "예상 결과 보기", path: "공제·감면 명세 > 작성하기 → 계산하기 → 계산결과 상세보기", img: "assets/images/posts/hometax-year-end-preview/07-result.png", caption: "새 창에 결정세액·환급 될 세액이 나와요" },
+      { type: "facts", title: "N잡 사장님이라면", rows: [["5월 합산", "회사에서 연말정산한 월급도 사업소득과 **합쳐서** 신고(2026년 소득 → 2027년 5월 종합소득세)"], ["카드 공제", "총급여의 **25%**를 넘게 쓴 부분부터, 연간 한도 있음"], ["사업용 카드", "사업 비용으로 쓴 금액은 카드 공제에서 **빠져요**"]],
+        note: "환급·추가 납부가 너무 크면 매달 떼는 세금 비율(80·100·120%)을 회사 급여 담당자에게 문의하라고 안내돼요" },
+      { type: "end", title: "단계별 화면과\n숫자 읽는 법은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 조세특례제한법 제126조의2, 소득세법 제70조·제73조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-vat-base-certificate": {
+    date: "2026.11.08 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "민원증명", title: "대출·입찰에 내는\n**부가세 과세표준증명**\n홈택스로 떼기", badge: "📄 즉시발급 증명", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "과세표준증명, 이것부터", rows: [["메뉴", "증명·등록·신청·사업장현황 > 즉시발급 증명 > 부가가치세 과세표준증명"], ["무신고", "신고 내역이 없는 과세기간은 증명에서 **빠져요**"], ["간이과세자", "과세기간을 **1기**로 골라요(2013년 이후분, 화면 안내)"]],
+        note: "세무서 결정이 끝나지 않은 기한후신고서는 반영되지 않아요(2018.6.15. 이후 출력분)" },
+      { type: "step", step: 1, title: "꼭 읽어주세요 먼저", path: "부가가치세 과세표준증명원 접수 화면", img: "assets/images/posts/hometax-vat-base-certificate/01-top.png", caption: "사업자 정보·연락처는 **미리 채워져** 있어요" },
+      { type: "step", step: 2, title: "용도·과세기간 고르기", path: "사용용도·제출처 → 과세기간 → 수령방법", img: "assets/images/posts/hometax-vat-base-certificate/02-form.png", caption: "일반과세자는 1기 = 1~6월, 2기 = 7~12월이에요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "신청하기", path: "주민번호 공개 여부·수량 확인 → 신청하기", img: "assets/images/posts/hometax-vat-base-certificate/03-submit.png", caption: "열람용은 제출용으로 인정되지 않을 수 있어요. **제출처에 먼저 확인**", guide_pic: "dog-checklist" },
+      { type: "end", title: "고르는 항목 표와\n자주 하는 실수는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제5조·제29조·제63조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-payment-certificate": {
+    date: "2026.11.08 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "민원증명", title: "세금 낸 증명은\n**납부내역증명**\n납세증명과 달라요", badge: "📄 즉시발급 증명", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "두 서류, 뭐가 달라요?", rows: [["납부내역증명", "세금을 **낸 사실**(언제, 어떤 세금을 냈는지)"], ["납세증명서", "발급일 현재 **체납이 없다는 것**(기한연장·유예액 등 제외)"], ["메뉴", "증명·등록·신청·사업장현황 > 즉시발급 증명 > 납부내역증명(납세사실증명)"]],
+        note: "홈택스로 냈는데 납부내역증명에 안 나오면 관할 세무서에 문의하라고 안내돼요" },
+      { type: "step", step: 1, title: "화면 안내 먼저", path: "납부내역증명(납세사실증명) 화면 위쪽", img: "assets/images/posts/hometax-payment-certificate/01-top.png", caption: "체납 없음 증명은 **납세증명**이라고 따로 안내돼요" },
+      { type: "step", step: 2, title: "수령방법 고르기", path: "주민번호 공개 여부 → 수령방법 → 수량", img: "assets/images/posts/hometax-payment-certificate/02-receive.png", caption: "인터넷발급(프린터출력)과 인터넷열람(화면조회) 두 가지예요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "세목·기간 고르고 작성완료", path: "세목 → 수납기간(연·월) → 사용용도·제출처 → 작성완료", img: "assets/images/posts/hometax-payment-certificate/03-request.png", caption: "세목은 **전체** 또는 하나만 골라도 돼요", guide_pic: "dog-checklist" },
+      { type: "end", title: "두 서류 비교표와\n고르는 항목은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 홈택스·손택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-vat-amend-refund": {
+    date: "2026.11.09 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "부가세", title: "덜 냈으면 수정신고\n더 냈으면 **경정청구**", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "셋 중 뭘 해야 할까?", rows: [["수정신고", "세금을 **적게** 신고했을 때, 덜 낸 세금과 가산세를 더 내요"], ["경정청구", "세금을 **많이** 신고했을 때, 법정신고기한 후 **5년** 안에 청구"], ["기한 후 신고", "기한까지 신고를 **안 했을** 때"]],
+        note: "메뉴는 셋 다 같아요: 세금신고 > 부가가치세 신고 > 부가가치세 과세신고(일반·간이·대리납부)" },
+      { type: "step", step: 1, title: "신고 종류 고르기", path: "부가가치세 과세신고 → 기한 후 신고·수정신고·경정청구", img: "assets/images/posts/hometax-vat-amend-refund/01-menu.png", caption: "덜 냈으면 **② 수정신고**를 눌러요" },
+      { type: "step", step: 2, title: "고칠 기간 고르기", path: "기본정보 > 신고구분 → [확인] → 알림 확인", img: "assets/images/posts/hometax-vat-amend-refund/02-amend-alert.png", caption: "수정신고는 **제출한 당일**에만 다시 불러오거나 다시 낼 수 있어요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "금액 바로잡기", path: "저장하기 → 고칠 줄 [입력/수정]", img: "assets/images/posts/hometax-vat-amend-refund/03-amend-main.png", caption: "처음 신고한 금액이 불러와져 있어요. 고칠 줄만 바꿔요", guide_pic: "dog-talk" },
+      { type: "step", step: 4, title: "가산세 계산기", path: "공제·감면·가산세액 > 가산세 입력하기 > 계산기", img: "assets/images/posts/hometax-vat-amend-refund/05-underreport-calc.png", caption: "미납세액을 넣으면 **감면까지** 계산돼요(가상 10만원)", guide_pic: "dog-checklist" },
+      { type: "calc", title: "10만원 덜 냈다면", tag: "가상의 예시 · 1기 확정분(기한 7/27)을 11/9에 신고·납부", rows: [["덜 낸 세금", "100,000원"], ["과소신고 가산세 10% → 기한 후 3~6개월이라 50% 감면", "5,000원"], ["납부지연 가산세(104일 × 하루 0.022%)", "2,288원"]], total: ["더 낼 금액", "107,288원"],
+        note: "신고서를 낸 뒤 세금은 따로 내야 해요. 납부지연 가산세는 낸 날 전날까지 붙어요" },
+      { type: "step", step: 5, title: "확인하고 제출", path: "이대로 신고하기 → 이에 동의합니다 → 신고서 제출하기", img: "assets/images/posts/hometax-vat-amend-refund/08-submit.png", caption: "**[신고서 제출하기]**를 누르면 바로 접수돼요. 금액을 다시 확인!" },
+      { type: "facts", title: "이것도 알아 두세요", rows: [["감면", "기한 안에 신고했다면, 기한 후 1·3·6개월 안 수정신고 시 과소신고 가산세 **90·75·50%** 감면(2년까지 단계별)"], ["경정청구", "순서는 같고 **환급계좌**를 골라요. 세무서는 2개월 안에 결과를 알려 줘야 해요"], ["기한 후 신고", "이미 신고한 기간은 홈택스가 **신고불가**로 막아요"]],
+        note: "세무조사를 알고 내거나 과세자료 해명 통지를 받고 낸 수정신고는 감면에서 빠져요" },
+      { type: "end", title: "단계별 화면과\n가산세 계산 예시는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 국세기본법 제45조~제48조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-worker-refund-claim": {
+    date: "2026.11.09 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "연말정산", title: "놓친 공제\n**경정청구**로 돌려받기", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제까지 할 수 있나요?", rows: [["5년", "연말정산 세액 **납부기한**이 지난 후 5년 안"], ["2021년분", "보통 **2027년 3월 10일**까지"], ["5월 신고한 해", "이 메뉴가 아니라 **종합소득세 신고** 쪽 경정청구"]],
+        note: "마감일이 주말·공휴일이면 다음 날까지. 원천세를 반기마다 내는 회사·중간 퇴사자는 기준일이 달라요" },
+      { type: "step", step: 1, title: "메뉴 찾기", path: "세금신고 > 종합소득세 신고 > 근로소득 신고 > 경정청구", img: "assets/images/posts/hometax-worker-refund-claim/01-menu.png", caption: "**③ 경정청구**를 눌러요" },
+      { type: "step", step: 2, title: "연도 고르기", path: "귀속년도 선택 → 조회 → 다음 이동", img: "assets/images/posts/hometax-worker-refund-claim/03-year.png", caption: "고를 수 있는 연도는 **2025~2021년**이었어요", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "빠진 공제 찾기", path: "원천징수영수증 및 부속서류 조회", img: "assets/images/posts/hometax-worker-refund-claim/05-withholding.png", caption: "회사가 낸 공제 내역에서 **무엇이 빠졌는지** 확인해요", guide_pic: "dog-talk" },
+      { type: "step", step: 4, title: "인적공제(배우자·부양가족) 넣기", path: "근로소득신고서 수정 > 인적공제 [입력/수정하기]", img: "assets/images/posts/hometax-worker-refund-claim/07-personal-popup.png", caption: "[입력/수정하기] 새 창에서 추가입력 → **등록하기** → **적용하기**", guide_pic: "dog-checklist" },
+      { type: "step", step: 5, title: "오류·경고 확인", path: "신고서 작성완료 → 신고서 오류내역 조회", img: "assets/images/posts/hometax-worker-refund-claim/12-error-check.png", caption: "**오류**는 제출 불가, **경고**(부양가족 소득 초과 등)는 다시 확인" },
+      { type: "step", step: 6, title: "제출", path: "신고서 제출 → 신고서 제출하기", img: "assets/images/posts/hometax-worker-refund-claim/13-submit.png", caption: "**[신고서 제출하기]**를 누르면 접수돼요. 증빙은 부속서류 제출 탭으로" },
+      { type: "calc", title: "공제 150만원을 빠뜨렸다면", tag: "가상의 예시 · 과세표준 3,000만원(15% 구간)", rows: [["공제 150만원 × 15%(지방소득세 별도)", "225,000원"], ["처음 결정세액이 120만원이면", "225,000원 환급"], ["처음 결정세액이 5만원이면", "50,000원까지만"]], total: ["돌려받는 한도", "결정세액까지"],
+        note: "공제를 더해도 세금이 줄지 않으면 홈택스가 신청을 막아요" },
+      { type: "end", title: "단계별 화면과\n기한 표는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 국세기본법 제45조의2, 소득세법 제50조·제137조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-tax-invoice-list-check": {
+    date: "2026.11.10 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "세금계산서", title: "신고 전\n**목록·합계표** 확인", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "신고 전에 왜 볼까요?", rows: [["다음 날", "전자세금계산서는 발급일 **다음 날**까지 국세청에 전송"], ["다음 달 11일", "과세기간 끝난 **다음 달 11일**까지 전송되면 합계표 제출 생략 가능"], ["7~12월", "예정고지 받은 개인사업자는 1월에 **6개월치**를 신고"]],
+        note: "오늘 발급·전송한 건은 다음 날 합계표에 반영돼요(화면 안내)" },
+      { type: "step", step: 1, title: "목록조회 열기", path: "계산서·영수증·카드 > 조회 > 월/분기별 목록조회", img: "assets/images/posts/hometax-tax-invoice-list-check/01-monthly-search.png", caption: "**매출·매입**과 기간을 고르고 조회해요" },
+      { type: "step", step: 2, title: "건별 목록 확인", path: "총 합계금액 + 건별 목록", img: "assets/images/posts/hometax-tax-invoice-list-check/02-monthly-sales-list.png", caption: "**엑셀내려받기**로 거래처와 맞춰 봐요. 금액은 가상값", guide_pic: "dog-point-left2" },
+      { type: "step", step: 3, title: "받은 세금계산서도", path: "매입·매출 구분 → 매입 → 조회", img: "assets/images/posts/hometax-tax-invoice-list-check/03-monthly-purchase.png", caption: "**매입**으로 바꾸면 받은 세금계산서가 나와요", guide_pic: "dog-talk" },
+      { type: "step", step: 4, title: "분기 합계 맞추기", path: "계산서·영수증·카드 > 합계표·통계 조회 > 합계표 조회", img: "assets/images/posts/hometax-tax-invoice-list-check/04-summary-sales.png", caption: "예정고지 받은 개인사업자는 **2기 예정·확정**을 둘 다 봐요", guide_pic: "dog-checklist" },
+      { type: "calc", title: "1장이 비면?", tag: "가상의 예시 · 2026년 10~12월", rows: [["내 장부", "3장 · 세액 300,000원"], ["홈택스 합계표", "2장 · 세액 200,000원"]], total: ["차이", "1장 → 목록에서 찾기"],
+        note: "어제·오늘 발급분이면 하루 뒤 다시, 금액이 틀리면 수정세금계산서로" },
+      { type: "end", title: "단계별 화면은\n블로그에\n있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제32조·제48조·제54조, 시행령 제68조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-buyer-issued-tax-invoice": {
+    date: "2026.11.10 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "세금계산서", title: "못 받은 세금계산서\n**매입자발행**", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제 쓸 수 있나요?", rows: [["5만원 이상", "거래 1건당 **공급대가**(부가세 포함)"], ["1년 이내", "공급시기가 속하는 **과세기간 종료일**부터"], ["필수 서류", "영수증·무통장입금증 같은 **대금결제 증명자료**"]],
+        note: "거래 당시 미등록·휴폐업 상태였던 게 명백하면 세무서가 확인을 거부해요" },
+      { type: "facts", title: "세무서 처리 순서", pic: "dog-checklist", rows: [["① 신청", "**매입자** 관할 세무서에 신청서와 증빙"], ["② 확인", "거래처 관할 세무서가 **신청일의 다음 달 말일**까지 확인"], ["③ 공제", "확인되면 발행하고 신고 때 **매입자발행세금계산서합계표** 제출"]],
+        note: "거래 사실은 매입자가 입증해야 해요. 증빙이 부족하면 확인불가 통지" },
+      { type: "step", step: 1, title: "검색으로 찾기", path: "검색창 '매입자발행' → 거래사실확인신청서", img: "assets/images/posts/hometax-buyer-issued-tax-invoice/01-search.png", caption: "전체메뉴에 따로 안 보여서 **검색**으로 들어갔어요" },
+      { type: "step", step: 2, title: "기한 먼저 확인", path: "꼭 읽어주세요", img: "assets/images/posts/hometax-buyer-issued-tax-invoice/02-notice.png", caption: "**1년 이내**인지 확인해요. 세무대리인은 대신 신청할 수 없어요", guide_pic: "dog-talk" },
+      { type: "step", step: 3, title: "서식 작성·첨부", path: "신청내용 내려받기 → 작성 → PDF → 파일찾기", img: "assets/images/posts/hometax-buyer-issued-tax-invoice/03-attach.png", caption: "서식(HWP)을 작성해 **PDF로 첨부**해요", guide_pic: "dog-point-left2" },
+      { type: "calc", title: "어떤 거래가 대상일까?", tag: "가상의 예시", rows: [["110만원 거래(부가세 10만원 포함)", "신청 대상"], ["44,000원 거래", "5만원 미만 → 대상 아님"]], total: ["일반과세자 공제(합계표 제출 시)", "부가세 100,000원"],
+        note: "사업과 관계없는 지출 등 원래 불공제인 매입세액은 공제 안 돼요" },
+      { type: "end", title: "처리 순서와\n화면은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제34조의2, 시행령 제71조의2, 시행규칙 제52조의2, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-tax-invoice-zero-rate-bulk": {
+    date: "2026.11.10 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "세금계산서", title: "영세율·일괄발급\n**이럴 땐 이렇게**", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "부가세법의 영세율 4가지", rows: [["재화 수출", "직접 수출, **내국신용장·구매확인서** 공급 등"], ["용역 국외공급", "국외에서 제공하는 용역"], ["외국항행", "선박·항공기로 국제 수송"], ["외화 획득", "외교공관, 국내사업장 없는 비거주자·외국법인에 **정해진 공급** 등"]],
+        note: "구매확인서·내국신용장은 과세기간 끝난 뒤 25일 이내 개설·발급된 것이어야 해요" },
+      { type: "step", step: 1, title: "종류를 영세율로", path: "전자(세금)계산서 건별발급 > 종류 영세율 > [선택]", img: "assets/images/posts/hometax-tax-invoice-zero-rate-bulk/01-zero-rate-type.png", caption: "**[선택]**을 눌러야 서식이 바뀌어요. 정보는 가상값" },
+      { type: "step", step: 2, title: "세액은 0원", path: "품목 수량·단가 입력", img: "assets/images/posts/hometax-tax-invoice-zero-rate-bulk/02-zero-rate-items.png", caption: "세액 칸이 **0**으로 고정돼요", guide_pic: "dog-talk" },
+      { type: "calc", title: "공급가액 100만원이면", tag: "가상의 예시", rows: [["일반 세금계산서(10%)", "합계 1,100,000원"], ["영세율 세금계산서(0%)", "합계 1,000,000원"]], total: ["세액 차이", "100,000원"],
+        note: "신고 때 구매확인서 전자발급명세서 등을 함께 내야 해요" },
+      { type: "step", step: 3, title: "여러 장은 일괄발급", path: "계산서·영수증·카드 > 일괄/공동매입분 발급 > 전자(세금)계산서 일괄발급", img: "assets/images/posts/hometax-tax-invoice-zero-rate-bulk/03-bulk-top.png", caption: "엑셀·직접입력·텍스트 중 골라요. 버튼 이름은 **일괄발급(50건)**", guide_pic: "dog-point-left2" },
+      { type: "step", step: 4, title: "직접입력도 돼요", path: "작업 구분 직접입력 → 줄마다 작성", img: "assets/images/posts/hometax-tax-invoice-zero-rate-bulk/04-bulk-direct.png", caption: "거래처 번호를 적고 **[확인]**으로 번호를 확인해요", guide_pic: "dog-checklist" },
+      { type: "end", title: "영세율 대상과\n화면은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제21~24조, 시행령 제31조·제33조·제71조·제101조, 시행규칙 제21조, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
 };
 const md = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g, "<b class=\"em\">$1</b>");
 const [slug, n] = decodeURIComponent(location.hash.slice(1)).split("/");
@@ -328,8 +457,10 @@ if (s.type === "cover") {
 }
 if (deck.guide && s.type !== "cover" && s.type !== "step") {
   const slide = root.firstElementChild;
-  const P = s.pic || { facts: "cat-talk", calc: "dog-talk" }[s.type];
-  if (P) slide.insertAdjacentHTML("beforeend", `<img class="peek" src="${TOON}${P}.png">`);
+  // 콩알눈(cat-neutral·cat-talk·dog-neutral) 그림은 쓰지 않음(2026-11-08 사용자). facts 기본은 cat-memo 좌우대칭
+  const P = s.pic || { facts: "cat-memo", calc: "dog-talk" }[s.type];
+  const flip = !s.pic && s.type === "facts" ? ' style="transform:scaleX(-1);top:34px"' : "";
+  if (P) slide.insertAdjacentHTML("beforeend", `<img class="peek" src="${TOON}${P}.png"${flip}>`);
   if (s.type === "end") slide.insertAdjacentHTML("beforeend", `<div class="duo"><img src="${TOON}cat-cheer.png"><img src="${TOON}dog-cheer.png"></div>`);
 }
 </script>

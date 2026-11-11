@@ -1,0 +1,46 @@
+<!doctype html>
+<!--
+  캐릭터 그림(assets/toon/*.png) 테두리 굵기 재기·맞추기 (2026-11-11).
+  재기:  toon-outline.html?names=a,b,c          → <pre id="out">에 "이름 너비 높이 굵기(px) 굵기/키(‰)"
+  맞추기: toon-outline.html?names=a,b&grow=a:2,b:1 → 그림을 2배로 키운 뒤 진한 선을 그 px(2배 기준)만큼 두껍게 한 PNG를 "이름 base64" 줄로 출력
+  기준(2026-11-11): 굵기/키 = 13‰(가리키는 강아지 그림들). 2배 기준 r = round(0.013 × 키 − 굵기)(2배에서 양쪽 r px = 원래 크기 r px 굵어짐), 0 이하면 2배로만 키움
+  굵기 = 진한 선(밝기 90 미만, 불투명) 가로·세로 연속 길이의 중앙값. 얇게 만드는 건 그림이 깨져서 하지 않고 두껍게만 한다.
+  크롬: chrome --headless=new --allow-file-access-from-files --virtual-time-budget=20000 --dump-dom "file:///.../_tools/toon-outline.html?..."
+-->
+<meta charset="utf-8"><pre id="out"></pre>
+<script>
+const q = new URLSearchParams(location.search), names = q.get("names").split(","), grow = {};
+(q.get("grow") || "").split(",").filter(Boolean).forEach(s => { const [n, r] = s.split(":"); grow[n] = +r; });
+const out = document.getElementById("out");
+const load = n => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = "../assets/toon/" + n + ".png"; });
+const dark = (p, i) => p[i + 3] > 200 && (p[i] * .3 + p[i + 1] * .59 + p[i + 2] * .11) < 90;
+(async () => {
+  const lines = [];
+  for (const n of names) {
+    const img = await load(n), k = n in grow ? 2 : 1, w = img.naturalWidth * k, h = img.naturalHeight * k, c = document.createElement("canvas");
+    c.width = w; c.height = h; const g = c.getContext("2d"); g.imageSmoothingQuality = "high"; g.drawImage(img, 0, 0, w, h);
+    const d = g.getImageData(0, 0, w, h), p = d.data;
+    if (n in grow) {
+      const r = grow[n], src = new Uint8ClampedArray(p), m = new Uint8Array(w * h);
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (dark(src, (y * w + x) * 4)) m[y * w + x] = 1;
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const i = y * w + x; if (m[i]) continue;
+        let hit = -1;
+        for (let dy = -r; dy <= r && hit < 0; dy++) for (let dx = -r; dx <= r; dx++) {
+          if (dx * dx + dy * dy > r * r + r) continue;
+          const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
+          if (m[yy * w + xx]) { hit = yy * w + xx; break; }
+        }
+        if (hit >= 0) { const a = i * 4, b = hit * 4; p[a] = src[b]; p[a + 1] = src[b + 1]; p[a + 2] = src[b + 2]; p[a + 3] = 255; }
+      }
+      g.putImageData(d, 0, 0); lines.push(n + " " + c.toDataURL("image/png").split(",")[1]); continue;
+    }
+    const runs = [];
+    for (let y = 0; y < h; y++) { let k = 0; for (let x = 0; x <= w; x++) { if (x < w && dark(p, (y * w + x) * 4)) k++; else { if (k) runs.push(k); k = 0; } } }
+    for (let x = 0; x < w; x++) { let k = 0; for (let y = 0; y <= h; y++) { if (y < h && dark(p, (y * w + x) * 4)) k++; else { if (k) runs.push(k); k = 0; } } }
+    runs.sort((a, b) => a - b); const med = runs[runs.length >> 1] || 0;
+    lines.push([n, w, h, med, (med / h * 1000).toFixed(1)].join(" "));
+  }
+  out.textContent = lines.join("\n");
+})();
+</script>

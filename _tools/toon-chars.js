@@ -1,8 +1,10 @@
 // 나혼세 만화 캐릭터(고양이 사장님·강아지 이웃 사장님). toon.html(네컷만화)과 insta.html(설명 장)이 같이 쓴다.
 // 캐릭터 그림: assets/toon/*.png (사용자 제공 시트 이모션1~7에서 잘라 배경 투명, 원본 jpg는 커밋 안 함)
 //   잘림 주의(2026-11-08 점검, 시트에서 옆 캐릭터에 가려져 원본에도 없음 → 잘린 쪽을 칸 가장자리에 붙이거나 다른 그림을 쓴다):
-//     꼬리 왼쪽 잘림 cat-happy·cat-wink·cat-dizzy·cat-moneybags(몸 왼쪽도), 꼬리 오른쪽 cat-sob, 몸 왼쪽 선 cat-mad, 오른쪽 가장자리 cat-faint·cat-panic·cat-shock,
-//     서류 왼쪽 끝 cat-guide("TAX" 첫 글자)·cat-contract, 귀 오른쪽 dog-surprise·dog-think, 귀 왼쪽 dog-panic·dog-smug
+//     꼬리 왼쪽 잘림 cat-happy·cat-wink·cat-moneybags(몸 왼쪽도), 꼬리 오른쪽 cat-sob, 몸 왼쪽 선 cat-mad, 오른쪽 가장자리 cat-faint·cat-panic·cat-shock,
+//     서류 왼쪽 끝 cat-guide("TAX" 첫 글자), 귀 오른쪽 dog-surprise, 귀 왼쪽 dog-panic·dog-smug
+//     (2026-11-11 고침: cat-dizzy 머리 왼쪽·꼬리, cat-contract 서류 모서리, dog-think 귀 테두리 → _tools/toon-fix.html)
+//   테두리 굵기(2026-11-11): 모든 그림을 2배로 키우고 선 굵기/키 13‰(가리키는 강아지 기준)로 맞춤 → _tools/toon-outline.html, 원본은 _captures/toon-orig/before-1111/
 //     (고침: cat-stamp 얼굴 오른쪽은 이모션9에서 다시 자름, 발 워터마크 8종·얼룩 3종 지움)
 //   쓰지 않음(2026-11-08 사용자): 콩알눈 cat-neutral·cat-talk. 사용자가 지움(11-08): cat-faint·cat-wink·dog-angry·dog-bored·dog-faint·dog-neutral·dog-smug·dog-surprise·dog-wave (옛 만화 칸에 dog-smug·dog-wave가 남아 있어 그 덱은 다시 찍지 않음). dog-talk은 흰자위 있는 사용자 제공 그림으로 바꿈. 강아지 털색은 모두 dog-point-left2 기준(_tools/toon-dogtone.html)
 //   공통(dog-·cat-): neutral 기본, talk 말하기, surprise 놀람, panic 당황, happy 기쁨, cry 울음,
