@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 네이버 블로그 붙여넣기 묶음 만들기 (2026-11-07 사용자 확정 방식)
 # 사용법: bash _tools/naver_pack.sh <출력 폴더> <슬러그> <폴더 이름> [<슬러그> <폴더 이름> ...]
-#   예) bash _tools/naver_pack.sh "$HOME/OneDrive/바탕 화면/나혼세네이버_1118-1127" hometax-e-tax-invoice 11-18_전자세금계산서
+#   예) bash _tools/naver_pack.sh "$HOME/Desktop/나혼세네이버_1118-1127" hometax-e-tax-invoice 11-18_전자세금계산서
 # 만드는 것: <출력 폴더>/<폴더 이름>/한번에복사.html (제목·태그 복사 버튼 + 사진·본문 한 번에 복사)
 #           사진은 사이트에 올라간 인스타 카드($SITE/assets/insta/<슬러그>/n.png)를 쓰므로 먼저 push해 둔다.
 # 원고: _naver/<슬러그>/post.txt ([제목] [본문] [태그], 본문 속 [사진 n])
