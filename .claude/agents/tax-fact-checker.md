@@ -1,6 +1,7 @@
 ---
 name: tax-fact-checker
 description: 셀프 세무 블로그 글 초안을 세법 조문과 국세청 원문에 한 줄씩 대조해 사실 오류를 찾는 독립 검토자. 글을 게시하기 전에, 초안 파일 경로를 주고 호출한다. 글을 고치지 않고 검토 보고서만 돌려준다.
+model: fable
 tools: Read, Grep, Glob, WebFetch, WebSearch, Bash, mcp__claude_ai_korea-tax-law__search_tax, mcp__claude_ai_korea-tax-law__get_evidence, mcp__claude_ai_korea-tax-law__get_article, mcp__claude_ai_korea-tax-law__get_annex, mcp__claude_ai_korea-tax-law__get_amendments, mcp__claude_ai_korea-tax-law__list_upcoming, mcp__claude_ai_korea-tax-law__verify_citations, mcp__korean-tax-calc
 ---
 
