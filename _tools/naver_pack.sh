@@ -19,14 +19,17 @@ while [ $# -ge 2 ]; do
   tags=$(awk '/^\[태그\]/{getline; print; exit}' "$src")
   cat=$(awk '/^\[카테고리\]/{getline; print; exit}' "$src")
   catline=""; [ -n "$cat" ] && catline="<p><b>0. 카테고리</b> <b style=\"color:#c2410c\">$cat</b> (발행 설정에서 선택)</p>"
-  body=$(awk '/^\[본문\]/{f=1;next} /^\[(카테고리|태그)\]/{f=0} f' "$src" | sed -E 's/&/\&amp;/g; s/</\&lt;/g; s#^\[사진 1\]$#<p><b style="color:rgb(194,65,12)">▶ 여기를 누르고 사진 버튼으로 대표사진.png 올리기 (올린 뒤 이 줄은 지우기)</b></p>#; t; s#^\[사진 ([0-9]+)\]$#<p><img src="'"$SITE"'/assets/insta/'"$s"'/\1.png" width="540"></p>#; t; s#^$#<p>\&nbsp;</p>#; t; s#\*\*([^*]+)\*\*#<b style="color:\#c0392b">\1</b>#g; s#(https?://[^ <]+)#<a href="\1">\1</a>#g; s#^(.*)$#<p>\1</p>#')  # **문장** = 빨간 굵은 글씨(링크 안내 강조), 주소는 눌리는 링크로(유입 목적)
+  body=$(awk '/^\[본문\]/{f=1;next} /^\[(카테고리|태그)\]/{f=0} f' "$src" | sed -E 's/&/\&amp;/g; s/</\&lt;/g; s#^\[사진 1\]$#@@REP@@#; t;s#^\[사진 ([0-9]+)\]$#<p><img src="'"$SITE"'/assets/insta/'"$s"'/\1.png" width="540"></p>#; t; s#^$#<p>\&nbsp;</p>#; t; s#\*\*([^*]+)\*\*#<b style="color:\#c0392b">\1</b>#g; s#(https?://[^ <]+)#<a href="\1">\1</a>#g; s#^(.*)$#<p>\1</p>#')  # **문장** = 빨간 굵은 글씨(링크 안내 강조), 주소는 눌리는 링크로(유입 목적)
+  # 첫 장은 사진 파일을 본문에 직접 담는다(data URI). 주소 사진과 달리 네이버가 파일로 받아 대표 사진이 될 수 있다.
+  # shortcut: 11-16 기준 네이버에서 아직 시험 전, 안 되면 대표사진.png를 직접 올리는 안내(4번)로 처리
+  body="${body/@@REP@@/<p><img src=\"data:image/png;base64,$(base64 -w0 "$d/대표사진.png")\" width=\"540\"></p>}"
   # 점선 테두리는 복사 영역(#copy) 바깥 .frame에 둔다. 안에 두면 네이버 본문에 테두리가 같이 붙는다(11-07 확인).
   cat > "$d/한번에복사.html" <<EOF
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><title>$name</title>
 <style>body{font-family:"Malgun Gothic",sans-serif;max-width:640px;margin:20px auto;padding:0 16px;line-height:1.7}
 .guide{background:#fff4e0;border:1px solid #f0c36d;padding:10px 14px;border-radius:8px;font-size:14px}
 .frame{border:2px dashed #1a6fd1;padding:12px;margin-top:12px}</style></head><body>
-<div class="guide">$catline<p><b>1. 제목</b> <button onclick="navigator.clipboard.writeText(document.getElementById('t').innerText);this.innerText='복사됨'">제목 복사</button><br><span id="t">$title</span></p><p><b>2. 태그</b> <button onclick="navigator.clipboard.writeText(document.getElementById('g').innerText.replace(/, /g,' '));this.innerText='복사됨'">태그 복사</button><br><span id="g">$tags</span></p><b>3. 본문</b> 파란 점선 상자 안을 클릭(전체 선택) → Ctrl+C → 네이버 본문에 Ctrl+V<p><b>4. 대표 사진</b> 붙여넣은 본문 맨 위 주황색 줄을 누르고 사진 버튼 → 이 폴더의 대표사진.png 올리기 → 주황색 줄 지우기. 대표 표시가 없으면 사진을 눌러 대표 지정</p></div>
+<div class="guide">$catline<p><b>1. 제목</b> <button onclick="navigator.clipboard.writeText(document.getElementById('t').innerText);this.innerText='복사됨'">제목 복사</button><br><span id="t">$title</span></p><p><b>2. 태그</b> <button onclick="navigator.clipboard.writeText(document.getElementById('g').innerText.replace(/, /g,' '));this.innerText='복사됨'">태그 복사</button><br><span id="g">$tags</span></p><b>3. 본문</b> 파란 점선 상자 안을 클릭(전체 선택) → Ctrl+C → 네이버 본문에 Ctrl+V<p><b>4. 대표 사진</b> 붙여넣은 첫 사진에 <b>대표</b> 표시가 있는지 확인(없으면 사진을 눌러 대표 지정). 첫 사진이 안 보이거나 대표 지정이 안 되면 첫 사진을 지우고 사진 버튼으로 이 폴더의 대표사진.png 올리기</p></div>
 <div class="frame"><div id="copy" onclick="var r=document.createRange();r.selectNodeContents(this);var s=getSelection();s.removeAllRanges();s.addRange(r);">
 $body
 </div></div></body></html>
