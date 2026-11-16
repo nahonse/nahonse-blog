@@ -481,6 +481,25 @@ const decks = {
         talk: [["이웃 사장님", "로그인 7가지<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-expense-rate-lookup": {
+    title: "내 업종 <b>경비율</b> 어디서 봐요?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fbe1e8",
+        scene: paper(318, 222, 6, "알림", "이용 불가?") + pic("cat-dizzy", 145, 600, 350, { rot: -2 }),
+        talk: [["", "경비율 조회하려는데<br>개인사업자는<br>이용할 수 없대요!"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-memo", 125, 645, 340, { rot: -2 }) + pic("dog-point-left", 330, 640, 360, { rot: 2 }),
+        talk: [["이웃 사장님", "<em>개인</em>으로 로그인하면<br>열려요!", "r"]] },
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + pic("cat-clipboard", 145, 650, 330, { rot: -1 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
+        talk: [["", "업종코드를 몰라요"], ["이웃 사장님", "<em>업종 이름</em>으로<br>검색돼요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-excited", 125, 610, 340, { rot: -3 })
+          + pic("dog-point-right", 320, 628, 370, { rot: 2 }) + star(225, 205, 0.7),
+        talk: [["이웃 사장님", "조회하는 법<br>따라와 봐요!", "r"]] },
+    ],
+  },
   "hometax-card-receipt-statement": {
     title: "<b>카드 영수증</b> 부가세 공제받기",
     date: "2026.11",
