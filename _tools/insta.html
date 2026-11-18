@@ -451,6 +451,20 @@ const decks = {
       { type: "end", title: "할 일별 로그인과\n인증서 받는 곳은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n인증서가 안 되면 국세상담센터 126", source: "출처: 홈택스 로그인 화면, 발급 가능 인증서 안내창(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-business-status-check": {
+    date: "2026.11.17 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "사업자 기본", title: "거래처 휴업·폐업\n**홈택스 조회**", badge: "🔎 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "결과에 따라 받는 증빙이 달라요", rows: [["일반과세자", "원칙적으로 **세금계산서** 발급(소비자 상대 업종은 영수증도)"], ["간이과세자", "**영수증만 발급하는 기간**이면 세금계산서를 못 받아요"], ["면세사업자", "세금계산서가 아니라 **계산서(또는 영수증)**"], ["폐업자", "폐업 뒤 발급된 세금계산서는 **조심**(126 확인)"]],
+        note: "간이과세자가 영수증만 발급해야 하는 기간에 발급한 카드전표·현금영수증은 매입세액공제를 받을 수 없어요" },
+      { type: "step", step: 1, title: "번호 넣고 조회", path: "증명·등록·신청·사업장현황 > 사업자등록 신청·정정·휴폐업 > 사업자상태 조회", img: "assets/images/posts/hometax-business-status-check/01-form.png", caption: "결과는 **법적 효력 없음**, 세무서 **처리완료분만** 반영돼요" },
+      { type: "step", step: 2, title: "계속 사업 중이면", path: "결과 표 > 사업자등록상태", img: "assets/images/posts/hometax-business-status-check/03-general.png", caption: "**과세유형만** 나와요. 오른쪽 조회기준일자도 같이 봐요", guide_pic: "dog-talk" },
+      { type: "step", step: 3, title: "없는 번호면", path: "결과 표 > 사업자등록상태", img: "assets/images/posts/hometax-business-status-check/02-not-registered.png", caption: "번호 오타부터 확인하고, 맞으면 **사업자등록증**을 다시 받아요", guide_pic: "dog-point-left" },
+      { type: "step", step: 4, title: "이용안내 읽기", path: "화면 아래 이용안내", img: "assets/images/posts/hometax-business-status-check/04-guide.png", caption: "폐업자는 **폐업일자**까지 나와요. 단위과세 전환 폐업자는 거래처에 확인", guide_pic: "dog-checklist" },
+      { type: "end", title: "간이과세자 기간과\n폐업자 주의점은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제32조·제36조·제36조의2·제46조, 시행령 제88조,\n소득세법 제163조, 국세청 해석, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
   "hometax-expense-rate-lookup": {
     date: "2026.11.15 기준",
     guide: true,
