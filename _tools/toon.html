@@ -500,6 +500,26 @@ const decks = {
         talk: [["이웃 사장님", "전환 순서<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-interim-prepayment-estimate": {
+    title: "매출 줄었는데 <b>중간예납</b> 그대로?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fbe1e8",
+        scene: paper(318, 200, 6, "납부고지서", "중간예납 ~11.30") + pic("cat-surprise", 145, 585, 360, { rot: -2 })
+          + '<rect x="0" y="315" width="48" height="70" fill="#fbe1e8"/>', // 그림에 박힌 놀람 선 가림(11/20 사용자)
+        talk: [["", "아차! 중간예납 고지서<br>깜빡하고 있었네"]] },
+      { bg: "#e3eefb",
+        scene: desk("#9cc1e8") + pic("cat-dizzy", 250, 700, 470, { rot: 0 }),
+        talk: [["", "근데 올해 매출이 확 줄었는데<br><em>작년 세금</em> 기준으로<br>나왔어요..."]] },
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + pic("cat-listen", 125, 650, 330, { rot: -2 }) + pic("dog-point-left", 335, 645, 360, { rot: 2 }),
+        talk: [["이웃 사장님", "상반기로 계산한 세액이<br>기준액의 <em>30%</em>에 못 미치면<br><em>추계액 신고</em>할 수 있어요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 110, 620, 320, { rot: -3 })
+          + pic("dog-checklist", 325, 650, 370, { rot: 0 }),
+        talk: [["이웃 사장님", "<em>11월 30일</em>까지예요<br>따라와 봐요!", "r"]] },
+    ],
+  },
   "hometax-tax-invoice-repeat-copy": {
     title: "매달 같은 <b>세금계산서</b>, 또 입력해요?",
     date: "2026.11",
