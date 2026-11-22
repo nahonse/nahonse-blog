@@ -58,6 +58,25 @@ const q = (x, y, k = 1) => `<text x="${x}" y="${y}" transform="rotate(-12 ${x} $
 const star = (x, y, s = 1) => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -22 l7 15 l16 2 l-12 11 l3 16 l-14 -8 l-14 8 l3 -16 l-12 -11 l16 -2z" fill="#ffd34d" stroke="#1e1e1e" stroke-width="4"/>`;
 
 const decks = {
+  "hometax-cash-receipt-expense-proof": {
+    title: "현금으로 산 <b>사업용품</b>, 영수증은?",
+    date: "2026.11",
+    cells: [
+      { bg: "#e3eefb",
+        scene: paper(330, 160, 6, "현금영수증", "33,000원") + desk("#9cc1e8") + pic("cat-cashier", 160, 650, 380, { rot: -2 }),
+        talk: [["", "사무용품 현금으로 샀어요.<br>현금영수증은 뭐라고<br>말해야 해요?"]] },
+      { bg: "#fdf1d6",
+        scene: desk("#e7b98e") + pic("cat-memo-kneel", 115, 650, 310, { rot: -1 }) + pic("dog-talk", 340, 645, 355, { rot: 1 }),
+        talk: [["이웃 사장님", "사업자번호 불러 주고<br><em>지출증빙</em>으로<br>해 달라고 해요", "r"]] },
+      { bg: "#e6f4ea",
+        scene: desk("#e7b98e") + pic("cat-present", 130, 655, 345, { rot: -1 }) + pic("dog-rub", 330, 650, 355, { rot: 1 }),
+        talk: [["", "받은 건 어디서 봐요?"], ["이웃 사장님", "다음 날 홈택스<br><em>매입내역 조회</em>에서요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 110, 615, 330, { rot: -3 })
+          + pic("dog-point-right", 325, 628, 370, { rot: 2 }) + star(230, 210, 0.7),
+        talk: [["이웃 사장님", "공제 확인까지<br>따라와 봐요!", "r"]] },
+    ],
+  },
   "hometax-interim-prepayment-check": {
     title: "11월, <b>중간예납</b> 고지서가 왔다",
     date: "2026.11 · 1/8",

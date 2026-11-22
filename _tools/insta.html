@@ -465,6 +465,22 @@ const decks = {
       { type: "end", title: "간이과세자 기간과\n폐업자 주의점은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제32조·제36조·제36조의2·제46조, 시행령 제88조,\n소득세법 제163조, 국세청 해석, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-cash-receipt-expense-proof": {
+    date: "2026.11.22 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "부가세", title: "현금으로 산 사업용품\n**지출증빙 현금영수증**", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "지출증빙, 이렇게 받아요", rows: [["받는 법", "**사업자등록번호**나 **사업자용 현금영수증카드**를 내고 \"지출증빙으로\""], ["개인 휴대폰", "소비자로 가입해 **지출증빙 귀속 사업장**을 입력해야 사업자에게 귀속"], ["조회", "**다음 날**부터 홈택스 매입내역에서"]],
+        note: "매입내역은 홈택스에 등록한 발급수단으로 받은 거래만 조회된다고 안내돼요" },
+      { type: "step", step: 1, title: "매입내역 조회", path: "계산서·영수증·카드 > 사업자 매입·지출증빙 조회/변경 > 현금영수증 매입내역(지출증빙) 조회", img: "assets/images/posts/hometax-cash-receipt-expense-proof/01-purchase-list.png", caption: "**사업자로 로그인**. ① 기간 ② [조회]. ③으로 사업장 카드 등록·정정" },
+      { type: "step", step: 2, title: "공제 분류 기준 읽기", path: "사업자 매입·지출증빙 조회/변경 > 현금영수증 세액공제 확인/변경", img: "assets/images/posts/hometax-cash-receipt-expense-proof/02-deduction-guide.png", caption: "① **당연불공제**·**선택불공제** 업종 안내와 바꾸는 순서", guide_pic: "dog-talk" },
+      { type: "step", step: 3, title: "공제여부 확인", path: "같은 화면 아래 조회 목록", img: "assets/images/posts/hometax-cash-receipt-expense-proof/03-deduction-table.png", caption: "① 기간 ② 공제여부 ③ [조회] → ④ 칸에 분류. 바꾼 뒤엔 **[변경하기]**", guide_pic: "dog-checklist" },
+      { type: "step", step: 4, title: "사업자용 카드 신청", path: "계산서·영수증·카드 > 사업자 발급수단·전용카드 > 사업자용 현금영수증 전용카드 신청", img: "assets/images/posts/hometax-cash-receipt-expense-proof/05-dedicated-card-list.png", caption: "① [추가신청] → 주소 확인·신청개수 → 동의·신청. **운영자는 신청 안 함**", guide_pic: "dog-point-left" },
+      { type: "calc", title: "현금 33,000원 사무용품이라면", tag: "가상의 예시 · 파는 쪽 일반과세자", rows: [["공급가액", "30,000원"], ["산 사람이 간이과세자라면: 납부세액에서 빼는 금액(0.5%)", "165원"]], total: ["매입세액 공제 대상", "3,000원"],
+        note: "영수증만 발급하는 간이과세자 가게, 목욕·이발 등 업종은 공제 안 돼요. 수령명세서 제출, 영수증 보관도 요건이에요" },
+      { type: "end", title: "사업장 카드 등록,\n자진발급분 등록은\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제46조·제39조·제63조, 시행령 제88조,\n국세청 126 자주묻는Q&A, 홈택스 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
   "hometax-ssn-tax-invoice-convert": {
     date: "2026.11.15 기준",
     guide: true,
