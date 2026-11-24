@@ -22,19 +22,19 @@ layout: default
   <nav class="nh-quick" aria-label="할 일별 글 모아보기">
     <button type="button" class="nh-q" id="invoice" data-topics="세금계산서" data-label="세금계산서">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 5h19l9 9v29H10z"/><path d="M29 5v9h9"/><path class="g" d="M16 25l5 5 9-10"/><path d="M15 38c2-3 4 1 6-1"/><path class="g" d="M33 40l9-17 3 2-9 17-4 1z"/></svg>
-      <span>세금계산서</span>
+      <span>세금계산서</span>{% include topic-count.html topics="세금계산서" %}
     </button>
     <button type="button" class="nh-q" id="cert" data-topics="민원증명|사업자 기본" data-label="민원증명 발급">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 8h36v6H6z"/><path d="M10 14v24h20"/><path d="M38 14v14"/><path class="g" d="M15 21h18M15 27h14"/><circle class="g" cx="35" cy="35" r="5"/><path class="g" d="M32 39l-2 7 5-3 5 3-2-7"/></svg>
-      <span>민원증명</span>
+      <span>민원증명</span>{% include topic-count.html topics="민원증명|사업자 기본" %}
     </button>
     <button type="button" class="nh-q" id="vat" data-topics="부가세|세무 일정" data-label="부가가치세">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 34h38v9H5z"/><path d="M20 39h8"/><path d="M9 34l3-12h24l3 12"/><path d="M27 22v-7h12v7"/><path class="g" d="M11 22V6h11v16"/><path class="g" d="M14 15l5-6M14 9h0M19 15h0"/><path d="M17 27h2M23 27h2M29 27h2"/></svg>
-      <span>부가가치세</span>
+      <span>부가가치세</span>{% include topic-count.html topics="부가세|세무 일정" %}
     </button>
     <button type="button" class="nh-q" id="income" data-topics="종합소득세|세무 일정" data-label="종합소득세">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18h32a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H6z"/><path d="M6 18l24-8 3 8"/><path d="M42 27h-8a4 4 0 0 0 0 8h8"/><circle cx="35" cy="31" r="1.5"/><path class="g" d="M14 34l6-6 4 3 8-9M28 22h4v4"/></svg>
-      <span>종합소득세</span>
+      <span>종합소득세</span>{% include topic-count.html topics="종합소득세|세무 일정" %}
     </button>
     <!-- shortcut: 계산기가 하나라 부가세 계산기로 바로 감, 두 번째 계산기를 만들면 /calculators/ 목록 페이지로 바꾼다 -->
     <a class="nh-q" href="{{ "/calculators/vat/" | relative_url }}">

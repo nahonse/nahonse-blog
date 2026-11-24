@@ -1,0 +1,4 @@
+{%- comment -%} 홈 아이콘 아래 글 개수. include.topics = "부가세|세무 일정" 처럼 data-topics와 같은 값 {%- endcomment -%}
+{%- assign ts = include.topics | split: "|" -%}{%- assign n = 0 -%}
+{%- for p in site.posts -%}{%- if ts contains p.topic -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+<small class="nh-q-n">{{ n }}개</small>

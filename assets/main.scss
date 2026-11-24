@@ -200,6 +200,7 @@ body {
 .home { padding-top: 8px; }
 // 할 일 아이콘 한 줄(4개)
 .nh-quick { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 6px 0 14px; }
+.nh-q-n { font-size: 12px; font-weight: 600; color: #8a7fa0; margin-top: -2px; }
 .nh-q {
   scroll-margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 4px;
   padding: 9px 4px 8px; border: 1px solid #e4dfec; border-radius: 12px; background: #fff;
@@ -401,6 +402,7 @@ body {
   th, td { padding: 5px 0; border: 0; border-top: 1px solid #e4dfec; background: none; }
   th { text-align: left; font-weight: 400; color: #555; } td, td:first-child { text-align: right; white-space: nowrap; min-width: 0; font-weight: 400; background: none; }
   tr.sub th, tr.sub td { font-weight: 700; color: #1e1433; } }
+.calc-warn { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; background: #fdecea; color: #c62828; font-weight: 800; font-size: 16px; }
 .calc-msg { margin: 10px 0 0; font-size: 14px; font-weight: 700; color: #b3261e; }
 .calc-info { font-size: 13.5px; color: #555; line-height: 1.6; ul { margin-left: 1.2em; } }
 .calc-info-title { margin: 16px 0 4px; font-weight: 800; color: $brand-color; }
@@ -422,7 +424,7 @@ body { background: $cream; }
 .page-content { background: $cream; }
 @media (min-width: 900px) {
   .page-content > .wrapper { background: #fff; box-shadow: 0 4px 18px rgba(39, 19, 80, .06); border: 1px solid #f0e8da; border-radius: 20px; }
-  .page-content > .wrapper:has(.home) { background: transparent; box-shadow: none; border: 0; }
+  // 홈도 흰 판(2026-11-24 사용자: 바깥 배경과 본문 배경을 구분)
 }
 
 // 상단 바: 흰 바탕, 보라 글자
