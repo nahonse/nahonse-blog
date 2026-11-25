@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- 네이버 블로그 모바일앱 커버 시안 2(2026-11-25 사용자): 연보라 배경 + 가운데 원래 나혼세 원 로고 + 양쪽 cat-hero·dog-hero.
+     앱은 커버를 어둡게 덮고, 위 15%에 N blog 막대, 45%부터 아래에 블로그명·프로필·버튼을 겹친다(사용자 휴대폰 화면 11/25)
+     → 로고·캐릭터는 세로 160~520px 안에 둔다. 만들기:
+     chrome --headless=new --hide-scrollbars --allow-file-access-from-files --window-size=1080,1080 --virtual-time-budget=8000
+            --screenshot="assets/brand/naver-cover.png" "file:///.../_tools/naver-cover-v2.html" -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;width:1080px;height:1080px;overflow:hidden}
+.w{position:relative;width:1080px;height:1080px;background:radial-gradient(circle at 50% 32%,#f4effc 0%,#e3d9f5 55%,#cfc1ec 100%);font-family:"Noto Sans KR";overflow:hidden}
+.ring{position:absolute;border-radius:50%;border:3px solid rgba(39,19,80,.10)}
+.logo{position:absolute;left:50%;top:118px;width:380px;height:380px;margin-left:-190px;border-radius:50%;background:#271350;border:12px solid #c7ad89;box-sizing:border-box;text-align:center;box-shadow:0 10px 30px rgba(39,19,80,.25)}
+.logo .n{margin-top:78px;font-size:118px;font-weight:900;color:#c7ad89;letter-spacing:-4px;line-height:1}
+.logo .bar{width:210px;height:4px;margin:20px auto 0;border-radius:2px;background:rgba(199,173,137,.6)}
+.logo .s{margin-top:16px;font-size:34px;font-weight:700;color:#c7ad89;letter-spacing:2px}
+.c{position:absolute;top:165px;height:305px}
+</style></head><body>
+<div class="w">
+  <div class="ring" style="width:620px;height:620px;left:230px;top:30px"></div>
+  <div class="ring" style="width:860px;height:860px;left:110px;top:-90px"></div>
+  <img class="c" src="../assets/toon/cat-hero.png" style="left:70px">
+  <img class="c" src="../assets/toon/dog-hero.png" style="right:66px">
+  <div class="logo"><div class="n">나혼세</div><div class="bar"></div><div class="s">나 혼자 세무신고</div></div>
+</div></body></html>
