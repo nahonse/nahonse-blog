@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- SNS 프로필 사진 후보(2026-11-25): 고양이 얼굴(assets/toon/cat-hero.png) + "나혼세" 글자, 1080 정사각(SNS가 원으로 자름).
+     #a 고양이 위·글자 아래(크림 원 안), #b 보라 원 안에 고양이 크게 + 아래 금색 띠 글자
+     chrome --headless=new --hide-scrollbars --allow-file-access-from-files --window-size=1080,1080 --screenshot="assets/brand/insta-profile.png" "file:///.../_tools/sns-profile-cat.html#a"  (11/25 사용자 선택 A안, 옛 글자 로고는 _captures/toon-orig/before-azure/insta-profile-text.png) -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1080px; height: 1080px; background: #271350; overflow: hidden; font-family: "Noto Sans KR"; }
+  .g { position: absolute; inset: 70px; border-radius: 50%; background: #c7ad89; }
+  .c { position: absolute; inset: 92px; border-radius: 50%; background: #fbf1df; overflow: hidden; }
+  .c img { position: absolute; left: 50%; transform: translateX(-64%); }
+  .t { position: absolute; left: 0; right: 0; text-align: center; font-weight: 900; letter-spacing: -4px; }
+  /* a: 고양이 작게 위, 글자 아래(보라 글자) */
+  .a .c img { width: 600px; top: 34px; }
+  .a .band { position: absolute; left: 0; right: 0; bottom: 0; height: 370px; background: #271350; }
+  .a .t { bottom: 205px; font-size: 175px; color: #c7ad89; line-height: 1; }
+  /* b: 고양이 크게, 아래쪽 금색 리본 */
+  .b .c img { width: 820px; top: 10px; }
+  .b .rib { position: absolute; left: 120px; right: 120px; bottom: 170px; height: 200px; border-radius: 100px; background: #271350; border: 14px solid #c7ad89; }
+  .b .t { bottom: 205px; font-size: 150px; color: #f1e7d6; line-height: 1; }
+</style></head>
+<body><div class="g"></div><div class="c"><img src="../assets/toon/cat-hero.png"><div class="band"></div></div><div class="rib"></div><div class="t">나혼세</div>
+<script>document.body.className = location.hash.slice(1) || "a"; if (document.body.className === "b") document.querySelector(".band").remove(); else document.querySelector(".rib").remove();</script>
+</body></html>
