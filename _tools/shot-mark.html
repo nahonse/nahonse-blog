@@ -28,7 +28,7 @@ const S = cfg.s || 1;
 const img = new Image();
 img.onload = () => {
   const [cx, cy, cw, ch] = cfg.crop || [0, 0, img.naturalWidth, img.naturalHeight];
-  w.style.width = cw + 'px'; w.style.height = ch + 'px';
+  w.style.width = cw + 'px'; w.style.height = ch + (cfg.padB || 0) + 'px'; // padB: 아래에 흰 띠(캐릭터 자리, 2026-11-25 시안)
   img.style.left = -cx + 'px'; img.style.top = -cy + 'px';
   w.appendChild(img);
   (cfg.marks || []).forEach(([x, y, bw, bh, num]) => {
@@ -53,6 +53,22 @@ img.onload = () => {
     h.className = 'hide'; h.textContent = label || '가림';
     Object.assign(h.style, { left: x - cx + 'px', top: y - cy + 'px', width: bw + 'px', height: bh + 'px', lineHeight: bh + 'px' });
     w.appendChild(h);
+  });
+  // chars: [["dog-point-left", x, y, h, "말풍선 글자"(선택), flip(선택)],...] 캐릭터를 빈 곳에 놓음(2026-11-25 시안). (x,y)=발 가운데, h=키(원본 픽셀)
+  //   말풍선은 캐릭터 머리 위 왼쪽에. 정보(버튼·입력칸·안내 문구)를 가리지 않는 빈 곳에만 둔다.
+  (cfg.chars || []).forEach(([name, x, y, h, say, flip]) => {
+    const c = document.createElement('img');
+    c.src = '../assets/toon/' + name + '.png';
+    Object.assign(c.style, { position: 'absolute', height: h + 'px', left: x - cx + 'px', top: y - cy - h + 'px', transform: 'translateX(-50%)' + (flip ? ' scaleX(-1)' : '') });
+    w.appendChild(c);
+    if (say) {
+      const b = document.createElement('div');
+      b.innerHTML = say;
+      Object.assign(b.style, { position: 'absolute', right: cw - (x - cx) + h * 0.32 + 'px', top: y - cy - h * 1.02 + 'px', maxWidth: h * 1.6 + 'px',
+        background: '#fff', border: `${3 * S}px solid #1e1e1e`, borderRadius: 16 * S + 'px', padding: `${6 * S}px ${12 * S}px`,
+        font: `800 ${17 * S}px/1.35 'Noto Sans KR', sans-serif`, color: '#1e1e1e', boxShadow: '0 3px 0 rgba(0,0,0,.12)' });
+      w.appendChild(b);
+    }
   });
 };
 img.src = cfg.img;

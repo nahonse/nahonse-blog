@@ -120,6 +120,10 @@ body {
   ul { margin: 0 0 0 1.2em; }
   ul ul { display: none; }  // 큰 제목만 표시
   li { margin: 2px 0; }
+  li::marker { color: #c7ad89; }
+  // 누르면 소제목으로 가는 링크라는 게 보이게(2026-11-25 사용자: "하이퍼링크 있는지 몰랐다")
+  a { color: #5b34b8; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(91, 52, 184, .3); text-underline-offset: 3px; }
+  a:hover, a:focus { color: $brand-color; text-decoration-color: currentColor; }
 }
 
 // ---------- 휴대폰 여백 ----------
@@ -482,3 +486,7 @@ body { background: $cream; }
 .step-card-text { min-width: 0; display: flex; flex-direction: column; gap: 2px;
   b { font-size: 16px; line-height: 1.4; color: #1b2430; }
   small { font-size: 13px; line-height: 1.5; color: #6b6478; } }
+
+// ---------- 출처 접기(assets/js/post-enhance.js, 2026-11-25) ----------
+.post-content h2.src-fold { cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.src-fold-btn { flex: none; font-size: 14px; font-weight: 600; color: #5b34b8; }

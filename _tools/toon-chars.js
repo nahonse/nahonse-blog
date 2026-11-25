@@ -12,6 +12,7 @@ const L = 'stroke="#1e1e1e" stroke-width="6" stroke-linejoin="round" stroke-line
 const TOON = "../assets/toon/";
 // SVG 안에 캐릭터 놓기. (x,y)=발 가운데, h=키. o.flip 좌우 반전, o.rot 기울기(도)
 function pic(name, x, y, h, o = {}) {
+  h *= window.PIC_SCALE || 1;
   const w = h * 0.75;
   return `<g transform="translate(${x} ${y}) rotate(${o.rot || 0}) scale(${o.flip ? -1 : 1} 1)"><image href="${TOON}${name}.png" x="${-w / 2}" y="${-h}" width="${w}" height="${h}" preserveAspectRatio="xMidYMax meet"/></g>`;
 }
