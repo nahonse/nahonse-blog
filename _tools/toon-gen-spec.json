@@ -1,0 +1,276 @@
+{
+  "base": {
+    "cat": "Same cartoon character as the reference images: a chubby gray tabby cat small business owner with darker gray stripes on the head and body, pink inner ears, EXACTLY the same face as the reference images: white round eyes with a large black pupil and one white highlight dot (never solid black eyes), the same head shape, light gray fur of the same brightness with the same darker gray stripes, wearing a beige apron tied at the back. {pose}. The whole character is fully visible with empty margin on every side, nothing cut off. Thick clean black outlines, flat soft colors, cute Korean webtoon style, plain pure white background, no shadow on the floor, no text, no letters, no frame.",
+    "dog": "Same cartoon character as the reference images: a friendly light-brown puppy small business owner with darker brown floppy ears, a light tan muzzle, EXACTLY the same face as the reference images: white round eyes with a large black pupil and one white highlight dot (never solid black eyes), a small black nose, the same smiling mouth shape with a small pink tongue, the same caramel-brown fur color, the same body size and proportions; three-quarter view with both eyes visible (not a side profile), wearing a blue necktie, plain brown body with no belly patch. {pose}. The whole character is fully visible with empty margin on every side, nothing cut off. Thick clean black outlines, flat soft colors, cute Korean webtoon style, plain pure white background, no shadow on the floor, no text, no letters, no frame.",
+    "bg": "Background illustration only, no characters, no people, no animals: {pose}. Full bleed scene filling the entire image edge to edge, absolutely no border line, no frame, no picture outline around the image. Thick clean black outlines, flat soft pastel colors, cute Korean webtoon style, simple and uncluttered with the floor and lower half filled with the room interior (floor, rug or furniture front), not blank white, no text, no letters, no numbers, no logos.",
+    "prop": "A single object illustration: {pose}. Centered with empty margin, nothing cut off. Thick clean black outlines, flat soft colors, cute Korean webtoon style, plain pure white background, no shadow, no text, no letters, no numbers, no logos."
+  },
+  "refs": {
+    "cat": [
+      "_captures/toon-gen/ref/cat-listen.png",
+      "_captures/toon-gen/v1/cat-wave.png"
+    ],
+    "dog": [
+      "_captures/toon-gen/ref/dog-talk.png",
+      "_captures/toon-gen/ref/dog-cheer.png"
+    ]
+  },
+  "items": {
+    "cat-listen": {
+      "kind": "cat",
+      "pose": "Standing, listening attentively with a gentle closed-mouth smile, paws held together in front, body and face turned toward the right side of the image"
+    },
+    "cat-memo": {
+      "kind": "cat",
+      "pose": "Standing, holding a small spiral notepad in one paw and a pencil in the other, writing notes with an interested face, body and face turned toward the right side of the image"
+    },
+    "cat-memo-kneel": {
+      "kind": "cat",
+      "pose": "Kneeling on the floor, writing on a notepad resting on the knee with a pencil, focused happy face, turned toward the right side of the image"
+    },
+    "cat-excited": {
+      "kind": "cat",
+      "pose": "Standing, sparkling excited eyes, both fists raised near the chest, open-mouth smile, turned slightly toward the right side of the image"
+    },
+    "cat-cheer": {
+      "kind": "cat",
+      "pose": "Standing, both arms raised high in a cheerful hooray, eyes closed in a big happy smile, facing the viewer"
+    },
+    "cat-happy": {
+      "kind": "cat",
+      "pose": "Standing, warm happy smile with eyes closed into curves, one paw on the cheek, facing the viewer"
+    },
+    "cat-wonder": {
+      "kind": "cat",
+      "pose": "Standing, head tilted curiously, one paw touching the chin, looking up and to the side with a puzzled but calm face"
+    },
+    "cat-surprise": {
+      "kind": "cat",
+      "pose": "Standing, surprised with eyes wide open and small round open mouth, both paws raised by the shoulders, comic and not scary, facing the viewer"
+    },
+    "cat-panic": {
+      "kind": "cat",
+      "pose": "Standing, flustered with both paws on the cheeks, one big comic sweat drop, wobbly worried mouth, comic and not scary, facing the viewer"
+    },
+    "cat-dizzy": {
+      "kind": "cat",
+      "pose": "Standing, confused and overwhelmed with comic swirly eyes, a small scribble cloud above the head and one sweat drop, holding a smartphone in one paw only, no notepad, no pencil, comic and not scary, facing the viewer"
+    },
+    "cat-shock": {
+      "kind": "cat",
+      "pose": "Standing, comically shocked with a few pale blue vertical lines on the forehead, wide eyes, mouth open, comic and not scary, facing the viewer"
+    },
+    "cat-tired": {
+      "kind": "cat",
+      "pose": "Standing, tired with slouched shoulders, droopy half-closed eyes, small sigh puff, arms hanging, facing the viewer"
+    },
+    "cat-idea": {
+      "kind": "cat",
+      "pose": "Standing, one index finger raised with a bright idea face, a small glowing light bulb above the head, turned slightly toward the right side of the image"
+    },
+    "cat-sit": {
+      "kind": "cat",
+      "pose": "Sitting on the floor with legs out, calm small smile, paws on the lap, facing the viewer"
+    },
+    "cat-sit-idea": {
+      "kind": "cat",
+      "pose": "Sitting on the floor, one finger raised with a happy idea face, a small light bulb above the head, turned toward the right side of the image"
+    },
+    "cat-present": {
+      "kind": "cat",
+      "pose": "Standing, one open paw extended toward the right side of the image as if presenting something, friendly talking face, body turned toward the right"
+    },
+    "cat-present2": {
+      "kind": "cat",
+      "pose": "Standing, both open paws gesturing toward the right side of the image while asking a question, curious smile, body turned toward the right"
+    },
+    "cat-point-right": {
+      "kind": "cat",
+      "pose": "Standing, pointing toward the right side of the image with one paw, cheerful face looking right, light gray fur exactly like the reference images"
+    },
+    "cat-phone": {
+      "kind": "cat",
+      "pose": "Standing, holding a smartphone with both paws and looking at its screen with a slightly puzzled face, turned slightly toward the right side of the image, no notepad, no pencil"
+    },
+    "cat-papers": {
+      "kind": "cat",
+      "pose": "Standing, hugging a tall messy stack of blank papers that is about to tip over, flustered face with one sweat drop, comic, facing the viewer"
+    },
+    "cat-contract": {
+      "kind": "cat",
+      "pose": "Standing, holding a blank document in one paw and a pen in the other, ready to sign, calm smile, turned toward the right side of the image, no notepad, no pencil"
+    },
+    "cat-guide": {
+      "kind": "cat",
+      "pose": "Standing, holding up a blank document and pointing at it with the other paw, explaining with a smile, facing the viewer, no notepad, no pencil"
+    },
+    "cat-moneybags": {
+      "kind": "cat",
+      "pose": "Standing, happily hugging a small cloth money bag with a coin symbol drawn as a simple circle, facing the viewer, no notepad, no pencil"
+    },
+    "cat-cashier": {
+      "kind": "cat",
+      "pose": "Standing, holding a small card payment terminal in one paw and smiling like a shop owner, turned toward the right side of the image, no notepad, no pencil"
+    },
+    "cat-laptop": {
+      "kind": "cat",
+      "pose": "Sitting on a chair at a small wooden desk, typing on an open laptop with a calm focused smile, laptop on the right side, body turned toward the right side of the image"
+    },
+    "cat-laptop-worry": {
+      "kind": "cat",
+      "pose": "Sitting on a chair at a small wooden desk in front of an open laptop, looking at the screen with a puzzled worried face and one paw on the head, laptop on the right side, comic and not scary"
+    },
+    "cat-walk-papers": {
+      "kind": "cat",
+      "pose": "Walking toward the right side of the image while carrying a neat stack of blank papers in both arms, cheerful face"
+    },
+    "cat-calendar": {
+      "kind": "cat",
+      "pose": "Standing next to a wall calendar with blank squares and one square circled in red, the cat is large and as tall as the image allows, big white eyes with large black pupils like the reference, counting on its paw fingers with a thinking face, calendar on the left, cat on the right turned toward the calendar"
+    },
+    "cat-phone-relief": {
+      "kind": "cat",
+      "pose": "Standing, holding a smartphone close to the chest with a relieved happy face, eyes closed, small sparkle, facing the viewer"
+    },
+    "cat-receipt": {
+      "kind": "cat",
+      "pose": "Standing, holding up a long blank paper receipt and looking at it with a head tilt and a curious face, turned toward the right side of the image"
+    },
+    "cat-sleep-desk": {
+      "kind": "cat",
+      "pose": "Sitting at a small wooden desk with a laptop, resting the chin on both paws, sleepy but content face late at night, comic"
+    },
+    "cat-wave": {
+      "kind": "cat",
+      "pose": "Standing, waving one paw hello with a bright friendly smile, facing the viewer"
+    },
+    "dog-talk": {
+      "kind": "dog",
+      "pose": "Standing, talking cheerfully with one paw raised in an explaining gesture, mouth open, body and face turned toward the left side of the image"
+    },
+    "dog-point-left": {
+      "kind": "dog",
+      "pose": "Standing, pointing toward the left side of the image with one paw, cheerful explaining face, body and face turned toward the left"
+    },
+    "dog-point-right": {
+      "kind": "dog",
+      "pose": "Standing, pointing toward the right side of the image with one paw, cheerful face, body and face turned toward the right"
+    },
+    "dog-checklist": {
+      "kind": "dog",
+      "pose": "Standing, holding ONE clipboard with a blank checklist in one paw and a pen in the other, the face must be identical to the reference dog: same round head, same tan muzzle shape, same eye size and spacing, same OPEN-MOUTH smile showing a small pink tongue exactly like the reference (not a closed-mouth smile), confident smile, turned toward the left side of the image",
+      "refs": [
+        "_captures/toon-gen/ref/dog-talk.png",
+        "_captures/toon-gen/v1/dog-yay.png"
+      ]
+    },
+    "dog-yay": {
+      "kind": "dog",
+      "pose": "Standing, both arms raised high in a cheerful hooray, big open smile, facing the viewer"
+    },
+    "dog-cheer": {
+      "kind": "dog",
+      "pose": "Standing, one fist pumped up in excitement, wink and big smile, facing the viewer"
+    },
+    "dog-think": {
+      "kind": "dog",
+      "pose": "Standing, one paw on the chin, looking up thoughtfully, small question mark shape above the head"
+    },
+    "dog-rub": {
+      "kind": "dog",
+      "pose": "Standing, rubbing the back of the head with one paw, sheepish embarrassed smile, turned toward the left side of the image"
+    },
+    "dog-reach": {
+      "kind": "dog",
+      "pose": "Standing, reaching one paw out toward the left side of the image as if offering help, kind smile, body turned toward the left"
+    },
+    "dog-cashier": {
+      "kind": "dog",
+      "pose": "Standing, holding a small card payment terminal and smiling like a shop owner, turned toward the left side of the image"
+    },
+    "dog-board": {
+      "kind": "dog",
+      "pose": "Standing to the right of a small blank whiteboard on a stand, pointing at the whiteboard with a marker while explaining, whiteboard on the left side of the image, dog turned toward the left"
+    },
+    "dog-handover": {
+      "kind": "dog",
+      "pose": "Standing, holding out a neat blank document with both paws toward the left side of the image as if handing it over, friendly smile, body turned toward the left"
+    },
+    "dog-thumbsup": {
+      "kind": "dog",
+      "pose": "Standing, giving a big thumbs up with one paw and a confident wink, turned slightly toward the left side of the image"
+    },
+    "dog-laptop-point": {
+      "kind": "dog",
+      "pose": "Standing behind an open laptop on a small table and pointing at its blank screen with one paw, the face must be identical to the reference dog: same round head, same tan muzzle shape, same eye size and spacing, same OPEN-MOUTH smile showing a small pink tongue exactly like the reference (not a closed-mouth smile), three-quarter view facing the viewer with both eyes visible, laptop on the left side",
+      "refs": [
+        "_captures/toon-gen/ref/dog-talk.png",
+        "_captures/toon-gen/v1/dog-yay.png"
+      ]
+    },
+    "dog-coffee": {
+      "kind": "dog",
+      "pose": "Standing relaxed, holding a warm coffee mug with both paws, calm friendly smile, turned toward the left side of the image"
+    },
+    "dog-wave": {
+      "kind": "dog",
+      "pose": "Standing, waving one paw hello with a bright friendly smile, facing the viewer"
+    },
+    "bg-shop": {
+      "kind": "bg",
+      "pose": "cozy small neighborhood shop counter interior with a card payment terminal, a small register and shelves with plain boxes, warm daylight from a window"
+    },
+    "bg-cafe": {
+      "kind": "bg",
+      "pose": "cozy small cafe interior with a wooden table by a big window, a coffee cup and a small plant on the table, soft afternoon light"
+    },
+    "bg-home-night": {
+      "kind": "bg",
+      "pose": "small home desk at night with a glowing desk lamp, a closed laptop and a mug, dark blue window with stars, warm cozy light"
+    },
+    "bg-office": {
+      "kind": "bg",
+      "pose": "bright small office corner with a desk, a monitor, a potted plant and a large window with city view, morning light"
+    },
+    "bg-waiting": {
+      "kind": "bg",
+      "pose": "public service office waiting area with a row of blue chairs and service counters in the distance, plain wall, calm and clean, no signs"
+    },
+    "bg-living": {
+      "kind": "bg",
+      "pose": "warm living room with a sofa, a low table with a laptop and papers, a floor lamp and a window"
+    },
+    "prop-calendar": {
+      "kind": "prop",
+      "pose": "a wall calendar page with a grid of blank squares and one square circled in bold red"
+    },
+    "prop-receipts": {
+      "kind": "prop",
+      "pose": "a small pile of blank paper receipts next to a desk calculator"
+    },
+    "prop-laptop": {
+      "kind": "prop",
+      "pose": "an open laptop with a plain light blue blank screen"
+    },
+    "prop-stamp": {
+      "kind": "prop",
+      "pose": "a red ink stamp next to a blank document with a red circular stamp mark"
+    },
+    "prop-piggy": {
+      "kind": "prop",
+      "pose": "a pink piggy bank with a few gold coins beside it"
+    },
+    "prop-hourglass": {
+      "kind": "prop",
+      "pose": "a wooden hourglass with sand flowing"
+    },
+    "cat-hero": {
+      "kind": "cat",
+      "pose": "Standing, both paws on the cheeks with eyes closed into happy curves and a big open smile, rosy cheeks, welcoming pose, body turned slightly toward the right side of the image"
+    },
+    "dog-hero": {
+      "kind": "dog",
+      "pose": "Standing, both arms raised in a cheerful welcome, eyes closed into happy curves and a big open smile, rosy cheeks, body turned slightly toward the left side of the image"
+    }
+  }
+}

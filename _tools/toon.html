@@ -58,12 +58,32 @@ const q = (x, y, k = 1) => `<text x="${x}" y="${y}" transform="rotate(-12 ${x} $
 const star = (x, y, s = 1) => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -22 l7 15 l16 2 l-12 11 l3 16 l-14 -8 l-14 8 l3 -16 l-12 -11 l16 -2z" fill="#ffd34d" stroke="#1e1e1e" stroke-width="4"/>`;
 
 const decks = {
+  "hometax-tax-invoice-hold": {
+    title: "세금계산서 <b>여러 장</b>, 한 번에?",
+    date: "2026.11",
+    cells: [
+      { bg: "#e3eefb",
+        scene: bgimg("bg-shop") + pic("cat-laptop-worry", 215, 625, 370, { rot: 0 }),
+        talk: [["", "거래 끝날 때마다<br>바로 발급하다가<br>틀릴 것 같아요"]] },
+      { bg: "#fdf1d6",
+        scene: bgimg("bg-cafe") + pic("cat-memo", 125, 640, 290, { rot: -1 }) + pic("dog-checklist", 350, 640, 300, { rot: 1 }),
+        talk: [["이웃 사장님", "<em>[발급보류]</em>로 모아 두고<br>확인한 뒤<br>한 번에 발급해요", "r"]] },
+      { bg: "#e6f4ea",
+        scene: bgimg("bg-home-night") + prop("prop-hourglass", 245, 520, 110) + pic("cat-present2", 125, 640, 290, { rot: -1 }) + pic("dog-point-left", 360, 640, 300, { rot: 1 }),
+        talk: [["", "내일 발급해도 돼요?"], ["이웃 사장님", "보류는 <em>당일만</em> 보관돼요<br>지나면 지워져요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cheer", 140, 625, 290, { rot: -3 })
+          + pic("dog-point-right", 340, 625, 300, { rot: 2 }),
+        talk: [["이웃 사장님", "보류하고 발급하는 순서<br>따라와 봐요!", "r"]] },
+    ],
+  },
+
   "hometax-freelancer-income-tax-calculator": {
     title: "3.3% 떼였는데 <b>5월</b>에 또?",
     date: "2026.11",
     cells: [
       { bg: "#e3eefb",
-        scene: paper(320, 170, 6, "3.3%", "원천징수") + desk("#9cc1e8") + pic("cat-cute", 150, 650, 370, { rot: -2 }),
+        scene: paper(320, 170, 6, "3.3%", "원천징수") + desk("#9cc1e8") + pic("cat-happy", 150, 650, 370, { rot: -2 }),
         talk: [["", "일할 때마다<br>3.3%씩 떼였는데<br>이걸로 끝이죠?"]] },
       { bg: "#fdf1d6",
         scene: desk("#e7b98e") + pic("cat-memo-kneel", 120, 650, 335, { rot: -1 }) + pic("dog-talk", 335, 645, 355, { rot: 1 }),
@@ -101,7 +121,7 @@ const decks = {
     date: "2026.11",
     cells: [
       { bg: "#e3eefb",
-        scene: paper(320, 170, 6, "연말정산", "완료") + desk("#9cc1e8") + pic("cat-yay", 150, 650, 370, { rot: -2 }),
+        scene: paper(320, 170, 6, "연말정산", "완료") + desk("#9cc1e8") + pic("cat-cheer", 150, 650, 370, { rot: -2 }),
         talk: [["", "회사 연말정산 끝!<br>부업 세금도<br>이걸로 끝이죠?"]] },
       { bg: "#fdf1d6",
         scene: desk("#e7b98e") + pic("cat-memo", 120, 650, 335, { rot: -1 }) + pic("dog-talk", 335, 645, 355, { rot: 1 }),
@@ -247,7 +267,7 @@ const decks = {
         scene: burst(320, 380) + desk("#b9a8e8") + pic("dog-point-left", 325, 640, 440, { rot: 2 }) + pic("cat-excited", 128, 650, 380, { rot: -6 }),
         talk: [["이웃 사장님", "홈택스 <em>즉시발급 증명</em>에서<br>바로 나와요", "r"]] },
       { bg: "#fbe1e8",
-        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-yay", 120, 505, 320, { rot: -8 })
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cheer", 120, 505, 320, { rot: -8 })
           + pic("dog-yay", 320, 600, 400, { rot: 2 }) + star(220, 200, 0.7) + star(455, 210, 0.6),
         talk: [["이웃 사장님", "발급 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
@@ -283,10 +303,10 @@ const decks = {
         scene: desk("#9cc1e8") + pic("cat-listen", 118, 630, 370, { rot: -3 }) + pic("dog-talk", 350, 620, 370, { rot: 3 }),
         talk: [["", "세무서 가서<br>떼야 하나요?"], ["이웃 사장님", "홈택스에서도 돼요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-memo-kneel", 115, 640, 330, { rot: -3 }) + pic("dog-point-left2", 340, 630, 380, { rot: 2 }),
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-memo-kneel", 115, 640, 330, { rot: -3 }) + pic("dog-point-left", 340, 630, 380, { rot: 2 }),
         talk: [["이웃 사장님", "<em>즉시발급 증명</em> 메뉴에서<br>신청하면 돼요", "r"]] },
       { bg: "#fbe1e8",
-        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cute", 110, 520, 300, { rot: -6 })
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-happy", 110, 520, 300, { rot: -6 })
           + pic("dog-point-right", 285, 620, 380, { rot: 2 }) + star(220, 200, 0.7),
         talk: [["이웃 사장님", "신청 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
@@ -302,7 +322,7 @@ const decks = {
         scene: desk("#9cc1e8") + pic("cat-listen", 120, 630, 360, { rot: -3 }) + pic("dog-checklist", 308, 640, 430, { flip: true, rot: 2 }),
         talk: [["", "순서가 있어요?"], ["이웃 사장님", "<em>12월부터</em> 하나씩<br>챙기면 돼요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-clipboard", 125, 645, 380, { rot: -3 }) + pic("dog-reach", 345, 630, 380, { flip: true, rot: 2 }),
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-memo", 125, 645, 380, { rot: -3 }) + pic("dog-reach", 345, 630, 380, { flip: true, rot: 2 }),
         talk: [["이웃 사장님", "사업용 카드 자료는<br><em>1월 15일경</em>부터 들어와요", "r"]] },
       { bg: "#fbe1e8",
         scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-happy", 115, 520, 300, { rot: -6 })
@@ -340,10 +360,10 @@ const decks = {
         scene: desk("#9cc1e8") + pic("cat-present", 125, 640, 370, { rot: -3 }) + pic("dog-talk", 348, 630, 375, { rot: 3 }),
         talk: [["", "카드 단말기가 없는데요?"], ["이웃 사장님", "<em>홈택스</em>에서도<br>발급할 수 있어요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-sit-idea", 120, 650, 360, { rot: -2 }) + pic("dog-point-left2", 345, 635, 390, { rot: 2 }),
+        scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-sit-idea", 120, 650, 360, { rot: -2 }) + pic("dog-point-left", 345, 635, 390, { rot: 2 }),
         talk: [["이웃 사장님", "먼저 <em>발급 사업자 신청</em>부터<br>해 두면 돼요", "r"]] },
       { bg: "#fbe1e8",
-        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-yay", 115, 520, 300, { rot: -6 })
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cheer", 115, 520, 300, { rot: -6 })
           + pic("dog-point-right", 300, 620, 390, { rot: 2 }) + star(220, 200, 0.7),
         talk: [["이웃 사장님", "신청 순서 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
@@ -362,7 +382,7 @@ const decks = {
         scene: burst(320, 380) + desk("#b9a8e8") + pic("cat-guide", 172, 645, 360, { rot: -3 }) + pic("dog-checklist", 318, 640, 430, { flip: true, rot: 2 }),
         talk: [["이웃 사장님", "사유마다<br><em>작성일자</em>가 달라요", "r"]] },
       { bg: "#fbe1e8",
-        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cute", 115, 520, 300, { rot: -6 })
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-happy", 115, 520, 300, { rot: -6 })
           + pic("dog-talk", 320, 610, 400, { flip: true, rot: 4 }) + star(220, 200, 0.7),
         talk: [["이웃 사장님", "사유 고르는 법 보여 줄게요<br>따라와 봐요!", "r"]] },
     ],
@@ -381,7 +401,7 @@ const decks = {
         scene: burst(250, 330) + desk("#b9a8e8") + laptop(270, 300, '<text x="95" y="44" text-anchor="middle" font-size="17" font-weight="900" fill="#271350">연말정산 미리보기</text><text x="95" y="70" text-anchor="middle" font-size="17" font-weight="900" fill="#c62828">카드 1~9월 ✔</text><rect x="40" y="82" width="110" height="16" rx="8" fill="#c7ad89"/>') + star(470, 280, 0.8) + pic("cat-excited", 120, 640, 360, { rot: -3 }),
         talk: [["", "9월까지 카드 쓴 게<br>벌써 들어와 있네!"]] },
       { bg: "#fbe1e8",
-        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cute", 115, 520, 300, { rot: -6 })
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-happy", 115, 520, 300, { rot: -6 })
           + pic("dog-talk", 320, 610, 400, { flip: true, rot: 4 }) + star(220, 200, 0.7),
         talk: [["이웃 사장님", "연말정산한 월급도 <em>5월</em>에<br>사업소득이랑 <em>합쳐서</em> 신고해요<br>순서 따라와 봐요!", "r"]] },
     ],
@@ -400,7 +420,7 @@ const decks = {
         scene: desk("#b9a8e8") + pic("cat-surprise", 100, 640, 350, { rot: -3 }) + pic("dog-checklist", 350, 640, 420, { flip: true, rot: 2 }),
         talk: [["", "신고 안 한 기간은요?"], ["이웃 사장님", "<em>무신고</em> 기간은<br>증명에서 빠져요", "r"]] },
       { bg: "#fbe1e8",
-        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-cute", 115, 520, 300, { rot: -6 })
+        scene: burst(330, 360, 12, 60, 400, "#fff6f8") + pic("cat-happy", 115, 520, 300, { rot: -6 })
           + pic("dog-talk", 320, 610, 400, { flip: true, rot: 4 }) + star(220, 200, 0.7),
         talk: [["이웃 사장님", "간이과세자는 <em>1기</em>로 골라요<br>순서 따라와 봐요!", "r"]] },
     ],
@@ -432,7 +452,7 @@ const decks = {
         scene: paper(300, 180, -6, "부가세 신고서", "매출 1건 누락?") + pic("cat-panic", 140, 560, 380),
         talk: [["", "앗, 지난 부가세에<br>매출을 빠뜨렸어요!"]] },
       { bg: "#e3eefb",
-        scene: desk("#9cc1e8") + pic("cat-memo", 125, 640, 350, { rot: -3 }) + pic("dog-point-left2", 330, 635, 360, { rot: 2 }),
+        scene: desk("#9cc1e8") + pic("cat-memo", 125, 640, 350, { rot: -3 }) + pic("dog-point-left", 330, 635, 360, { rot: 2 }),
         talk: [["이웃 사장님", "덜 냈으면 <em>수정신고</em><br>더 냈으면 <em>경정청구</em>!", "r"]] },
       { bg: "#fdf1d6",
         scene: desk("#e7b98e") + pic("cat-sit", 120, 650, 330, { rot: -2 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
@@ -451,7 +471,7 @@ const decks = {
         scene: paper(300, 180, -6, "원천징수영수증", "부양가족 빠짐?") + pic("cat-wonder", 140, 570, 360, { rot: -3 }),
         talk: [["", "직장 다닐 때 연말정산,<br>부양가족 공제를 빠뜨렸어요!"]] },
       { bg: "#e3eefb",
-        scene: desk("#9cc1e8") + pic("cat-memo", 125, 640, 350, { rot: -3 }) + pic("dog-point-left2", 330, 635, 360, { rot: 2 }),
+        scene: desk("#9cc1e8") + pic("cat-memo", 125, 640, 350, { rot: -3 }) + pic("dog-point-left", 330, 635, 360, { rot: 2 }),
         talk: [["이웃 사장님", "<em>경정청구</em>는<br>5년 안에 신청할 수 있어요!", "r"]] },
       { bg: "#fdf1d6",
         scene: desk("#e7b98e") + pic("cat-sit", 120, 650, 330, { rot: -2 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
@@ -473,7 +493,7 @@ const decks = {
         scene: desk("#9cc1e8") + pic("cat-memo", 125, 645, 350, { rot: -2 }) + pic("dog-point-left", 330, 640, 360, { rot: 2 }),
         talk: [["이웃 사장님", "<em>목록조회</em>에서<br>매출·매입을 한 장씩 봐요!", "r"]] },
       { bg: "#fdf1d6",
-        scene: desk("#e7b98e") + pic("cat-clipboard", 125, 650, 350, { rot: -2 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
+        scene: desk("#e7b98e") + pic("cat-memo", 125, 650, 350, { rot: -2 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
         talk: [["", "합계는요?"], ["이웃 사장님", "<em>합계표 조회</em>로<br>분기 합계를 맞춰 봐요", "r"]] },
       { bg: "#e6e1f7",
         scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cheer", 125, 615, 330, { rot: -3 })
@@ -492,10 +512,10 @@ const decks = {
         scene: desk("#9cc1e8") + pic("cat-memo-kneel", 130, 650, 320, { rot: -2 }) + pic("dog-talk", 335, 645, 360, { rot: 2 }),
         talk: [["이웃 사장님", "세무서 확인을 받아<br>내가 발행하는<br><em>매입자발행</em>이 있어요!", "r"]] },
       { bg: "#fdf1d6",
-        scene: desk("#e7b98e") + pic("cat-sit-idea", 112, 655, 320, { rot: -2 }) + pic("dog-point-left2", 340, 640, 355, { rot: 2 }),
+        scene: desk("#e7b98e") + pic("cat-sit-idea", 112, 655, 320, { rot: -2 }) + pic("dog-point-left", 340, 640, 355, { rot: 2 }),
         talk: [["", "조건이 있어요?"], ["이웃 사장님", "거래 1건 <em>5만원 이상</em>,<br>과세기간 끝나고 <em>1년 안</em>!", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-yay", 125, 610, 340, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cheer", 125, 610, 340, { rot: -3 })
           + pic("dog-point-right", 320, 628, 370, { rot: 2 }) + star(225, 205, 0.7),
         talk: [["이웃 사장님", "신청 화면<br>따라와 봐요!", "r"]] },
     ],
@@ -514,7 +534,7 @@ const decks = {
         scene: desk("#e7b98e") + pic("cat-present2", 168, 650, 330, { rot: -1 }) + pic("dog-talk", 340, 650, 360, { rot: 2 }),
         talk: [["", "금액만 넣으면 돼요?"], ["이웃 사장님", "<em>[직접계산]</em> 누르면<br>옆에 바로 나와요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 125, 610, 340, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 125, 610, 340, { rot: -3 })
           + pic("dog-yay", 330, 630, 370, { rot: 2 }) + star(225, 205, 0.7),
         talk: [["이웃 사장님", "실제 화면으로<br>따라와 봐요!", "r"]] },
     ],
@@ -533,7 +553,7 @@ const decks = {
         scene: desk("#e7b98e") + pic("cat-wonder", 160, 650, 330, { rot: -1 }) + pic("dog-talk", 340, 650, 360, { rot: 2 }),
         talk: [["", "얼마인지 미리<br>볼 수 있어요?"], ["이웃 사장님", "홈택스에서<br><em>조회</em>돼요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 125, 610, 340, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 125, 610, 340, { rot: -3 })
           + pic("dog-yay", 330, 630, 370, { rot: 2 }) + star(225, 205, 0.7),
         talk: [["이웃 사장님", "조회하는 법<br>따라와 봐요!", "r"]] },
     ],
@@ -552,7 +572,7 @@ const decks = {
         scene: desk("#e7b98e") + pic("cat-wonder", 140, 650, 330, { rot: -1 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
         talk: [["", "그럼 뭘로 해요?"], ["이웃 사장님", "<em>사업자용</em> 인증서로<br>다시 로그인해요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 125, 610, 340, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 125, 610, 340, { rot: -3 })
           + pic("dog-yay", 330, 630, 370, { rot: 2 }) + star(225, 205, 0.7),
         talk: [["이웃 사장님", "로그인 7가지<br>따라와 봐요!", "r"]] },
     ],
@@ -562,7 +582,7 @@ const decks = {
     date: "2026.11",
     cells: [
       { bg: "#fdf1d6",
-        scene: paper(330, 150, -6, "세금계산서", "주민번호 기재") + desk("#e7b98e") + pic("cat-clipboard", 160, 650, 390, { rot: -2 }),
+        scene: paper(330, 150, -6, "세금계산서", "주민번호 기재") + desk("#e7b98e") + pic("cat-memo", 160, 650, 390, { rot: -2 }),
         talk: [["", "등록 전에 산 장비,<br>주민번호로<br>세금계산서 받았어요"]] },
       { bg: "#e3eefb",
         scene: desk("#9cc1e8") + pic("cat-wonder", 125, 645, 340, { rot: -2 }) + pic("dog-point-left", 330, 640, 360, { rot: 2 }),
@@ -591,7 +611,7 @@ const decks = {
         scene: desk("#e7b98e") + pic("cat-listen", 125, 650, 330, { rot: -2 }) + pic("dog-point-left", 335, 645, 360, { rot: 2 }),
         talk: [["이웃 사장님", "상반기로 계산한 세액이<br>기준액의 <em>30%</em>에 못 미치면<br><em>추계액 신고</em>할 수 있어요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 110, 620, 320, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 110, 620, 320, { rot: -3 })
           + pic("dog-checklist", 325, 650, 370, { rot: 0 }),
         talk: [["이웃 사장님", "<em>11월 30일</em>까지예요<br>따라와 봐요!", "r"]] },
     ],
@@ -645,7 +665,7 @@ const decks = {
         scene: desk("#9cc1e8") + pic("cat-memo", 125, 645, 340, { rot: -2 }) + pic("dog-point-left", 330, 640, 360, { rot: 2 }),
         talk: [["이웃 사장님", "<em>개인</em>으로 로그인하면<br>열려요!", "r"]] },
       { bg: "#fdf1d6",
-        scene: desk("#e7b98e") + pic("cat-clipboard", 145, 650, 330, { rot: -1 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
+        scene: desk("#e7b98e") + pic("cat-memo", 145, 650, 330, { rot: -1 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
         talk: [["", "업종코드를 몰라요"], ["이웃 사장님", "<em>업종 이름</em>으로<br>검색돼요", "r"]] },
       { bg: "#e6e1f7",
         scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-excited", 125, 610, 340, { rot: -3 })
@@ -667,7 +687,7 @@ const decks = {
         scene: desk("#e7b98e") + pic("cat-wonder", 140, 650, 330, { rot: -1 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
         talk: [["", "가게가 수십 곳인데<br>하나씩 다 써요?"], ["이웃 사장님", "국세청 <em>엑셀</em>로<br>파일 만들어 올려요", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 125, 610, 340, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 125, 610, 340, { rot: -3 })
           + pic("dog-yay", 330, 630, 370, { rot: 2 }) + star(225, 205, 0.7),
         talk: [["이웃 사장님", "어디서 받는지<br>따라와 봐요!", "r"]] },
     ],
@@ -686,7 +706,7 @@ const decks = {
         scene: desk("#e7b98e") + pic("cat-present2", 150, 650, 330, { rot: -1 }) + pic("dog-talk", 335, 650, 360, { rot: 2 }),
         talk: [["", "거래처가 많으면요?"], ["이웃 사장님", "<em>일괄발급</em>으로<br>여러 장 한 번에!", "r"]] },
       { bg: "#e6e1f7",
-        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-cute", 125, 610, 340, { rot: -3 })
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 125, 610, 340, { rot: -3 })
           + pic("dog-yay", 330, 630, 370, { rot: 2 }) + star(225, 205, 0.7),
         talk: [["이웃 사장님", "두 가지 다<br>따라와 봐요!", "r"]] },
     ],
