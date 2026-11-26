@@ -78,6 +78,26 @@ const decks = {
         talk: [["이웃 사장님", "납부하고 환급 보는 순서<br>따라와 봐요!", "r"]] },
     ],
   },
+  "hometax-cash-receipt-cancel": {
+    picScale: 1,
+    title: "현금영수증 <b>잘못</b> 끊었다면?",
+    date: "2026.11",
+    cells: [
+      { bg: "#fdecea",
+        scene: bgimg("bg-shop") + prop("prop-receipts", 395, 535, 120) + pic("cat-surprise", 200, 625, 360, { rot: -2 }),
+        talk: [["", "앗, 33,000원을<br>330,000원으로<br>끊었어요!"]] },
+      { bg: "#e3eefb",
+        scene: bgimg("bg-office") + pic("cat-listen", 120, 640, 290, { rot: -1 }) + pic("dog-laptop-point", 345, 610, 330, { rot: 0 }),
+        talk: [["이웃 사장님", "<em>그날</em>이면 당일 메뉴에서<br>바로 고칠 수 있어요", "r"]] },
+      { bg: "#e6f4ea",
+        scene: bgimg("bg-living") + pic("cat-present", 120, 640, 290, { rot: -1 }) + pic("dog-talk", 360, 640, 300, { rot: 1 }),
+        talk: [["", "다음 날 알았으면요?"], ["이웃 사장님", "<em>취소발급</em>으로<br>원래 거래를 취소해요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-happy", 135, 625, 290, { rot: -2 })
+          + pic("dog-point-right", 345, 625, 300, { rot: 2 }),
+        talk: [["이웃 사장님", "고치는 순서<br>따라와 봐요!", "r"]] },
+    ],
+  },
   "hometax-tax-invoice-hold": {
     picScale: 1,
     title: "세금계산서 <b>여러 장</b>, 한 번에?",

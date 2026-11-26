@@ -110,6 +110,23 @@ const decks = {
       { type: "end", title: "카드 수수료 표,\n자주 하는 실수는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제49조·제59조·제67조, 국세기본법 제47조의4,\n납부대행수수료 고시, 홈택스 납부·환급 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
     ],
   },
+  "hometax-cash-receipt-cancel": {
+    date: "2026.11.26 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "부가세", title: "현금영수증\n**잘못 끊었을 때**\n고치는 법", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제 알았는지가 먼저예요", rows: [["그날", "당일 발급 조회/정정/취소에서 **금액·번호·용도** 정정"], ["다음 날부터", "**취소발급** 메뉴에서 원래 거래 취소"], ["36개월", "취소발급 화면은 최근 36개월 거래만 조회돼요"]],
+        note: "발급한 뒤 정당한 사유나 손님 동의 없이 취소하면 안 돼요(국세청 고시)" },
+      { type: "step", step: 1, title: "그날이면 정정", path: "계산서·영수증·카드 > 현금영수증(가맹점) > 발급 > 당일 발급분 조회/취소/정정", img: "_captures/cash-receipt-cancel/card-03a.png", img2: "_captures/cash-receipt-cancel/card-03b.png", caption: "① 고칠 수 있는 항목 ② **발급취소는 되살릴 수 없어요** ③ 발급수단번호 넣고 [조회]" },
+      { type: "step", step: 2, title: "승인번호 찾기", path: "현금영수증(가맹점) > 발급 > 발급 결과 조회", img: "_captures/cash-receipt-cancel/card-04.png", caption: "① 조회기간 ② [조회] → ③ 승인번호 확인(발급 다음 날부터 조회)", guide_pic: "dog-checklist" },
+      { type: "step", step: 3, title: "다음 날부터 취소발급", path: "현금영수증(가맹점) > 발급 > 취소 발급", img: "_captures/cash-receipt-cancel/card-02a.png", img2: "_captures/cash-receipt-cancel/card-02b.png", caption: "① 홈택스에서 발급한 승인거래만 취소 ②~④ 조회, ⑤ **원래 금액보다 크게 취소할 수 없어요**", guide_pic: "dog-point-left" },
+      { type: "step", step: 4, title: "손님: 무기명 영수증 등록", path: "개인 로그인 > 현금영수증(근로자·소비자) > 자진발급분 소비자 등록", img: "_captures/cash-receipt-cancel/card-06a.png", img2: "_captures/cash-receipt-cancel/card-06b.png", caption: "① 010-000-1234로 받은 건 **발급 다음 날부터** ② 승인번호 ③ 거래일자 ④ 금액을 넣고 조회해 등록" },
+      { type: "step", step: 5, title: "손님: 사업자용으로 바꾸기", path: "개인 로그인 > 근로자·소비자 조회/변경 > 사업자용으로 용도변경", img: "_captures/cash-receipt-cancel/card-08a.png", img2: "_captures/cash-receipt-cancel/card-08b.png", caption: "① **세무서 직원이 승인해야 반영** ② 1건씩 신청, 증빙 첨부 ③ 사업장 선택 ④ [조회](목록은 가상 값)" },
+      { type: "facts", title: "놓치기 쉬운 것", rows: [["로그인", "가게 메뉴는 사업자, 손님 메뉴는 **개인 로그인**"], ["다시 발급", "잘못 끊어 취소했다면 발급 의무는 남아요. 지난 거래 재발급 방법은 **126** 확인"], ["면세점", "면세점 사용분은 지출증빙→소득공제로 못 바꿔요"]],
+        note: "홈택스 건별 발급은 당일 거래일자로만 발급돼요" },
+      { type: "end", title: "가상 예시와\n소득공제용으로 바꾸기는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 소득세법 제162조의3, 국세청 고시·국세상담센터,\n홈택스 현금영수증 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
   "hometax-tax-invoice-hold": {
     date: "2026.11.25 기준",
     guide: true,
