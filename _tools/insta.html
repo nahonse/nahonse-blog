@@ -92,6 +92,39 @@
 <script src="toon-chars.js"></script>
 <script>
 const decks = {
+  "hometax-vat-payment-refund": {
+    date: "2026.11.25 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "부가세", title: "부가세 신고 후\n**납부·환급 하는 곳**", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "언제 내고, 언제 받나요", rows: [["신고·납부", "2026년 2기는 **2027.1.25(월)**까지(간이과세자는 1년분을 같은 날)"], ["납부는 따로", "신고서만 내고 끝이 아니에요. **기한까지 따로 납부**"], ["환급", "확정신고기한 지난 뒤 **30일 안**(조기환급 15일)"]],
+        note: "신고만 하고 납부를 안 하면 납부지연가산세가 붙어요" },
+      { type: "step", step: 1, title: "신고 직후 납부서 확인", path: "부가가치세 과세신고 화면 위 [신고내역 조회(접수증·납부서)]", img: "_captures/vat-payment/card-return.png", caption: "① **[개별납부서 일괄 출력]** ② 줄마다 있는 **납부서** 칸" },
+      { type: "step", step: 2, title: "납부할 세액 조회/납부", path: "납부·고지·환급 > 납부할 세액 조회/납부", img: "_captures/vat-payment/card-lookup-b.png", caption: "낼 세금을 골라 ② **[납부하기]**. ① 가상계좌번호 문자 전송 버튼도 있어요. 납부시간 **07:00~23:30**", guide_pic: "dog-point-left" },
+      { type: "facts", title: "카드로 내면 수수료", rows: [["기본", "신용카드 **0.7%** · 체크카드 **0.4%**"], ["간이과세자 부가세", "신용카드 **0.4%** · 체크카드 **0.15%**"], ["내 명의만", "홈택스에서는 **본인 명의** 계좌·카드로만, 일부만 나눠 낼 수도"]],
+        note: "수수료는 납부자가 부담하고, 낸 세금은 취소할 수 없어요(화면 안내)" },
+      { type: "step", step: 3, title: "환급금 상세조회", path: "납부·고지·환급 > 환급금 상세조회", img: "_captures/vat-payment/card-refund-a.png", caption: "① [조회] ② 환급계좌개설(변경)신고. 안 찾아간 환급금은 최초 지급요구일부터 **5년** 지나면 국고 귀속(화면 안내)", guide_pic: "dog-checklist" },
+      { type: "step", step: 4, title: "환급계좌 확인", path: "납부·고지·환급 > 환급계좌개설 신고/변경 신고", img: "_captures/vat-payment/card-account.png", caption: "① **신고서에 적은 계좌**가 먼저 ② 계좌 신고 뒤 **3일** 이후부터 지급 가능" },
+      { type: "facts", title: "늦게 내면(가상 예시 100만원)", rows: [["1.25.까지 냄", "가산세 **0원**"], ["2.4.에 냄", "1.26.~2.3. 9일 × 0.022% = **1,980원**"], ["고지 뒤", "고지 기한까지 안 내면 **3%**(150만원 이상이면 그 뒤 달마다 더)"]],
+        note: "고지 전 스스로 낸 경우, 기한 다음 날부터 낸 날 전날까지(2026.7.1. 시행). 내 경우는 126 확인" },
+      { type: "end", title: "카드 수수료 표,\n자주 하는 실수는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제49조·제59조·제67조, 국세기본법 제47조의4,\n납부대행수수료 고시, 홈택스 납부·환급 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
+  "hometax-tax-invoice-hold": {
+    date: "2026.11.25 기준",
+    guide: true,
+    slides: [
+      { type: "cover", label: "세금계산서", title: "세금계산서 여러 장\n**[발급보류]로 모아 발급**", badge: "🧾 홈택스 따라 하기", sub: "1장은 네컷만화로 바꿔 올림" },
+      { type: "facts", title: "발급보류가 뭐예요?", rows: [["임시저장", "[발급보류]를 누르면 **당일(하루)** 임시저장돼요"], ["모아 발급", "발급보류 목록조회에서 **일괄발급**할 수 있어요"], ["아직 발급 전", "보류해 둔 건 **발급된 세금계산서가 아니에요**"]],
+        note: "보류한 건 당일만 보관되고, 지나면 자동 삭제돼요(화면 안내)" },
+      { type: "step", step: 1, title: "건별발급 화면 안내", path: "계산서·영수증·카드 > 전자(세금)계산서 발급 > 건별발급", img: "_captures/invoice-hold/card-03a.png", img2: "_captures/invoice-hold/card-03b.png", caption: "① 여러 건이면 **[발급보류]** → 당일 임시저장 ② 보류 목록으로 바로 가는 버튼" },
+      { type: "step", step: 2, title: "보류 버튼 누르기", path: "건별발급 화면 맨 아래", img: "_captures/invoice-hold/card-04.png", caption: "① **[발급보류]** ② [발급하기]가 나란히 있어요. 버튼 이름을 꼭 확인", guide_pic: "dog-checklist" },
+      { type: "step", step: 3, title: "보류 목록 확인", path: "발급 보류/예정 목록 조회 > 전자(세금)계산서 발급 보류목록 조회", img: "_captures/invoice-hold/card-01a.png", img2: "_captures/invoice-hold/card-01b.png", caption: "① 당일만 보관 안내 ② 작성일자 ③ [조회] → 총 공급가액·세액이 맞는지 확인(이 목록에서 일괄발급)", guide_pic: "dog-point-left" },
+      { type: "facts", title: "놓치기 쉬운 것", rows: [["발급 후", "발급한 뒤에는 **취소·삭제가 안 돼요**(화면 안내)"], ["기한 그대로", "보류해도 발급 기한은 같아요. 월합계는 **다음 달 10일**까지"], ["가산세", "기한을 넘겨 **그 과세기간** 확정신고 기한까지 발급하면 공급가액 **1%**, 끝내 안 하면 **2%**"]],
+        note: "전자 발급 의무자가 기한 안에 종이로 발급한 경우 등은 1%예요. 내 경우는 126 확인" },
+      { type: "end", title: "발급 예정목록과의 차이,\n가상 예시는\n블로그에 있어요", text: "프로필 링크 → 나혼세(nahonse.kr)\n내 상황이 헷갈리면 국세상담센터 126", source: "출처: 부가가치세법 제34조·제60조,\n홈택스 건별발급·발급보류 목록조회 화면(2026년 11월)\n개인이 공식 자료를 정리한 정보예요" },
+    ],
+  },
   "hometax-interim-prepayment-check": {
     date: "2026.11.04 기준",
     guide: true,   // 설명 장에 강아지 안내(1장은 _tools/toon.html 네컷만화로 바꿔 끼움)

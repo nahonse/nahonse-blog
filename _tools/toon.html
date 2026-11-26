@@ -58,6 +58,26 @@ const q = (x, y, k = 1) => `<text x="${x}" y="${y}" transform="rotate(-12 ${x} $
 const star = (x, y, s = 1) => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -22 l7 15 l16 2 l-12 11 l3 16 l-14 -8 l-14 8 l3 -16 l-12 -11 l16 -2z" fill="#ffd34d" stroke="#1e1e1e" stroke-width="4"/>`;
 
 const decks = {
+  "hometax-vat-payment-refund": {
+    picScale: 1,
+    title: "부가세 <b>신고</b>하면 끝?",
+    date: "2026.11",
+    cells: [
+      { bg: "#e3eefb",
+        scene: bgimg("bg-office") + pic("cat-laptop", 230, 575, 360),
+        talk: [["", "부가세 신고서<br>제출 끝!<br>이제 다 했다~"]] },
+      { bg: "#fdf1d6",
+        scene: bgimg("bg-cafe") + pic("cat-phone", 125, 585, 290, { rot: -1 }) + pic("dog-talk", 355, 585, 300, { rot: 1 }),
+        talk: [["이웃 사장님", "신고하고 <em>납부</em>는 따로예요<br>2기분은 내년 1월 25일까지", "r"]] },
+      { bg: "#e6f4ea",
+        scene: bgimg("bg-shop") + pic("cat-cashier", 125, 590, 290, { rot: -1 }) + pic("dog-reach", 360, 590, 300, { rot: 1 }),
+        talk: [["", "카드로 내도 돼요?"], ["이웃 사장님", "돼요, 대신 카드<br><em>수수료</em>가 따로 붙어요", "r"]] },
+      { bg: "#e6e1f7",
+        scene: burst(250, 360, 12, 60, 400, "#f6f2ff") + pic("cat-phone-relief", 130, 570, 290, { rot: -2 })
+          + pic("dog-point-right", 345, 570, 300, { rot: 2 }),
+        talk: [["이웃 사장님", "납부하고 환급 보는 순서<br>따라와 봐요!", "r"]] },
+    ],
+  },
   "hometax-tax-invoice-hold": {
     picScale: 1,
     title: "세금계산서 <b>여러 장</b>, 한 번에?",

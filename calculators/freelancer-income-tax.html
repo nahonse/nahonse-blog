@@ -1,0 +1,165 @@
+---
+layout: page
+title: 3.3% 프리랜서 종합소득세 예상 세액 계산기
+permalink: /calculators/freelancer-income-tax/
+description: 3.3%를 떼고 받은 프리랜서(인적용역 사업소득)가 5월 종합소득세에서 돌려받을지, 더 낼지 단순경비율로 예상해 보는 계산기예요. 입력값은 저장되지 않아요.
+---
+{%- comment -%}
+  3.3% 프리랜서 종합소득세 예상 세액 계산기. 브라우저 안에서만 계산한다(서버 전송·저장 없음, 외부 스크립트 없음).
+  세율·금액은 아래 RULES, 경비율은 RATES 한 곳에만 둔다.
+  RATES는 2025년 귀속 경비율 고시(국세청고시 제2026-14호) 값 → 2026년 귀속 고시(2027년 3~4월 예상)가 나오면 교체하고 빨간 문구도 고친다.
+  주소 끝에 ?test 를 붙이면 TESTS(입력 → 기대값)를 돌려 통과·실패를 화면에 보인다.
+{%- endcomment -%}
+<div class="calc">
+  <p class="calc-lead"><b>2026년 귀속</b> 종합소득세(2027년 5월 신고)를 3.3% 프리랜서 기준으로 대략 계산해 보는 <b>참고용</b> 계산기예요. 실제 신고 세액과 다를 수 있어요. 입력값은 저장되지 않고, 이 화면 안에서만 계산해요.</p>
+  <p class="calc-warn">경비율은 2025년 귀속 경비율 기준 예상이에요. 2026년 귀속 경비율은 2027년 봄에 국세청이 새로 정해요.</p>
+  <p class="calc-note">신고 전에 홈택스 <b>세금신고 &gt; 종합소득세 신고 &gt; 신고도움 서비스</b>의 기본사항에서 <b>기장의무구분</b>과 <b>추계신고시 적용경비율</b>을 먼저 확인하세요. 국세청이 안내한 경비율 유형이 이 계산기와 다르면 그쪽을 따르세요. → <a href="{{ site.baseurl }}{% post_url 2026-11-26-hometax-freelancer-income-tax-calculator %}">넣을 숫자 찾는 법</a></p>
+
+  <label class="calc-field"><span>업종 <small>3.3%를 떼 준 곳에서 받은 원천징수영수증이나 지급명세서의 업종코드(940으로 시작)</small></span>
+    <select id="f-code"></select></label>
+  <label class="calc-field"><span>1년 동안 받은 금액 <small>3.3%를 떼기 전 금액(세전) 합계, 2026년 1~12월</small></span>
+    <input inputmode="numeric" id="f-income" placeholder="0"><em>원</em></label>
+  <label class="calc-field"><span>이미 떼인 소득세 <small>원천징수영수증의 소득세(3%) 합계. 비워 두면 받은 금액 × 3%로 계산해요(지방소득세 0.3%는 빼고). 3%가 아닌 세율로 떼였으면 영수증 금액을 직접 넣으세요</small></span>
+    <input inputmode="numeric" id="f-paid" placeholder="자동"><em>원</em></label>
+  <label class="calc-field"><span>기본공제 받는 사람 수 <small>본인 포함. 연 소득금액 100만원 이하(근로소득만 있으면 총급여 500만원 이하)인 배우자, 생계를 같이하는 부양가족(같은 소득 요건 + 나이 요건)</small></span>
+    <input inputmode="numeric" id="f-people" value="1"><em>명</em></label>
+  <label class="calc-check"><input type="checkbox" id="f-prev" checked> 2025년 수입이 3,600만원 미만이거나, 2026년에 처음 시작했어요 <small>(단순경비율 적용 조건)</small></label>
+
+  <div class="calc-result" aria-live="polite">
+    <p class="calc-total"><span id="calc-label">예상 환급세액</span><b id="calc-total">0원</b></p>
+    <table class="calc-steps"><tbody id="calc-steps"></tbody></table>
+    <p class="calc-msg" id="calc-msg" hidden></p>
+  </div>
+
+  <div class="calc-info">
+    <p class="calc-info-title">이 계산기에 빠져 있는 것</p>
+    <ul>
+      <li>근로소득·다른 사업소득·금융소득 등 다른 소득이 함께 있는 경우(합산하면 세액이 달라져요)</li>
+      <li>경로우대·장애인·부녀자·한부모 추가공제, 국민연금 보험료 공제, 노란우산공제 등 그 밖의 소득공제·세액공제·감면</li>
+      <li>기준경비율·장부(간편장부·복식부기)로 신고하는 경우, 중간예납으로 이미 낸 세액, 가산세</li>
+      <li>현금영수증 가맹 의무가 있는데 가입하지 않은 경우 등은 수입이 적어도 단순경비율을 쓸 수 없어요 (시행령 제143조⑦)</li>
+      <li>개인지방소득세: 같은 과세표준에 소득세의 10분의 1 세율로 따로 계산돼요 (지방세법 제92조①). 3.3% 중 0.3%가 지방소득세로 떼인 몫이에요 (제103조의13①)</li>
+    </ul>
+    <p class="calc-info-title">계산 방법과 근거</p>
+    <ul>
+      <li>단순경비율 적용 대상: 그해 새로 시작했거나 직전 연도 수입이 3,600만원 미만(인적용역), 그리고 그해 수입이 7,500만원 미만 (소득세법 시행령 제143조④, 제208조⑤2호다목)</li>
+      <li>소득금액 = 수입 − 수입 × 단순경비율 (시행령 제143조③1의2). 인적용역(940)은 수입 4천만원까지 기본율, 넘는 부분은 초과율 (2025년 귀속 경비율 고시 제4조)</li>
+      <li>기본공제 1명당 150만원 (소득세법 제50조①) → 과세표준</li>
+      <li>세율 6~45% (소득세법 제55조①), 표준세액공제 7만원 (제59조의4⑨2호나목)</li>
+      <li>이미 떼인 소득세: 받은 금액 × 3% (소득세법 제129조①3호). 결정세액에서 빼서 남으면 납부, 모자라면 환급</li>
+      <li>이 계산기 대상(인적용역 단순경비율 대상자)은 직전 연도 수입 4,800만원 미만이거나 신규라서, 장부를 안 써도 무기장가산세가 붙지 않는 소규모사업자에 해당해요 (제81조의5, 시행령 제147조①·제132조④)</li>
+      <li>끝수: 실제로 내거나 돌려받는 금액은 10원 미만 버림 (국고금 관리법 제47조①). 중간 단계의 원 미만 버림은 이 계산기의 처리 방식이에요</li>
+    </ul>
+    <p class="calc-info-foot">법령 확인일 2026-11-24, 경비율 2025년 귀속(국세청고시 제2026-14호). 세무사가 아닌 개인이 공식 자료를 정리해 만든 계산기예요. 개별 상황은 국세상담센터(<b>126</b>)에 문의하세요.</p>
+  </div>
+  <div id="calc-test" hidden></div>
+</div>
+
+<script>
+(function () {
+  // ===== 세율·금액 (2026년 귀속). 여기만 고친다 =====
+  var RULES = {
+    PERSON: 1500000,          // 기본공제 1명당 (소득세법 제50조①)
+    STD_CREDIT: 70000,        // 표준세액공제, 근로소득 없는 종합소득자·성실사업자 아님 (제59조의4⑨2호나목)
+    WH_RATE: 0.03,            // 사업소득 원천징수세율 3% (제129조①3호)
+    SPLIT: 40000000,          // 940 인적용역 기본율·초과율 경계 4천만원 (2025년 귀속 경비율 고시 제4조)
+    MAX_INCOME: 75000000,     // 해당 연도 수입 이 금액 이상이면 단순경비율 불가 (시행령 제143조④, 제208조⑤2호다목)
+    // 세율표 [과세표준 상한, 누진 기준 세액, 세율] (제55조①)
+    BRACKETS: [[14000000, 0, 0.06], [50000000, 840000, 0.15], [88000000, 6240000, 0.24], [150000000, 15360000, 0.35],
+               [300000000, 37060000, 0.38], [500000000, 94060000, 0.40], [1000000000, 174060000, 0.42], [Infinity, 384060000, 0.45]]
+  };
+  // 단순경비율 [코드, 업종, 기본율 %, 초과율 %]. 율은 2025년 귀속 경비율 고시(제2026-14호) 제3조 표, 업종 이름은 홈택스 자료실 "2025년 귀속 업종코드" 엑셀의 세세분류명 — 2026년 귀속 고시가 나오면 교체
+  var RATES = [["940100","작가",58.7,42.2],["940200","화가 및 관련예술가",68.0,55.2],["940301","작곡가",49.7,29.6],["940302","배우, 탤런트 등",29.0,10.6],["940303","모델",40.9,17.3],["940304","가수",13.5,4.2],["940305","성악가 등",61.6,46.2],["940306","1인미디어콘텐츠창작자",64.1,49.7],["940500","연예보조서비스",70.9,59.3],["940600","자문, 감독, 지도료, 고문료, 교정료",58.4,41.8],["940901","바둑기사",62.6,47.6],["940902","꽃꽂이교사",81.8,74.5],["940903","학원강사, 강사, 과외교습자, 재단사",61.7,46.4],["940904","직업운동가",54.5,36.3],["940905","유흥접객원 및 댄서",61.7,46.4],["940906","보험설계사",77.6,68.6],["940907","음료품배달원",80.0,72.0],["940908","방문판매원(서적·학습지·화장품·정수기·자동차 등)",75.0,65.0],["940909","기타자영업",64.1,49.7],["940910","다단계판매원의 후원수당",67.8,54.9],["940911","기타모집수당, 채권회수수당",67.7,54.8],["940912","개인간병인",80.2,72.3],["940913","대리운전기사",73.7,63.2],["940914","골프장캐디",74.3,64.0],["940915","목욕관리사",78.2,69.5],["940916","행사도우미",69.8,57.7],["940917","심부름용역원",71.5,60.1],["940918","퀵서비스배달원",79.4,71.2],["940919","기타물품운반원",74.2,63.9],["940920","학습지 방문강사",75.0,65.0],["940921","교육교구 방문강사",75.6,65.8],["940922","대여제품 방문점검원",75.0,65.0],["940923","대출모집인",67.5,54.5],["940924","신용카드회원 모집인",71.3,59.8],["940925","방과후강사",69.3,57.0],["940926","소프트웨어프리랜서",64.4,50.2],["940927","관광통역안내사",64.1,49.7],["940928","어린이통학버스기사",72.4,61.4],["940929","중고자동차판매원",75.0,65.0]];
+  // 사업소득 연말정산을 받을 수 있는 업종 → 안내 문구 (시행령 제143조③1의3)
+  var YEAR_END = { "940906": 1, "940907": 1, "940908": 1 };
+  // ===================================================
+
+  function floor(x) { return Math.floor(x + 1e-9); }           // 원 미만 버림 (부동소수 오차 보정)
+  function trunc10(x) { return x < 0 ? -Math.floor(-x / 10) * 10 : Math.floor(x / 10) * 10; } // 10원 미만 버림
+  function taxOf(base) {
+    for (var i = 0, lo = 0; i < RULES.BRACKETS.length; lo = RULES.BRACKETS[i][0], i++)
+      if (base <= RULES.BRACKETS[i][0]) return floor(RULES.BRACKETS[i][1] + (base - lo) * RULES.BRACKETS[i][2]);
+  }
+
+  // i = {income, r1, r2 (%), paid (null이면 자동), people, prev}. 대상이 아니면 out 사유를 돌려준다
+  function calc(i) {
+    if (!i.prev) return { out: "직전 연도 수입이 3,600만원 이상이면 단순경비율이 아니라 기준경비율이나 장부로 신고해요. 이 계산기 범위 밖이에요(시행령 제143조④). 홈택스 신고도움 서비스나 126에서 확인하세요." };
+    if (i.income >= RULES.MAX_INCOME) return { out: "그해 수입이 7,500만원 이상이면 단순경비율을 쓸 수 없어요(시행령 제143조④, 제208조⑤). 이 계산기 범위 밖이에요. 홈택스 신고도움 서비스나 126에서 확인하세요." };
+    var lo = Math.min(i.income, RULES.SPLIT), hi = Math.max(0, i.income - RULES.SPLIT);
+    // 경비율은 소수 첫째 자리 % → 정수(×10)로 곱해 부동소수 오차를 피함
+    var cost = floor((lo * Math.round(i.r1 * 10) + hi * Math.round(i.r2 * 10)) / 1000);
+    var inc = i.income - cost;
+    var ded = RULES.PERSON * Math.max(1, i.people);
+    var base = Math.max(0, inc - ded);
+    var tax = taxOf(base);
+    var credit = Math.min(RULES.STD_CREDIT, tax);
+    var decided = tax - credit;
+    var paid = i.paid == null ? floor(i.income * RULES.WH_RATE) : i.paid;
+    var total = trunc10(decided - paid);
+    return { rows: [["받은 금액 (세전)", i.income], ["단순경비율 경비", -cost], ["소득금액", inc, 1], ["기본공제 (" + Math.max(1, i.people) + "명 × 150만원)", -Math.min(ded, inc)],
+                    ["과세표준", base, 1], ["산출세액 (세율 6~45%)", tax], ["표준세액공제", -credit], ["결정세액", decided, 1], ["이미 떼인 소득세", -paid]],
+             total: total };
+  }
+
+  // ===== 검산 예시 (입력 → 기대 최종 금액, 음수 = 환급). 주소 끝 ?test =====
+  var TESTS = [
+    ["기타자영업 2천만원, 1명", { income: 20000000, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, -329200],
+    ["기타자영업 5천만원(초과율 구간), 2명", { income: 50000000, r1: 64.1, r2: 49.7, paid: null, people: 2, prev: true }, -371500],
+    ["경계: 4천만원 정확히", { income: 40000000, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, -498400],
+    ["경계: 4천만원 1원 위", { income: 40000001, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, -498400],
+    ["소프트웨어 7,400만원, 추가 납부", { income: 74000000, r1: 64.4, r2: 50.2, paid: null, people: 1, prev: true }, 900800],
+    ["300만원, 과세표준 0원 → 떼인 세금 전액 환급", { income: 3000000, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, -90000],
+    ["끝수(10원 미만 버림)", { income: 1234567, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, -37030],
+    ["0원", { income: 0, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, 0],
+    ["떼인 세금 직접 입력", { income: 20000000, r1: 64.1, r2: 49.7, paid: 500000, people: 1, prev: true }, -229200],
+    ["경계: 7,500만원 1원 아래는 계산", { income: 74999999, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, 989750],
+    ["경계: 7,500만원 정확히는 범위 밖", { income: 75000000, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: true }, "out"],
+    ["직전 연도 3,600만원 이상은 범위 밖", { income: 20000000, r1: 64.1, r2: 49.7, paid: null, people: 1, prev: false }, "out"]
+  ];
+  // ===================================================
+
+  var won = function (n) { return (n < 0 ? "−" : "") + Math.abs(n).toLocaleString("ko-KR") + "원"; };
+  var $ = function (id) { return document.getElementById(id); };
+  var num = function (el) { return +(el.value.replace(/[^0-9]/g, "") || 0); };
+
+  $("f-code").innerHTML = RATES.map(function (r) {
+    return "<option value=\"" + r[0] + "\"" + (r[0] === "940909" ? " selected" : "") + ">" + r[0] + " " + r[1] + " (" + r[2] + "% / 초과 " + r[3] + "%)</option>";
+  }).join("");
+
+  function render() {
+    var code = $("f-code").value, rate = RATES.filter(function (r) { return r[0] === code; })[0];
+    var paidRaw = $("f-paid").value.replace(/[^0-9]/g, "");
+    var r = calc({ income: num($("f-income")), r1: rate[2], r2: rate[3], paid: paidRaw ? +paidRaw : null, people: num($("f-people")), prev: $("f-prev").checked });
+    var msg = $("calc-msg");
+    if (r.out) {
+      $("calc-label").textContent = "계산할 수 없어요"; $("calc-total").textContent = "–"; $("calc-steps").innerHTML = "";
+      msg.hidden = false; msg.textContent = r.out; return;
+    }
+    $("calc-label").textContent = r.total > 0 ? "5월에 더 낼 세금(예상)" : "5월에 돌려받을 세금(예상)";
+    $("calc-total").textContent = won(Math.abs(r.total));
+    $("calc-steps").innerHTML = r.rows.map(function (x) {
+      return "<tr" + (x[2] ? " class=\"sub\"" : "") + "><th>" + x[0] + "</th><td>" + won(x[1]) + "</td></tr>";
+    }).join("");
+    msg.hidden = !YEAR_END[code];
+    msg.textContent = "보험설계사는 간편장부대상자면 지급하는 곳에서 사업소득 연말정산을 해 줘요. 방문판매원·음료품배달원은 지급하는 곳이 연말정산을 신청한 경우에만 해당해요. 이 경우 한 곳에서만 받았다면 5월 신고를 따로 안 해도 되고, 계산 방법도 이 계산기와 달라요(소득세법 제73조①4호·제144조의2, 시행령 제137조①·제143조③1의3). 두 곳 이상에서 받았으면 신고해야 해요(제73조②). 홈택스 신고도움 서비스나 126에서 확인하세요.";
+  }
+
+  document.querySelectorAll(".calc input, .calc select").forEach(function (el) {
+    el.addEventListener("input", function () {
+      if (el.inputMode === "numeric") { var n = el.value.replace(/[^0-9]/g, ""); el.value = n ? (+n).toLocaleString("ko-KR") : ""; }
+      render();
+    });
+    el.addEventListener("change", render);
+  });
+  render();
+
+  if (/[?&]test\b/.test(location.search)) {
+    var box = $("calc-test"), fails = 0;
+    box.hidden = false;
+    box.innerHTML = "<p class=\"calc-info-title\">검산</p>" + TESTS.map(function (t) {
+      var r = calc(t[1]), got = r.out ? "out" : r.total, ok = got === t[2]; if (!ok) fails++;
+      return "<div class=\"" + (ok ? "pass" : "fail") + "\">" + (ok ? "통과" : "실패") + " · " + t[0] + " · 기대 " + t[2] + " / 계산 " + got + "</div>";
+    }).join("") + "<p id=\"calc-test-summary\">" + (fails ? "TEST FAIL " + fails : "TEST PASS " + TESTS.length) + "</p>";
+  }
+})();
+</script>
