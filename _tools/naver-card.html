@@ -1,0 +1,119 @@
+<!doctype html>
+<!--
+  네이버 전용 글(국세청 소식·세법 개정 정리) 카드뉴스 1080x1080 (2026-11-28 사용자: 글만 있으면 읽기 힘듦, 국세청 소식=파랑, 세법 개정 정리=초록)
+  1) 아래 decks에 덱 이름(= _naver 폴더 이름)을 키로 theme와 cards를 넣는다. 숫자는 검토된 원고와 똑같이.
+  2) 렌더: bash _tools/naver_cards.sh <덱 이름>  → assets/insta/<덱 이름>/1.png ~ n.png (push 해야 네이버가 불러감)
+  카드 종류: cover(표지) / list(rows: [키, 설명] — 키가 ""이면 ✔ 점) / table(head, rows) / end(출처·기준일)
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --c: #1d4ed8; --dk: #0b2a6f; --soft: #eaf1fe; --line: #cddcf8; --ink: #14213d; --sub: #55617a; }
+  body.green { --c: #15803d; --dk: #0f3d24; --soft: #e8f6ed; --line: #c5e6cf; --ink: #13261b; --sub: #52665a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: #fff; }
+  body { font-family: "Pretendard", "Malgun Gothic", sans-serif; color: var(--ink); word-break: keep-all; }
+  .card { position: relative; width: 1080px; height: 1080px; padding: 84px 80px 0; }
+  .top { position: absolute; inset: 0 0 auto 0; height: 22px; background: var(--c); }
+  .chip { display: inline-block; font-size: 32px; font-weight: 700; color: var(--c); background: var(--soft); padding: 10px 24px; border-radius: 999px; }
+  .no { position: absolute; top: 70px; right: 80px; font-size: 30px; font-weight: 800; color: var(--c); }
+  h2 { margin-top: 30px; font-size: 62px; line-height: 1.22; font-weight: 800; letter-spacing: -1.5px; color: var(--dk); }
+  .rows { margin-top: 46px; display: flex; flex-direction: column; gap: 20px; }
+  .row { display: flex; gap: 26px; align-items: center; background: var(--soft); border-radius: 22px; padding: 26px 32px; }
+  .row .k { flex: 0 0 auto; min-width: 190px; font-size: 38px; font-weight: 800; color: var(--c); letter-spacing: -1px; white-space: nowrap; }
+  .row .k.dot { min-width: 0; font-size: 36px; }
+  .row .v { font-size: 34px; font-weight: 600; line-height: 1.4; }
+  table { margin-top: 46px; width: 100%; border-collapse: separate; border-spacing: 0; font-size: 36px; border: 3px solid var(--line); border-radius: 22px; overflow: hidden; }
+  th { background: var(--c); color: #fff; font-weight: 700; padding: 22px 18px; }
+  td { padding: 24px 18px; text-align: center; font-weight: 600; border-top: 2px solid var(--line); }
+  td:first-child { font-weight: 800; color: var(--dk); background: var(--soft); }
+  td b { color: var(--c); }
+  .note { margin-top: 30px; font-size: 30px; font-weight: 600; line-height: 1.45; color: var(--sub); border-left: 8px solid var(--c); padding: 6px 0 6px 24px; }
+  .note.warn { color: #b42318; border-color: #d92d20; font-weight: 700; }
+  .foot { position: absolute; left: 80px; right: 80px; bottom: 50px; display: flex; justify-content: space-between; font-size: 26px; font-weight: 600; color: var(--sub); }
+  .foot b { color: var(--dk); }
+  /* 표지 */
+  .cover { background: var(--dk); color: #fff; padding-top: 150px; }
+  .cover .top { background: var(--c); height: 30px; }
+  .cover .chip { background: rgba(255,255,255,.14); color: #fff; font-size: 36px; }
+  .cover h1 { margin-top: 44px; font-size: 92px; line-height: 1.16; font-weight: 900; letter-spacing: -3px; }
+  .cover h1 em { font-style: normal; color: #ffd166; }
+  .cover .sub { margin-top: 38px; font-size: 40px; font-weight: 600; line-height: 1.4; opacity: .88; }
+  .cover .big { position: absolute; right: 80px; bottom: 130px; width: 330px; border-radius: 34px; background: #fff; color: var(--dk); text-align: center; padding: 26px 0 30px; box-shadow: 0 12px 0 var(--c); }
+  .cover .big .t { font-size: 34px; font-weight: 800; color: #fff; background: var(--c); margin: -26px 0 14px; padding: 14px 0; border-radius: 34px 34px 0 0; }
+  .cover .big .v { font-size: 96px; font-weight: 900; letter-spacing: -3px; line-height: 1; }
+  .cover .big .s { margin-top: 12px; font-size: 32px; font-weight: 700; color: var(--sub); }
+  .cover .foot { color: rgba(255,255,255,.75); }
+  .cover .foot b { color: #fff; }
+  /* 끝 장 */
+  .end h2 { font-size: 54px; }
+  .end ul { margin-top: 40px; list-style: none; display: flex; flex-direction: column; gap: 22px; font-size: 32px; font-weight: 600; line-height: 1.45; }
+  .end li::before { content: "· "; color: var(--c); font-weight: 900; }
+  .end .box { margin-top: 44px; background: var(--soft); border-radius: 22px; padding: 30px 34px; font-size: 32px; font-weight: 700; line-height: 1.5; color: var(--dk); }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const decks = {
+  "news-20261129-incentive": {
+    theme: "blue", chip: "국세청 보도자료 정리", foot: "2026.11.28 기준 · 국세청 보도참고자료(2026.11.2.)",
+    cards: [
+      { kind: "cover", title: "놓친 근로·자녀장려금<br><em>12월 1일(화)</em>까지", sub: "2025년 귀속 장려금 기한 후 신청<br>보도자료 원문에서 꼭 알아 둘 것만", big: ["마감", "12.1", "화요일"] },
+      { kind: "list", title: "이번 발표 핵심", rows: [
+        ["마감", "2026년 12월 1일(화), 지나면 신청 불가"],
+        ["95%", "기한 후 신청이라 산정액의 95%(5% 감액)"],
+        ["1월 15일", "2027년 1월 15일(금) 지급 예정"],
+        ["26만 가구", "미신청 가구에 안내문 발송, 새로 확인된 1만 가구도 포함"] ] },
+      { kind: "list", title: "직장인만 받는 게<br>아니에요", rows: [
+        ["", "2025년에 사업소득·종교인소득이 있었어도 대상이 될 수 있어요"],
+        ["", "알바·일용근로로 잠깐 번 청년, 지금은 퇴직한 사람도 대상이 될 수 있어요"],
+        ["", "회사가 소득자료를 3월 10일 뒤에 내면 5월 안내에서 빠질 수 있었대요"] ] },
+      { kind: "table", title: "요건 한눈에<br>(2025년 소득, 부부합산)", head: ["가구", "근로장려금 총소득", "최대(감액 전)"], rows: [
+        ["단독", "2,200만원 미만", "<b>165만원</b>"],
+        ["홑벌이", "3,200만원 미만", "<b>285만원</b>"],
+        ["맞벌이", "4,400만원 미만", "<b>330만원</b>"] ],
+        note: "소득에 따라 3만원부터, 기한 후 신청은 산정액의 95%<br>자녀장려금: 18세 미만 자녀, 총소득 7,000만원 미만, 자녀 1명당 50만~100만원" },
+      { kind: "list", title: "재산 기준", rows: [
+        ["2억 4천", "가구원 전체 재산 2억 4천만원 미만(2025.6.1. 기준)"],
+        ["부채", "빚은 빼지 않고 계산해요"],
+        ["50%", "재산 1억 7천만원 이상 2억 4천만원 미만이면 절반만"] ],
+        note: "안내문을 받았어도 심사 결과에 따라 못 받거나 금액이 달라질 수 있어요" },
+      { kind: "list", title: "신청하는 곳", rows: [
+        ["안내문 O", "QR코드, 모바일 안내문 '신청하기', ARS 1544-9944"],
+        ["안내문 X", "요건이 되면 홈택스·서면으로만(ARS 불가) 증빙 붙여 신청"],
+        ["06~24시", "홈택스·ARS 신청 이용 시간, 홈택스는 개인으로 로그인"],
+        ["1566-3636", "장려금 상담센터(평일 9시~18시)"] ] },
+      { kind: "table", title: "2027년 귀속분부터<br>커질 예정(개정안)", head: ["가구", "소득요건", "최대 금액"], rows: [
+        ["단독", "2,200 → <b>2,600</b>만", "165 → <b>180</b>만"],
+        ["홑벌이", "3,200 → <b>3,700</b>만", "285 → <b>310</b>만"],
+        ["맞벌이", "4,400 → <b>5,200</b>만", "330 → <b>360</b>만"] ],
+        note: "정부 2026년 세법개정안 기준, 국회 심의에서 바뀔 수 있어요", warn: true },
+      { kind: "end", title: "출처와 확인할 곳", items: [
+        "국세청 보도참고자료 「5월에 놓친 근로·자녀장려금, 12.1.까지 '꼭' 신청」(2026.11.2.)",
+        "조세특례제한법 제100조의6(기한 후 신청)",
+        "안내 대상 여부: 홈택스 안내대상자 조회 / 요건 문의: 국세상담센터 126" ],
+        box: "2026년 11월 28일 기준, 개인이 공식 자료를 정리한 정보예요.<br>홈택스 신청 화면 순서 → 나혼세(nahonse.kr)" },
+    ] },
+};
+const [name, n] = decodeURIComponent(location.hash.slice(1)).split("/");
+const d = decks[name], c = d.cards[(+n || 1) - 1], total = d.cards.length;
+if (d.theme === "green") document.body.classList.add("green");
+const foot = `<div class="foot"><b>나혼세</b><span>${d.foot}</span></div>`;
+let h = "";
+if (c.kind === "cover") h = `<div class="card cover"><div class="top"></div><span class="chip">${d.chip}</span><h1>${c.title}</h1><div class="sub">${c.sub}</div>${c.big ? `<div class="big"><div class="t">${c.big[0]}</div><div class="v">${c.big[1]}</div><div class="s">${c.big[2]}</div></div>` : ""}${foot}</div>`;
+else {
+  let body = "";
+  if (c.kind === "list") body = `<div class="rows">${c.rows.map(([k, v]) => `<div class="row"><div class="k${k ? "" : " dot"}">${k || "✔"}</div><div class="v">${v}</div></div>`).join("")}</div>`;
+  if (c.kind === "table") body = `<table><tr>${c.head.map(x => `<th>${x}</th>`).join("")}</tr>${c.rows.map(r => `<tr>${r.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</table>`;
+  if (c.kind === "end") body = `<ul>${c.items.map(x => `<li>${x}</li>`).join("")}</ul><div class="box">${c.box}</div>`;
+  if (c.note) body += `<div class="note${c.warn ? " warn" : ""}">${c.note}</div>`;
+  h = `<div class="card${c.kind === "end" ? " end" : ""}"><div class="top"></div><span class="chip">${d.chip}</span><span class="no">${n}/${total}</span><h2>${c.title}</h2>${body}${foot}</div>`;
+}
+document.getElementById("app").innerHTML = h;
+document.title = String(total);  // 렌더 스크립트가 장수를 읽음
+</script>
+</body>
+</html>
